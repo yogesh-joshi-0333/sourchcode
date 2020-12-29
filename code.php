@@ -2,6 +2,28 @@
 
 //     CODE SAMPLE
 
+// DEVELOPER UNABLE TO CHECK CODE JS
+$(document).keydown(function (event) {
+	if (event.keyCode == 123) { // Prevent F12
+		return false;
+	} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
+		return false;
+	}
+});
+
+$(document).ready(function() {
+	$(document)[0].oncontextmenu = function() { return false; }
+	$(document).mousedown(function(e) {
+		if( e.button == 2 ) {
+			alert('Sorry, this functionality is disabled!');
+			return false;
+		} else {
+		return true;
+		}
+	});
+});
+
+
 // Google address search 
 ?>
 <script>
