@@ -2,6 +2,39 @@
 
 //     CODE SAMPLE
 
+
+function get_editable_roles() {
+	global $wp_roles;
+	if ( ! isset( $wp_roles ) )
+		$wp_roles = new WP_Roles();
+
+	return $wp_roles->get_names();
+}
+
+function validate_mobile($mobile)
+{
+    return preg_match('/^[0-9]{10}+$/', $mobile);
+}
+
+function REST_is_logged_in($user_id)
+{
+    return get_user_meta( $user_id, 'session_tokens', true ); 
+}
+
+
+function generateRandomString($length = 4) {
+
+    $characters = '0123456789';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+
 // DEVELOPER UNABLE TO CHECK CODE JS
 $(document).keydown(function (event) {
 	if (event.keyCode == 123) { // Prevent F12
