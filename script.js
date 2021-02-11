@@ -1,3 +1,14 @@
+/* START sort element using javascript */
+
+var alphabeticallyOrderedDivs = $('div#search_result article').sort(function(a, b) {
+	return String.prototype.localeCompare.call($(a).data('user_name').toLowerCase().trim(), $(b).data('user_name').toLowerCase().trim());
+});
+	
+var container = $("div#search_result");
+container.detach().empty().append(alphabeticallyOrderedDivs);
+jQuery(container).insertAfter(jQuery('.wpb_wrapper .wpb_text_column.wpb_content_element'));
+
+/* END sort element using javascript */
 
 // DEVELOPER UNABLE TO CHECK CODE JS
 
