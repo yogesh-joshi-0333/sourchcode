@@ -1,5 +1,265 @@
 <?php
 
+add_action('rest_api_init', 'wp_rest_get_follower');
+add_action('rest_api_init', 'wp_rest_get_product_artist_vice');
+add_action('rest_api_init', 'rest_api_reset_get_cart');
+add_action('rest_api_init', 'rest_api_add_to_cart');
+add_action('rest_api_init', 'rest_api_remove_to_cart');
+add_action('rest_api_init', 'rest_api_category_search');
+add_action('rest_api_init', 'rest_api_search_product_price_range');
+add_action('rest_api_init', 'rest_api_search_product_by_country');
+add_action('rest_api_init', 'rest_api_search_product_by_size');
+add_action('rest_api_init', 'rest_api_product_search');
+add_action('rest_api_init', 'rest_api_get_aucation');
+add_action('rest_api_init', 'rest_api_terms_doc_upload');
+add_action('rest_api_init', 'rest_api_terms_text');
+add_action('rest_api_init', 'wp_rest_user_login_endpoints');
+add_action('rest_api_init', 'wp_rest_otp_send_again');
+add_action('rest_api_init', 'wp_rest_user_endpoints');
+add_action('rest_api_init', 'wp_rest_home_screen');
+add_action('rest_api_init', 'wp_rest_otp_verification');
+add_action('rest_api_init', 'wp_rest_user_id_verify');
+add_action('rest_api_init', 'wp_rest_create_user');
+add_action('rest_api_init', 'wp_rest_user_profile');
+add_action('rest_api_init', 'wp_rest_create_post');
+add_action('rest_api_init', 'wp_rest_add_favourite');
+add_action('rest_api_init', 'wp_rest_get_post');
+add_action('rest_api_init', 'wp_rest_create_product');
+add_action('rest_api_init', 'wp_rest_get_product');
+add_action('rest_api_init', 'wp_rest_get_product_detail');
+add_action('rest_api_init', 'wp_rest_product_like');
+add_action('rest_api_init', 'wp_rest_myfavourite_product');
+add_action('rest_api_init', 'wp_rest_mycollection_product');
+add_action('rest_api_init', 'wp_rest_following');
+add_action('rest_api_init', 'wp_rest_get_following');
+add_action('rest_api_init', 'wp_rest_get_product_category');
+
+function wp_rest_get_follower(){
+  register_rest_route('wp/v1', 'get_follower', array(
+    'methods' => 'POST',
+    'callback' => 'api_get_follower',
+  ));
+}
+function wp_rest_get_product_category(){
+  register_rest_route('wp/v1', 'get_product_category', array(
+    'methods' => 'POST',
+    'callback' => 'get_product_category',
+  ));
+}
+function wp_rest_get_product_artist_vice(){
+  register_rest_route('wp/v1', 'get_product_artist_vice', array(
+    'methods' => 'POST',
+    'callback' => 'get_product_artist_vice',
+  ));
+}
+function rest_api_reset_get_cart(){
+  register_rest_route('wp/v1', 'get_cart', array(
+    'methods' => 'POST',
+    'callback' => 'get_cart',
+  ));
+}
+function rest_api_add_to_cart(){
+  register_rest_route('wp/v1', 'add_to_cart', array(
+    'methods' => 'POST',
+    'callback' => 'add_to_cart',
+  ));
+}
+function rest_api_remove_to_cart(){
+  register_rest_route('wp/v1', 'add_remove_cart', array(
+    'methods' => 'POST',
+    'callback' => 'add_remove_cart',
+  ));
+}
+function rest_api_category_search(){
+  register_rest_route('wp/v1', 'category_search', array(
+    'methods' => 'POST',
+    'callback' => 'category_search',
+  ));
+}
+function rest_api_search_product_price_range(){
+  register_rest_route('wp/v1', 'price_range_search', array(
+    'methods' => 'POST',
+    'callback' => 'price_range_search',
+  ));
+}
+function rest_api_search_product_by_country(){
+  register_rest_route('wp/v1', 'product_by_country', array(
+    'methods' => 'POST',
+    'callback' => 'product_by_country',
+  ));
+}
+function rest_api_search_product_by_size(){
+  register_rest_route('wp/v1', 'product_by_size', array(
+    'methods' => 'POST',
+    'callback' => 'product_by_size',
+  ));
+}
+add_action('rest_api_init', 'rest_api_search_product_by_title');
+function rest_api_search_product_by_title(){
+  register_rest_route('wp/v1', 'product_by_title', array(
+    'methods' => 'POST',
+    'callback' => 'product_by_title',
+  ));
+}
+function rest_api_product_search(){
+  register_rest_route('wp/v1', 'product_search', array(
+    'methods' => 'POST',
+    'callback' => 'product_search',
+  ));
+}
+function rest_api_get_aucation(){
+  register_rest_route('wp/v1', 'get_aucation', array(
+    'methods' => 'POST',
+    'callback' => 'get_aucation',
+  ));
+}
+function rest_api_terms_doc_upload(){
+  register_rest_route('wp/v1', 'terms_doc_upload', array(
+    'methods' => 'POST',
+    'callback' => 'terms_doc_upload',
+  ));
+}
+function rest_api_terms_text(){
+  register_rest_route('wp/v1', 'term_text', array(
+    'methods' => 'POST',
+    'callback' => 'term_text',
+  ));
+}
+
+// api => /wp-json/wp/v1/users/user_login
+function wp_rest_user_login_endpoints() {
+  register_rest_route('wp/v1', 'users/user_login', array(
+    'methods' => 'POST',
+    'callback' => 'wc_rest_user_login_endpoint_handler',
+  ));
+}
+
+// api => /wp-json/wp/v1/otp_send_again
+function wp_rest_otp_send_again(){
+  register_rest_route('wp/v1', 'otp_send_again', array(
+    'methods' => 'POST',
+    'callback' => 'api_otp_send_again',
+  ));
+}
+
+// wp-json/wp/v1/users/user_register
+function wp_rest_user_endpoints(){
+  register_rest_route('wp/v1', 'users/user_register', array(
+    'methods' => 'POST',
+    'callback' => 'wc_rest_user_endpoint_handler',
+  ));
+}
+
+// wp-json/wp/v1/home_screen
+function wp_rest_home_screen(){
+  register_rest_route('wp/v1', '/home_screen', array(
+    'methods' => 'GET',
+    'callback' => 'api_home_screen',
+  ));
+}
+
+// wp-json/wp/v1/otp_verify
+function wp_rest_otp_verification(){
+  register_rest_route('wp/v1', '/otp_verify', array(
+    'methods' => 'POST',
+    'callback' => 'api_otp_verify',
+  ));
+}
+// wp-json/wp/v1/user_id_verify
+function wp_rest_user_id_verify(){
+  register_rest_route('wp/v1', '/user_id_verify', array(
+    'methods' => 'POST',
+    'callback' => 'api_user_id_verify',
+  ));
+}
+
+// wp-json/wp/v1/create_user
+function wp_rest_create_user(){
+  register_rest_route('wp/v1', '/create_user', array(
+    'methods' => 'POST',
+    'callback' => 'api_create_user',
+  ));
+}
+// wp-json/wp/v1/users/user_profile
+function wp_rest_user_profile(){
+  register_rest_route('wp/v1', 'users/user_profile', array(
+    'methods' => 'POST',
+    'callback' => 'api_user_profile',
+  ));
+}
+function wp_rest_create_post(){
+  register_rest_route('wp/v1', 'create_post', array(
+    'methods' => 'POST',
+    'callback' => 'api_create_post',
+  ));
+}
+function wp_rest_add_favourite(){
+  register_rest_route('wp/v1', 'add_favourite', array(
+    'methods' => 'POST',
+    'callback' => 'api_add_favourite',
+  ));
+}
+function wp_rest_get_post(){
+  register_rest_route('wp/v1', 'get_post', array(
+    'methods' => 'POST',
+    'callback' => 'api_get_post',
+  ));
+}
+function wp_rest_create_product(){
+  register_rest_route('wp/v1', 'create_product', array(
+    'methods' => 'POST',
+    'callback' => 'REST_API_create_product',
+  ));
+}
+function wp_rest_get_product(){
+  register_rest_route('wp/v1', 'get_product', array(
+    'methods' => 'POST',
+    'callback' => 'REST_API_get_product',
+  ));
+}
+function wp_rest_get_product_detail(){
+  register_rest_route('wp/v1', 'get_product_detail', array(
+    'methods' => 'POST',
+    'callback' => 'REST_API_get_product_detail',
+  ));
+}
+
+function wp_rest_product_like(){
+  register_rest_route('wp/v1', 'product_like', array(
+    'methods' => 'POST',
+    'callback' => 'REST_API_product_like',
+  ));
+}
+function wp_rest_myfavourite_product(){
+  register_rest_route('wp/v1', 'myfavourite_product', array(
+    'methods' => 'POST',
+    'callback' => 'REST_API_myfavourite_product',
+  ));
+}
+function wp_rest_mycollection_product(){
+  register_rest_route('wp/v1', 'mycollection_product', array(
+    'methods' => 'POST',
+    'callback' => 'REST_API_mycollection_product',
+  ));
+}
+function wp_rest_following(){
+  register_rest_route('wp/v1', 'following', array(
+    'methods' => 'POST',
+    'callback' => 'REST_API_following',
+  ));
+}
+function wp_rest_get_following(){
+  register_rest_route('wp/v1', 'get_following', array(
+    'methods' => 'POST',
+    'callback' => 'api_get_following',
+  ));
+}
+
+add_action('rest_api_init', 'wp_rest_get_best_seller');
+function wp_rest_get_best_seller(){
+  register_rest_route('wp/v1', 'get_best_seller', array('methods' => 'POST','callback' => 'get_best_seller',));
+}
+
 function get_all_roles() {
 	global $wp_roles;
 	if ( ! isset( $wp_roles ) )
@@ -80,6 +340,16 @@ function cst_image_upload($img){
 		return false;
 	}
 }
+function cst_get_cat_name($id){
+	$categories = get_terms( ['taxonomy'=>'product_cat', 'hide_empty' => false] );
+	foreach($categories as $category)
+	{
+		if($category->term_id == $id)
+		{
+			return $category->name;
+		}
+	}
+}
 function get_following_count($user_id){
 	global $wpdb;
 	if (empty($user_id)){
@@ -98,8 +368,8 @@ function get_follower_count($user_id){
 }
 function cst_image_upload_array($img){
 
-	echo "function";
-	print_r($img);
+	// echo "function";
+	// print_r($img);
 
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
     $attes_id = array();
@@ -142,16 +412,6 @@ function cst_image_upload_array($img){
         }
     }
     return $attes_id;
-}
-function cst_get_cat_name($id){
-	$categories = get_terms( ['taxonomy'=>'product_cat', 'hide_empty' => false] );
-	foreach($categories as $category)
-	{
-		if($category->term_id == $id)
-		{
-			return $category->name;
-		}
-	}
 }
 function create_product( $args ){
 
@@ -263,14 +523,14 @@ function create_product( $args ){
 }
 function wc_get_product_object_type( $type ){
     // Get an instance of the WC_Product object (depending on his type)
-    if( isset($args['type']) && $args['type'] === 'variable' ){
-        $product = new WC_Product_Variable();
-    } elseif( isset($args['type']) && $args['type'] === 'grouped' ){
-        $product = new WC_Product_Grouped();
-    } elseif( isset($args['type']) && $args['type'] === 'external' ){
-        $product = new WC_Product_External();
-    } else {
+    if( isset($args['type']) && $args['type'] === 'simple' ){
         $product = new WC_Product_Simple(); // "simple" By default
+	} elseif( isset($args['type']) && $args['type'] === 'grouped' ){
+		$product = new WC_Product_Grouped();
+    } elseif( isset($args['type']) && $args['type'] === 'external' ){
+		$product = new WC_Product_External();
+    } else {
+        $product = new WC_Product_Variable();
     } 
     
     if( ! is_a( $product, 'WC_Product' ) )
@@ -317,14 +577,41 @@ function wc_prepare_product_attributes( $attributes ){
     }
     return $data;
 }
+function get_bee_image($user_id){
+	$follower = get_follower_count($user_id);
 
-add_action('rest_api_init', 'wp_rest_user_login_endpoints');
-// api => /wp-json/wp/v1/users/user_login
-function wp_rest_user_login_endpoints() {
-  register_rest_route('wp/v1', 'users/user_login', array(
-    'methods' => 'POST',
-    'callback' => 'wc_rest_user_login_endpoint_handler',
-  ));
+	if(get_user_meta( $user_id, 'artist_status', true ) == true || get_user_meta( $user_id, 'artist_status', true ) == 'true')
+	{
+		if($follower > 50000)
+		{
+			return home_url().'/wp-content/uploads/2021/02/WhatsApp-Image-2020-11-22-at-22.27-1.png';
+		}
+		elseif ($follower > 5000) 
+		{
+			return home_url().'/wp-content/uploads/2021/02/WhatsApp-Image-2020-11-22-at-22.27-2.png';
+		}
+		else
+		{
+			return home_url().'/wp-content/uploads/2021/02/WhatsApp-Image-2020-11-22-at-22.27-4.png';
+		}
+	}
+	else
+	{
+		return home_url().'/wp-content/uploads/2021/02/WhatsApp-Image-2020-11-22-at-22.27-7.png';
+	}
+}
+function artist_doc_verify($user_id){
+	// var_dump($user_id);
+	// var_dump(get_user_meta( $user_id, 'artist_status', true ));
+	// exit;
+	if(get_user_meta( $user_id, 'artist_status', true ) == true || get_user_meta( $user_id, 'artist_status', true ) == 'true')
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 function wc_rest_user_login_endpoint_handler(){
 	$username = sanitize_text_field($_POST['mobile']);
@@ -376,6 +663,7 @@ function wc_rest_user_login_endpoint_handler(){
 				$response['token'] = $token;        
 				$response['code'] = 200;
 				$response['role'] =  implode('[]',$data->roles);
+
 				$response['customer'] = $data->data;
 				return new WP_REST_Response($response, 200);   
 			}
@@ -460,18 +748,7 @@ function wc_rest_user_login_endpoint_handler(){
 		}
 	}
 }
-
-add_action('rest_api_init', 'wp_rest_otp_send_again');
-// api => /wp-json/wp/v1/otp_send_again
-function wp_rest_otp_send_again(){
-  register_rest_route('wp/v1', 'otp_send_again', array(
-    'methods' => 'POST',
-    'callback' => 'api_otp_send_again',
-  ));
-}
-
-function api_otp_send_again()
-{
+function api_otp_send_again(){
 	$response = array();
 	$user_phone = sanitize_text_field($_POST['user_phone']);
 	$pattern = '/^(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){255,})(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){65,}@)(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22))(?:\\.(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-+[a-z0-9]+)*\\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-+[a-z0-9]+)*)|(?:\\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\\]))$/iD';
@@ -515,7 +792,7 @@ function api_otp_send_again()
 
 
 			$response['success'] = __("true");
-			$response['message'] = __("OTP Send In Your Email Address", "wp-rest-user");   
+			$response['message'] = __("OTP sent to your Mail", "wp-rest-user");   
 			$response['code'] = 200;
 			return new WP_REST_Response($response, 200); 
 		}
@@ -546,16 +823,6 @@ function api_otp_send_again()
 	}
 
 }
-
-add_action('rest_api_init', 'wp_rest_user_endpoints');
-// wp-json/wp/v1/users/user_register
-function wp_rest_user_endpoints(){
-  register_rest_route('wp/v1', 'users/user_register', array(
-    'methods' => 'POST',
-    'callback' => 'wc_rest_user_endpoint_handler',
-  ));
-}
-
 function wc_rest_user_endpoint_handler(){
 	
 	$response = array();
@@ -573,7 +840,7 @@ function wc_rest_user_endpoint_handler(){
 	if (isset($_SESSION['user_otp']))
 	{
 		$response['success'] = __("false");
-		$response['message'] = __("OTP already Send in Email Address", "wp-rest-user");   
+		$response['message'] = __("OTP already Send to your Mail", "wp-rest-user");   
 		$response['code'] = 400;
 		return new WP_REST_Response($response, 200); 
 	}
@@ -624,7 +891,7 @@ function wc_rest_user_endpoint_handler(){
 				}
 
 				$response['success'] = __("true");
-				$response['message'] = __("OTP Send In Your Email Address", "wp-rest-user");   
+				$response['message'] = __("OTP sent to your Mail", "wp-rest-user");   
 				$response['code'] = 200;
 				return new WP_REST_Response($response, 200); 
 			}
@@ -669,15 +936,6 @@ function wc_rest_user_endpoint_handler(){
 		}
 	}
 }
-
-add_action('rest_api_init', 'wp_rest_home_screen');
-// wp-json/wp/v1/home_screen
-function wp_rest_home_screen(){
-  register_rest_route('wp/v1', '/home_screen', array(
-    'methods' => 'GET',
-    'callback' => 'api_home_screen',
-  ));
-}
 function api_home_screen(){
 	$response['home_screen_text'] = get_option('home_screen_text');
 	$response['home_screen_logo'] = home_url().get_option('home_screen_logo');
@@ -687,16 +945,6 @@ function api_home_screen(){
     $response['code'] = 200;
 
 	return new WP_REST_Response($response, 200);
-}
-
-
-add_action('rest_api_init', 'wp_rest_otp_verification');
-// wp-json/wp/v1/otp_verify
-function wp_rest_otp_verification(){
-  register_rest_route('wp/v1', '/otp_verify', array(
-    'methods' => 'POST',
-    'callback' => 'api_otp_verify',
-  ));
 }
 function api_otp_verify(){
 	$user_phone = sanitize_text_field($_POST['user_phone']);
@@ -736,15 +984,6 @@ function api_otp_verify(){
 	}
 		
 }
-
-add_action('rest_api_init', 'wp_rest_user_id_verify');
-// wp-json/wp/v1/user_id_verify
-function wp_rest_user_id_verify(){
-  register_rest_route('wp/v1', '/user_id_verify', array(
-    'methods' => 'POST',
-    'callback' => 'api_user_id_verify',
-  ));
-}
 function api_user_id_verify(){
 	$user_name = sanitize_text_field($_POST['user_name']);
 
@@ -772,19 +1011,13 @@ function api_user_id_verify(){
 
 	}
 }
-
-add_action('rest_api_init', 'wp_rest_create_user');
-// wp-json/wp/v1/create_user
-function wp_rest_create_user(){
-  register_rest_route('wp/v1', '/create_user', array(
-    'methods' => 'POST',
-    'callback' => 'api_create_user',
-  ));
-}
 function api_create_user(){
 	$user_name = sanitize_text_field($_POST['user_name']);
 	$role = sanitize_text_field($_POST['role']);
 	$user_phone = sanitize_text_field($_POST['user_phone']);
+	$country = sanitize_text_field($_POST['country']);
+
+
 	$profile_image = $_FILES['profile_image'];
 	$user_id = 0;
 	global $wpdb;
@@ -810,6 +1043,13 @@ function api_create_user(){
 		$response['code'] = 400;
 		return new WP_REST_Response($response, 200);
 	}
+
+	// if (empty($country)){
+	// 	$response['success'] = __("false");
+	// 	$response['message'] = __("country is required.", "wp-rest-user");
+	// 	$response['code'] = 400;
+	// 	return new WP_REST_Response($response, 200);
+	// }	
 	
 	$get_all_role = get_all_roles();
 
@@ -848,11 +1088,9 @@ function api_create_user(){
 		return new WP_REST_Response($response, 200);
 	}
 
-	
-
 	update_user_meta($user_id, $wpdb->get_blog_prefix() . 'user_avatar', $attach_id);
-	update_user_meta($user_id, "_user_img_url", wp_get_attachment_url($attach_id));
-	
+	update_user_meta($user_id, "_user_img_url", wp_get_attachment_url($attach_id));	
+	// update_user_meta( $user_id,'country',$country);
 	update_user_meta( $user_id,'mobile_number',$user_phone);
 	$u = new WP_User( $role );
 	$u->set_role($role);
@@ -866,7 +1104,7 @@ function api_create_user(){
 			wp_update_user( array( 'ID' => $user_id, 'user_email' => $user_phone ) );
 		}
 
-		$subject = 'Artish Login Detail';
+		$subject = 'Artist Login Detail';
 		
 		/* Prepare HTML */
 
@@ -882,9 +1120,11 @@ function api_create_user(){
 		$mail_status = mail($to, $subject, $message, $headers);
 
 		$response['success'] = __("true");
-		$response['message'] = __("User Create Successfully.", "wp-rest-user");
+		$response['message'] = __("You are registered Successfully ", "wp-rest-user");
 		$response['user_id'] = $user_id;
 		$response['code'] = 200;
+		$response['file'] = $_FILES;
+		$response['post'] = $_POST;
 		return new WP_REST_Response($response, 200);
 	}
 	else
@@ -894,15 +1134,6 @@ function api_create_user(){
 		$response['code'] = 200;
 		return new WP_REST_Response($response, 200);
 	}
-}
-
-add_action('rest_api_init', 'wp_rest_user_profile');
-// wp-json/wp/v1/users/user_profile
-function wp_rest_user_profile(){
-  register_rest_route('wp/v1', 'users/user_profile', array(
-    'methods' => 'POST',
-    'callback' => 'api_user_profile',
-  ));
 }
 function api_user_profile(){
 
@@ -920,10 +1151,11 @@ function api_user_profile(){
 		{
 			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
 		}
-
 		if(in_array('artist',$user->roles))
 		{
-
+			$data['user_verify'] = artist_doc_verify($user_id);		
+			$data['bee'] = get_bee_image($user_id);	
+			$temp['total_sold'] = total_sold($user_id);
 		}
 		else if(in_array('collector',$user->roles))
 		{
@@ -943,11 +1175,22 @@ function api_user_profile(){
         unset($data["user_registered"]);
         unset($data["user_activation_key"]);
 		unset($data["user_status"]);
-		$data['role'] = $user->roles[0];
 
+	// $data['user_verify'] = artist_doc_verify($user_id);		
+	// $data['bee'] = get_bee_image($user_id);	
+	// $temp['total_sold'] = total_sold($user_id);
+
+		$data['role'] = $user->roles[0];
+		if($data['role'] == "artist")
+		{
+			$data['user_verify'] = artist_doc_verify($user_id);		
+			$data['bee'] = get_bee_image($user_id);	
+			$data['total_sold'] = total_sold($user_id);
+		}
 		$data['profile_url'] = $profile_url;
 		$data['following'] = get_following_count($user_id);
 		$data['follower'] = get_follower_count($user_id);
+
 		$response['success'] = __("true");
 		$response['data'] = $data;
 		$response['message'] = __("User .", "wp-rest-user");
@@ -962,14 +1205,6 @@ function api_user_profile(){
 		return new WP_REST_Response($response, 200);
 	}
 
-}
-
-add_action('rest_api_init', 'wp_rest_create_post');
-function wp_rest_create_post(){
-  register_rest_route('wp/v1', 'create_post', array(
-    'methods' => 'POST',
-    'callback' => 'api_create_post',
-  ));
 }
 function api_create_post(){
 	$user_id = sanitize_text_field($_POST['user_id']);
@@ -1030,14 +1265,6 @@ function api_create_post(){
 		return new WP_REST_Response($response, 200);
 	}
 }
-
-add_action('rest_api_init', 'wp_rest_add_favourite');
-function wp_rest_add_favourite(){
-  register_rest_route('wp/v1', 'add_favourite', array(
-    'methods' => 'POST',
-    'callback' => 'api_add_favourite',
-  ));
-}
 function api_add_favourite(){
 	$activity_id = sanitize_text_field($_POST['activity_id']);
 	$user_id = sanitize_text_field($_POST['user_id']);
@@ -1070,14 +1297,6 @@ function api_add_favourite(){
 		return new WP_REST_Response($response, 200);
 	}
 }
-
-add_action('rest_api_init', 'wp_rest_get_post');
-function wp_rest_get_post(){
-  register_rest_route('wp/v1', 'get_post', array(
-    'methods' => 'POST',
-    'callback' => 'api_get_post',
-  ));
-}
 function api_get_post(){
 	global $wpdb;
 	$results = $wpdb->get_results( "SELECT * FROM `{$wpdb->prefix}bp_activity` WHERE `action` = 'POST'");
@@ -1109,334 +1328,647 @@ function api_get_post(){
 	return new WP_REST_Response($response, 200);
 
 }
+function create_global_attribute($name, $slug)
+{
 
-add_action('rest_api_init', 'wp_rest_create_product');
-function wp_rest_create_product(){
-  register_rest_route('wp/v1', 'create_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_create_product',
-  ));
+    $taxonomy_name = wc_attribute_taxonomy_name( $slug );
+
+    if (taxonomy_exists($taxonomy_name))
+    {
+        return wc_attribute_taxonomy_id_by_name($slug);
+    }
+
+    //logg("Creating a new Taxonomy! `".$taxonomy_name."` with name/label `".$name."` and slug `".$slug.'`');
+
+    $attribute_id = wc_create_attribute( array(
+        'name'         => $name,
+        'slug'         => $slug,
+        'type'         => 'select',
+        'order_by'     => 'menu_order',
+        'has_archives' => false,
+    ) );
+
+    //Register it as a wordpress taxonomy for just this session. Later on this will be loaded from the woocommerce taxonomy table.
+    register_taxonomy(
+        $taxonomy_name,
+        apply_filters( 'woocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
+        apply_filters( 'woocommerce_taxonomy_args_' . $taxonomy_name, array(
+            'labels'       => array(
+                'name' => $name,
+            ),
+            'hierarchical' => true,
+            'show_ui'      => false,
+            'query_var'    => true,
+            'rewrite'      => false,
+        ) )
+    );
+
+    //Clear caches
+    delete_transient( 'wc_attribute_taxonomies' );
+
+    return $attribute_id;
 }
-function REST_API_create_product(){
+function generate_attributes_list_for_product($rawDataAttributes)
+{
+    $attributes = array();
 
-	if(!isset($_POST['name']) || empty($_POST['name']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("name is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
-	if(!isset($_POST['description']) || empty($_POST['description']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("description is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
+    $pos = 0;
 
-	if(!isset($_POST['regular_price']) || empty($_POST['regular_price']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("regular_price is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
-	if(!isset($_POST['height']) || empty($_POST['height']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("height is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
-	if(!isset($_POST['width']) || empty($_POST['width']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("width is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
-	if(!isset($_POST['category_ids']) || empty($_POST['category_ids']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("category id is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
-	if(!isset($_POST['name']) || empty($_POST['name']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("name is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
-	if(!isset($_POST['description']) || empty($_POST['description']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("description is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
-	if(!isset($_POST['user_id']) || empty($_POST['user_id']))
-	{
-		$response['success'] = __("false");
-		$response['data'] = '';
-		$response['message'] = __("user ID is required Field", "wp-rest-user");
-		$response['code'] = 400;
-		return new WP_REST_Response($response, 200);
-	}
+    foreach ($rawDataAttributes as $name => $values)
+    {
+        if (empty($name) || empty($values)) continue;
 
-	$reviews_allowed = 'true';
-	$regular_price = '';
-	$status = 'publish';
-	$slug = '';
-	$featured = 'false';
-	$visibility = '';
-	$sale_price = '';
-	$virtual = 'false';
-	$sale_to = '';
-	$sale_from = '';
-	$downloads = '';
-	$downloadable = 'false';
-	$download_expiry = '';
-	$download_limit = '';
-	$manage_stock = 'true';
-	$sku = '';
-	$stock_qty = '-1';
-	$stock_status = 'instock';
-	$sold_individually = 'false';
-	$backorders = 'no';
-	$length = '';
-	$weight = '';
-	$height = '';
-	$width = '';
-	$note = '';
-	$reviews = 'true';
-	$tag_ids = '';
-	$category_ids = '';
-	$gallery_ids = '';
-	$image_id = '';
-	$size = '';
-	$name = '';
-	$description = '';
-	$short_description = '';
-	$user_id = '';
+        if (!is_array($values)) $values = array($values);
 
-	if(isset($_POST['name']) && !empty($_POST['name']))
-	{
-		$description = $_POST['name'];
-	}
-	if(isset($_POST['user_id']) && !empty($_POST['user_id']))
-	{
-		$user_id = $_POST['user_id'];
-	}
-	if(isset($_POST['description']) && !empty($_POST['description']))
-	{
-		$short_description =  $_POST['description'];
-	}
-	if(isset($_POST['short_description']) && !empty($_POST['short_description']))
-	{
-		$short_description = $_POST['short_description'];
-	}
-	if(isset($_POST['reviews_allowed']) && !empty($_POST['reviews_allowed']))
-	{ 
-		$reviews_allowed = $_POST['reviews_allowed']; 
-	}
-	if(isset($_POST['regular_price']) && !empty($_POST['regular_price']))
-	{ 
-		$regular_price = $_POST['regular_price']; 
-	}
-	if(isset($_POST['status']) && !empty($_POST['status']))
-	{ 
-		$status = $_POST['status']; 
-	}
-	if(isset($_POST['slug']) && !empty($_POST['slug']))
-	{ 
-		$slug = $_POST['slug']; 
-	}
-	if(isset($_POST['featured']) && !empty($_POST['featured']))
-	{ 
-		$featured = $_POST['featured']; 
-	}
-	if(isset($_POST['visibility']) && !empty($_POST['visibility']))
-	{ 
-		$visibility = $_POST['visibility']; 
-	}
-	if(isset($_POST['sale_price']) && !empty($_POST['sale_price']))
-	{ 
-		$sale_price = $_POST['sale_price']; 
-	}
-	if(isset($_POST['virtual']) && !empty($_POST['virtual']))
-	{ 
-		$virtual = $_POST['virtual']; 
-	}
-	if(isset($_POST['sale_to']) && !empty($_POST['sale_to']))
-	{ 
-		$sale_to = $_POST['sale_to']; 
-	}
-	if(isset($_POST['sale_from']) && !empty($_POST['sale_from']))
-	{ 
-		$sale_from = $_POST['sale_from']; 
-	}
-	if(isset($_FILES['downloads[]']) && !empty($_FILES['downloads[]']))
-	{ 
-		$downloads = cst_image_upload_array($_FILES['downloads[]']); 
-	}
-	if(isset($_POST['downloadable']) && !empty($_POST['downloadable']))
-	{ 
-		$downloadable = $_POST['downloadable']; 
-	}
-	if(isset($_POST['download_expiry']) && !empty($_POST['download_expiry']))
-	{ 
-		$download_expiry = $_POST['download_expiry']; 
-	}
-	if(isset($_POST['download_limit']) && !empty($_POST['download_limit']))
-	{ 
-		$download_limit = $_POST['download_limit']; 
-	}
-	if(isset($_POST['manage_stock']) && !empty($_POST['manage_stock']))
-	{ 
-		$manage_stock = $_POST['manage_stock']; 
-	}
-	if(isset($_POST['sku']) && !empty($_POST['sku']))
-	{ 
-		$sku = $_POST['sku']; 
-	}
-	if(isset($_POST['stock_qty']) && !empty($_POST['stock_qty']))
-	{ 
-		$stock_qty = $_POST['stock_qty']; 
-	}
-	if(isset($_POST['stock_status']) && !empty($_POST['stock_status']))
-	{ 
-		$stock_status = $_POST['stock_status']; 
-	}
-	if(isset($_POST['sold_individually']) && !empty($_POST['sold_individually']))
-	{ 
-		$sold_individually = $_POST['sold_individually']; 
-	}
-	if(isset($_POST['backorders']) && !empty($_POST['backorders']))
-	{ 
-		$backorders = $_POST['backorders']; 
-	}
-	if(isset($_POST['length']) && !empty($_POST['length']))
-	{ 
-		$length = $_POST['length']; 
-	}
-	if(isset($_POST['weight']) && !empty($_POST['weight']))
-	{ 
-		$weight = $_POST['weight']; 
-	}
-	if(isset($_POST['height']) && !empty($_POST['height']))
-	{ 
-		$height = $_POST['height']; 
-	}
-	if(isset($_POST['width']) && !empty($_POST['width']))
-	{ 
-		$width = $_POST['width']; 
-	}
-	if(isset($_POST['note']) && !empty($_POST['note']))
-	{ 
-		$note = $_POST['note']; 
-	}
-	if(isset($_POST['reviews']) && !empty($_POST['reviews']))
-	{ 
-		$reviews = $_POST['reviews']; 
-	}
-	if(isset($_POST['tag_ids']) && !empty($_POST['tag_ids']))
-	{ 
-		$tag_ids = $_POST['tag_ids']; 
-	}
-	if(isset($_POST['category_ids']) && !empty($_POST['category_ids']))
-	{ 
-		$category_ids = $_POST['category_ids']; 
-	}
-	if(isset($_FILES['gallery_ids']) && !empty($_FILES['gallery_ids']))
-	{ 
-		// $gallery_ids = $_POST['gallery_ids']; 
-		$gallery_ids = cst_image_upload_array($_FILES['gallery_ids']); 
-	}
-	if(isset($_FILES['image']) && !empty($_FILES['image']))
-	{ 
-		$image_id = cst_image_upload($_FILES['image']); 
-		// echo "image";
-		// print_r($image_id);
-	}
-	if(isset($_POST['size']) && !empty($_POST['size']))
-	{ 
-		$image_id = $_POST['size']; 
-	}
-	// exit;
-	$product_id = create_product( array(
-		'type'               => '', // Simple product by default
-		'name'               => __($name,"woocommerce"),
-		'description'        => __($description,"woocommerce"),
-		'short_description'  => __($short_description ,"woocommerce"),
-		'regular_price'      => $regular_price,
-		'reviews_allowed'    => $reviews_allowed,
-		'slug'               => $slug,
-		'status'             => $status,
-		'featured'           => $featured,
-		'virtual'            => $virtual,
-		'sale_price'         => $sale_price,
-		'sale_from'          => $sale_from,
-		'sale_to'            => $sale_to,
-		'downloadable'       => $downloadable,
-		'downloads'          => $downloads,
-		'download_limit'     => $download_limit,
-		'download_expiry'    => $download_expiry,
-		'sku'                => $sku,
-		'manage_stock'       => $manage_stock,
-		'stock_status'       => $stock_status,
-		'stock_qty'          => $stock_qty,
-		'backorders'         => $backorders,
-		'sold_individually'  => $sold_individually,
-		'weight'             => $weight,
-		'length'             => $length,
-		'width'              => $width,
-		'height'             => $height,
-		'reviews'            => $reviews,
-		'note'               => $note,
-		'category_ids'       => $category_ids,
-		'tag_ids'            => $tag_ids,
-		'image_id'           => $image_id,
-		'gallery_ids'        => $gallery_ids,
-		'attributes'         => array(
-			'size' =>  array(
-				'term_names' => array($size),
-				'is_visible' => true,
-				'for_variation' => false,
-			),
-		),
-	) );  
+        $attribute = new WC_Product_Attribute();
+        $attribute->set_id( 0 );
+        $attribute->set_position($pos);
+        $attribute->set_visible( true );
+        $attribute->set_variation( true );
+
+        $pos++;
+
+        //Look for existing attribute:
+        $existingTaxes = wc_get_attribute_taxonomies();
+
+        //attribute_labels is in the format: array("slug" => "label / name")
+        $attribute_labels = wp_list_pluck( $existingTaxes, 'attribute_label', 'attribute_name' );
+        $slug = array_search( $name, $attribute_labels, true );
+
+        if (!$slug)
+        {
+            //Not found, so create it:
+            $slug = wc_sanitize_taxonomy_name($name);
+            $attribute_id = create_global_attribute($name, $slug);
+        }
+        else
+        {
+            //Otherwise find it's ID
+            //Taxonomies are in the format: array("slug" => 12, "slug" => 14)
+            $taxonomies = wp_list_pluck($existingTaxes, 'attribute_id', 'attribute_name');
+
+            if (!isset($taxonomies[$slug]))
+            {
+                //logg("Could not get wc attribute ID for attribute ".$name. " (slug: ".$slug.") which should have existed!");
+                continue;
+            }
+
+            $attribute_id = (int)$taxonomies[$slug];
+        }
+
+        $taxonomy_name = wc_attribute_taxonomy_name($slug);
+
+        $attribute->set_id( $attribute_id );
+        $attribute->set_name( $taxonomy_name );
+        $attribute->set_options($values);
+
+        $attributes[] = $attribute;
+    }
 
 
-	$arg = array(
-		'ID' => $product_id,
-		'post_author' => $user_id,
+    return $attributes;
+}
+function get_attribute_term($value, $taxonomy)
+{
+    //Look if there is already a term for this attribute?
+    $term = get_term_by('name', $value, $taxonomy);
+
+    if (!$term)
+    {
+        //No, create new term.
+        $term = wp_insert_term($value, $taxonomy);
+        if (is_wp_error($term))
+        {
+            //logg("Unable to create new attribute term for ".$value." in tax ".$taxonomy."! ".$term->get_error_message());
+            return array('id'=>false, 'slug'=>false);
+        }
+        $termId = $term['term_id'];
+        $term_slug = get_term($termId, $taxonomy)->slug; // Get the term slug
+    }
+    else
+    {
+        //Yes, grab it's id and slug
+        $termId = $term->term_id;
+        $term_slug = $term->slug;
+    }
+
+    return array('id'=>$termId, 'slug'=>$term_slug);
+}
+function create_product_variation( $product_id, $variation_data ){
+    // Get the Variable product object (parent)
+	// ini_set('display_errors', 1);
+	// ini_set('display_startup_errors', 1);
+	// error_reporting(E_ALL);
+    $product = wc_get_product($product_id);
+
+    $variation_post = array(
+        'post_title'  => $product->get_name(),
+        'post_name'   => 'product-'.$product_id.'-variation',
+        'post_status' => 'publish',
+        'post_parent' => $product_id,
+        'post_type'   => 'product_variation',
+        'guid'        => $product->get_permalink()
+    );
+
+    // Creating the product variation
+    $variation_id = wp_insert_post( $variation_post );
+
+    // Get an instance of the WC_Product_Variation object
+    $variation = new WC_Product_Variation( $variation_id );
+
+    // Iterating through the variations attributes
+    foreach ($variation_data['attributes'] as $attribute => $term_name )
+    {
+        $taxonomy = 'pa_'.$attribute; // The attribute taxonomy
+
+        // If taxonomy doesn't exists we create it (Thanks to Carl F. Corneil)
+        if( ! taxonomy_exists( $taxonomy ) ){
+            register_taxonomy(
+                $taxonomy,
+               'product_variation',
+                array(
+                    'hierarchical' => false,
+                    'label' => ucfirst( $attribute ),
+                    'query_var' => true,
+                    'rewrite' => array( 'slug' => sanitize_title($attribute) ), // The base slug
+                )
+            );
+        }
+
+        // Check if the Term name exist and if not we create it.
+        if( ! term_exists( $term_name, $taxonomy ) )
+            wp_insert_term( $term_name, $taxonomy ); // Create the term
+
+        $term_slug = get_term_by('name', $term_name, $taxonomy )->slug; // Get the term slug
+
+        // Get the post Terms names from the parent variable product.
+        $post_term_names =  wp_get_post_terms( $product_id, $taxonomy, array('fields' => 'names') );
+
+        // Check if the post term exist and if not we set it in the parent variable product.
+        if( ! in_array( $term_name, $post_term_names ) )
+            wp_set_post_terms( $product_id, $term_name, $taxonomy, true );
+
+        // Set/save the attribute data in the product variation
+        update_post_meta( $variation_id, 'attribute_'.$taxonomy, $term_slug );
+    }
+
+    ## Set/save all other data
+
+    // SKU
+    if( ! empty( $variation_data['sku'] ) )
+        $variation->set_sku( $variation_data['sku'] );
+
+    // Prices
+    if( empty( $variation_data['sale_price'] ) ){
+        $variation->set_price( $variation_data['regular_price'] );
+    } else {
+        $variation->set_price( $variation_data['sale_price'] );
+        $variation->set_sale_price( $variation_data['sale_price'] );
+    }
+    $variation->set_regular_price( $variation_data['regular_price'] );
+
+    // Stock
+    if( ! empty($variation_data['stock_qty']) ){
+        $variation->set_stock_quantity( $variation_data['stock_qty'] );
+        $variation->set_manage_stock(true);
+        $variation->set_stock_status('');
+    } else {
+        $variation->set_manage_stock(false);
+    }
+    
+    $variation->set_weight(''); // weight (reseting)
+
+    $variation->save(); // Save the data
+}
+function REST_API_create_product()
+{
+
+
+	$frame_size = $_POST['frame_size'];
+	$height = array();
+	$width = array();
+	$dimension = array();
+	$dimension_type = array();
+	$variation_list = array();
+
+	{
+		if(!isset($_POST['name']) || empty($_POST['name']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("name is required Field", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+		if(!isset($_POST['description']) || empty($_POST['description']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("description is required Field", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+
+		if(!isset($_POST['regular_price']) || empty($_POST['regular_price']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("regular_price is required Field", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+		// if(!isset($_POST['height']) || empty($_POST['height']))
+		// {
+		// 	$response['success'] = __("false");
+		// 	$response['data'] = '';
+		// 	$response['message'] = __("height is required Field", "wp-rest-user");
+		// 	$response['code'] = 400;
+		// 	return new WP_REST_Response($response, 200);
+		// }
+		// if(!isset($_POST['width']) || empty($_POST['width']))
+		// {
+		// 	$response['success'] = __("false");
+		// 	$response['data'] = '';
+		// 	$response['message'] = __("width is required Field", "wp-rest-user");
+		// 	$response['code'] = 400;
+		// 	return new WP_REST_Response($response, 200);
+		// }
+		if(!isset($_POST['category_ids']) || empty($_POST['category_ids']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("category id is required Field", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+		if(!isset($_POST['description']) || empty($_POST['description']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("description is required Field", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+		if(!isset($_POST['user_id']) || empty($_POST['user_id']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("user ID is required Field", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+
+		if(!artist_doc_verify($_POST['user_id']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("User's Document Not Verified", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+		if(!isset($_POST['frame_size']) || empty($_POST['frame_size']))
+		{
+			$response['success'] = __("false");
+			$response['data'] = '';
+			$response['message'] = __("Frame Size is required Field", "wp-rest-user");
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+
+	}
+	{
+		$reviews_allowed = 'true';
+		$regular_price = '';
+		$status = 'publish';
+		$slug = '';
+		$featured = 'false';
+		$visibility = '';
+		$sale_price = '';
+		$virtual = 'false';
+		$sale_to = '';
+		$sale_from = '';
+		$downloads = '';
+		$downloadable = 'false';
+		$download_expiry = '';
+		$download_limit = '';
+		$manage_stock = 'true';
+		$sku = '';
+		$stock_qty = '-1';
+		$stock_status = 'instock';
+		$sold_individually = 'false';
+		$backorders = 'no';
+		$length = '';
+		$weight = '';
+		$height = '';
+		$width = '';
+		$note = '';
+		$reviews = 'true';
+		$tag_ids = '';
+		$category_ids = '';
+		$gallery_ids = '';
+		$image_id = '';
+		$size = '';
+		$name = '';
+		$description = '';
+		$short_description = '';
+		$user_id = '';
+		$country = '';
+		$measurment = '';
+		$attr_width = '';
+		$attr_height = '';
+		$attr_dimension = '';
+		$attr_measurement_type = '';
+	}
+	{
+		if(isset($_POST['attr_width']) && !empty($_POST['attr_width']))
+		{
+			$attr_width = $_POST['attr_width'];
+		}
+		if(isset($_POST['attr_height']) && !empty($_POST['attr_height']))
+		{
+			$attr_height = $_POST['attr_height'];
+		}
+		if(isset($_POST['attr_dimension']) && !empty($_POST['attr_dimension']))
+		{
+			$attr_dimension = $_POST['attr_dimension'];
+		}
+		if(isset($_POST['attr_measurement_type']) && !empty($_POST['attr_measurement_type']))
+		{
+			$attr_measurement_type = $_POST['attr_measurement_type'];
+		}
+		if(isset($_POST['name']) && !empty($_POST['name']))
+		{
+			$name = $_POST['name'];
+		}
+		if(isset($_POST['user_id']) && !empty($_POST['user_id']))
+		{
+			$user_id = $_POST['user_id'];
+		}
+		if(isset($_POST['description']) && !empty($_POST['description']))
+		{
+			$short_description =  $_POST['description'];
+		}
+		if(isset($_POST['short_description']) && !empty($_POST['short_description']))
+		{
+			$short_description = $_POST['short_description'];
+		}
+		if(isset($_POST['reviews_allowed']) && !empty($_POST['reviews_allowed']))
+		{ 
+			$reviews_allowed = $_POST['reviews_allowed']; 
+		}
+		if(isset($_POST['regular_price']) && !empty($_POST['regular_price']))
+		{ 
+			$regular_price = $_POST['regular_price']; 
+		}
+		if(isset($_POST['status']) && !empty($_POST['status']))
+		{ 
+			$status = $_POST['status']; 
+		}
+		if(isset($_POST['slug']) && !empty($_POST['slug']))
+		{ 
+			$slug = $_POST['slug']; 
+		}
+		if(isset($_POST['featured']) && !empty($_POST['featured']))
+		{ 
+			$featured = $_POST['featured']; 
+		}
+		if(isset($_POST['visibility']) && !empty($_POST['visibility']))
+		{ 
+			$visibility = $_POST['visibility']; 
+		}
+		if(isset($_POST['sale_price']) && !empty($_POST['sale_price']))
+		{ 
+			$sale_price = $_POST['sale_price']; 
+		}
+		if(isset($_POST['virtual']) && !empty($_POST['virtual']))
+		{ 
+			$virtual = $_POST['virtual']; 
+		}
+		if(isset($_POST['sale_to']) && !empty($_POST['sale_to']))
+		{ 
+			$sale_to = $_POST['sale_to']; 
+		}
+		if(isset($_POST['sale_from']) && !empty($_POST['sale_from']))
+		{ 
+			$sale_from = $_POST['sale_from']; 
+		}
+		if(isset($_FILES['downloads[]']) && !empty($_FILES['downloads[]']))
+		{ 
+			$downloads = cst_image_upload_array($_FILES['downloads[]']); 
+		}
+		if(isset($_POST['downloadable']) && !empty($_POST['downloadable']))
+		{ 
+			$downloadable = $_POST['downloadable']; 
+		}
+		if(isset($_POST['download_expiry']) && !empty($_POST['download_expiry']))
+		{ 
+			$download_expiry = $_POST['download_expiry']; 
+		}
+		if(isset($_POST['download_limit']) && !empty($_POST['download_limit']))
+		{ 
+			$download_limit = $_POST['download_limit']; 
+		}
+		if(isset($_POST['manage_stock']) && !empty($_POST['manage_stock']))
+		{ 
+			$manage_stock = $_POST['manage_stock']; 
+		}
+		if(isset($_POST['sku']) && !empty($_POST['sku']))
+		{ 
+			$sku = $_POST['sku']; 
+		}
+		if(isset($_POST['stock_qty']) && !empty($_POST['stock_qty']))
+		{ 
+			$stock_qty = $_POST['stock_qty']; 
+		}
+		if(isset($_POST['stock_status']) && !empty($_POST['stock_status']))
+		{ 
+			$stock_status = $_POST['stock_status']; 
+		}
+		if(isset($_POST['sold_individually']) && !empty($_POST['sold_individually']))
+		{ 
+			$sold_individually = $_POST['sold_individually']; 
+		}
+		if(isset($_POST['backorders']) && !empty($_POST['backorders']))
+		{ 
+			$backorders = $_POST['backorders']; 
+		}
+		if(isset($_POST['length']) && !empty($_POST['length']))
+		{ 
+			$length = $_POST['length']; 
+		}
+		if(isset($_POST['weight']) && !empty($_POST['weight']))
+		{ 
+			$weight = $_POST['weight']; 
+		}
+		if(isset($_POST['height']) && !empty($_POST['height']))
+		{ 
+			$height = $_POST['height']; 
+		}
+		if(isset($_POST['width']) && !empty($_POST['width']))
+		{ 
+			$width = $_POST['width']; 
+		}
+		if(isset($_POST['note']) && !empty($_POST['note']))
+		{ 
+			$note = $_POST['note']; 
+		}
+		if(isset($_POST['reviews']) && !empty($_POST['reviews']))
+		{ 
+			$reviews = $_POST['reviews']; 
+		}
+		if(isset($_POST['tag_ids']) && !empty($_POST['tag_ids']))
+		{ 
+			$tag_ids = $_POST['tag_ids']; 
+		}
+		if(isset($_POST['category_ids']) && !empty($_POST['category_ids']))
+		{ 
+			$category_ids = $_POST['category_ids']; 
+		}
+		if(isset($_FILES['gallery_ids']) && !empty($_FILES['gallery_ids']))
+		{ 
+			$gallery_ids = cst_image_upload_array($_FILES['gallery_ids']); 
+		}
+		if(isset($_FILES['image']) && !empty($_FILES['image'])){ 
+			$image_id = cst_image_upload($_FILES['image']); 
+		}
+		if(isset($_POST['size']) && !empty($_POST['size'])){ 
+			$size = $_POST['size']; 
+		}
+		if(isset($_POST['measurment']) && !empty($_POST['measurment'])){ 
+			$measurment = $_POST['measurment']; 
+		}	
+		if(isset($_POST['country']) && !empty($_POST['country'])){ 
+			$country = $_POST['country']; 
+		}
+	}
+
+	$product_id = create_product(
+		
+		array(
+			'type'              => 'variable', // Simple product by default
+			'name'              => __($name,"woocommerce"),
+			'description'       => __($description,"woocommerce"),
+			'short_description' => __($short_description ,"woocommerce"),
+			'regular_price'     => $regular_price,
+			'reviews_allowed'   => $reviews_allowed,
+			'slug'              => $slug,
+			'status'            => $status,
+			'featured'          => $featured,
+			'virtual'           => $virtual,
+			'sale_price'        => $sale_price,
+			'sale_from'         => $sale_from,
+			'sale_to'           => $sale_to,
+			'downloadable'      => $downloadable,
+			'downloads'         => $downloads,
+			'download_limit'    => $download_limit,
+			'download_expiry'   => $download_expiry,
+			'sku'               => str_replace('','_',trim($name)).generateRandomString(),
+			'manage_stock'      => $manage_stock,
+			'stock_status'      => $stock_status,
+			'stock_qty'         => $stock_qty,
+			'backorders'        => $backorders,
+			'sold_individually' => $sold_individually,
+			'weight'            => $weight,
+			'length'            => $length,
+			'width'             => $width,
+			'height'            => $height,
+			'reviews'           => $reviews,
+			'note'              => $note,
+			'category_ids'      => $category_ids,
+			'tag_ids'           => $tag_ids,
+			'image_id'          => $image_id,
+			'gallery_ids'       => $gallery_ids,
+			));
+		
+	$arg = array('ID' => $product_id,'post_title'=> $name,'post_author' => $user_id,);
+	wp_update_post($arg);
+
+	// $country = get_user_meta( $user_id, 'country',true);
+
+	$pid = $product_id;
+
+	if(!empty($country))
+	{
+		update_post_meta($product_id,'country', strtolower($country));
+	}
+
+/*---------------------------------------------------------------------------------------------------*/
+
+	$frame_size = $_POST['frame_size'];
+	$height = array();
+	$width = array();
+	$dimension = array();
+	$dimension_type = array();
+	$variation_list = array();
+
+	for($i=0;$i<count($frame_size);$i++)
+	{
+		array_push($height,$frame_size[$i]['height']);
+		array_push($width,$frame_size[$i]['width']);
+		array_push($dimension,$frame_size[$i]['dimension']);
+		array_push($dimension_type,$frame_size[$i]['measurement_type']);
+	}
+
+	$yourRawAttributeList = array(
+		'height'=>$height,
+		'width'=>$width,
+		'dimension'=>$dimension,
+		'measurement_type'=>$dimension_type,
 	);
-	wp_update_post( $arg );
 
+	$attribs = generate_attributes_list_for_product($yourRawAttributeList);
 
+	$p = new WC_Product_Variable($product_id);
+
+	$p->set_props(array('attributes'=> $attribs));
+
+	$product_id = $p->save();
+
+	if ($product_id <= 0) return "Unable to create / update product!";
+
+	foreach ($attribs as $attrib)
+	{
+		/** @var WC_Product_Attribute $attrib */
+		$tax = $attrib->get_name();
+		$vals = $attrib->get_options();
+
+		$termsToAdd = array();
+
+		if (is_array($vals) && count($vals) > 0)
+		{
+			foreach ($vals as $val)
+			{
+				//Get or create the term if it doesnt exist:
+				$term = get_attribute_term($val, $tax);
+
+				if ($term['id']) $termsToAdd[] = $term['id'];
+			}
+		}
+
+		if (count($termsToAdd) > 0)
+		{
+			wp_set_object_terms($product_id, $termsToAdd, $tax, true);
+		}
+	}
+
+	$parent_id = $pid; // Or get the variable product id dynamically
+
+	for($i=0;$i<count($frame_size);$i++)
+	{
+		$variation_data2 =  array(
+			'attributes' => array('height'=> $frame_size[$i]['height'],'width'=> $frame_size[$i]['width'],'dimension'=> $frame_size[$i]['dimension'],'measurement_type' =>$frame_size[$i]['measurement_type']),
+			'sku'           => '',
+			'regular_price' => $regular_price,
+			'sale_price'    => '',
+			'stock_qty'     => -1,
+		);
+		create_product_variation( $parent_id, $variation_data2 );
+	}
 	$response['success'] = __("true");
 	$response['data'] = $product_id;
 	$response['message'] = __("Product Create Successfully", "wp-rest-user");
 	$response['code'] = 200;
 	return new WP_REST_Response($response, 200);
-}
-
-add_action('rest_api_init', 'wp_rest_get_product');
-function wp_rest_get_product(){
-  register_rest_route('wp/v1', 'get_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_get_product',
-  ));
 }
 function REST_API_get_product(){
 	$args = array(
@@ -1477,6 +2009,24 @@ function REST_API_get_product(){
 		{
 			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
 		}
+
+
+        // $args = array(
+		// 	'post_type'     => 'product_variation',
+		// 	'post_status'   => array( 'private', 'publish' ),
+		// 	'numberposts'   => -1,
+		// 	'orderby'       => 'menu_order',
+		// 	'order'         => 'asc',
+		// 	'post_parent'   => get_the_ID()
+		// );
+		// $variations = get_posts( $args ); 
+
+		// foreach ( $variations as $variation ) 
+		// {
+		// 	$temp['variation']['variation'] = $variation->ID;
+		// 	$temp['variation']['data'] = get_post_meta($variation->ID);
+		// }
+
 		$temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
 		$temp['category_id'] = (string) $_temp['category_ids'][0];
 		$temp['product_id'] = (string) $_temp['id'];
@@ -1489,7 +2039,10 @@ function REST_API_get_product(){
 		$temp['short_description'] = (string) $_temp['short_description'];
 		$temp['user_profile_url'] = (string) $profile_url;
 		$temp['like_count'] = (string) $like_count;
-		$temp['bee'] = 'https://webdevelopment33.com/artsbee/wp-content/uploads/2021/02/WhatsApp-Image-2020-11-22-at-22.27-4.png';
+		$temp['bee'] = get_bee_image($vendor_id);
+		$temp['measurement'] = get_post_meta(get_the_ID(),'measurment',true);
+		$temp['total_sold'] = total_sold($vendor_id);
+
 		if(empty($image_url) || $image_url == null || $image_url[0] == null || $image_url[0] == '')
 		{
 			$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
@@ -1507,15 +2060,102 @@ function REST_API_get_product(){
 	return new WP_REST_Response($response, 200);
 
 }
-add_action('rest_api_init', 'wp_rest_product_like');
-function wp_rest_product_like(){
-  register_rest_route('wp/v1', 'product_like', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_product_like',
-  ));
+function REST_API_get_product_detail(){
+
+	if ( ! is_admin() ) {
+		require_once( ABSPATH . 'wp-admin/includes/post.php' );
+	}
+
+	if(!isset($_POST['product_id']) || empty($_POST['product_id']))
+	{
+		$response['success'] = __("false");
+		$response['data'] = '';
+		$response['message'] = __("Prodocu ID is required Field", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+	if(post_exists(get_the_title($_POST['product_id'])) <= 0)
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("Product Not Exist", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+
+	$args = array(
+		'post_type'   => 'product',
+		// 'numberposts' => 10,
+		'p'         => $_POST['product_id'],
+		'orderby'     => 'date',
+        'order'       => 'DESC'
+	);
+	$loop = new WP_Query( $args );
+	$data = array();
+	$response = array();
+	while ( $loop->have_posts() ) : $loop->the_post();
+		global $product;
+		$_temp = array();
+		$image_url = array();
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+		array_push($image_url,$image[0]);
+		$attachment_ids = $product->get_gallery_image_ids();
+		$_temp = $product->get_data();
+		foreach( $attachment_ids as $attachment_id ) {
+			array_push($image_url,wp_get_attachment_url( $attachment_id ));
+		}
+		$vendor_id = get_post_field( 'post_author', get_the_ID());
+
+		$like_count = get_product_like(get_the_ID());
+		if(empty($like_count))
+		{
+			$like_count = 0;
+		}
+		$user = "Admin";
+		if(!empty($vendor_id))
+		{
+			$vendor = get_userdata( $vendor_id );
+			$user = $vendor->user_login;
+		}
+
+		$profile_url = get_user_meta($user->data->ID, "_user_img_url",true);
+		if(empty($profile_url))
+		{
+			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
+		}
+		$data['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+		$data['category_id'] = (string) $_temp['category_ids'][0];
+		$data['product_id'] = (string) $_temp['id'];
+		$data['title'] = (string) $_temp['name'];
+		$data['date_created'] = (string) $_temp['date_created']->date("Y");
+		$data['price'] = (string) $_temp['price'];
+		$data['height'] = (string) $_temp['length'];
+		$data['width'] = (string) $_temp['width'];
+		$data['user_name'] = (string) $user;
+		$data['short_description'] = (string) $_temp['short_description'];
+		$data['user_profile_url'] = (string) $profile_url;
+		$data['like_count'] = (string) $like_count;
+		$data['bee'] = get_bee_image($vendor_id);
+		$data['measurement'] = get_post_meta(get_the_ID(),'measurment',true);
+		$temp['total_sold'] = total_sold($vendor_id);
+		if(empty($image_url) || $image_url == null || $image_url[0] == null || $image_url[0] == '')
+		{
+			$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+		}
+		$data['image_url'] = $image_url;
+		// array_push($data,$temp);
+
+	endwhile;
+	wp_reset_query();
+
+	$response['success'] = __("true");
+	$response['message'] = __("Get Product Detail  Successfully", "wp-rest-user");
+	$response['code'] = 200;
+	$response['data'] = $data;
+	return new WP_REST_Response($response, 200);
+
 }
-function REST_API_product_like()
-{
+function REST_API_product_like(){
 	// print_r($_POST);
 	$user_id = sanitize_text_field($_POST['user_id']);
 	if(empty($user_id))
@@ -1547,8 +2187,7 @@ function REST_API_product_like()
 	$response['code'] = 200;
 	return new WP_REST_Response($response, 200);
 }
-function get_product_like($product_id)
-{
+function get_product_like($product_id){
  	// $product_id = sanitize_text_field($_POST['product_id']);
 	if(empty($product_id))
 	{
@@ -1559,15 +2198,7 @@ function get_product_like($product_id)
 	return $result[0]->count_like;
 
 }
-add_action('rest_api_init', 'wp_rest_myfavourite_product');
-function wp_rest_myfavourite_product(){
-  register_rest_route('wp/v1', 'myfavourite_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_myfavourite_product',
-  ));
-}
-function REST_API_myfavourite_product()
-{
+function REST_API_myfavourite_product(){
  	$user_id = sanitize_text_field($_POST['user_id']);
 	if(empty($user_id))
 	{
@@ -1625,15 +2256,19 @@ function REST_API_myfavourite_product()
 
 		$temp['product_id'] = $_temp['id'];
 		$temp['category'] = cst_get_cat_name($_temp['category_ids'][0]);
-		$temp['name'] = $_temp['name'];
+		$temp['title'] = $_temp['name'];
 		$temp['date_created'] = $_temp['date_created']->date("Y");
 		$temp['price'] = $_temp['price'];
 		$temp['length'] = $_temp['length'];
 		$temp['width'] = $_temp['width'];
-		$temp['user'] = $user;
+		$temp['user_name'] = $user;
 		$temp['user_id'] = $vendor_id;
 		$temp['like_count'] = $like_count;
-		$temp['bee'] = 'blue';
+		$temp['bee'] =get_bee_image($vendor_id);
+		if(empty($image_url) || $image_url == null || $image_url[0] == null || $image_url[0] == '')
+		{
+			$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+		}
 		$temp['image_url'] = $image_url;
 		array_push($data,$temp);
 
@@ -1647,16 +2282,7 @@ function REST_API_myfavourite_product()
 	$response['data'] = $data;
 	return new WP_REST_Response($response, 200);
 }
-
-add_action('rest_api_init', 'wp_rest_mycollection_product');
-function wp_rest_mycollection_product(){
-  register_rest_route('wp/v1', 'mycollection_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_mycollection_product',
-  ));
-}
-function REST_API_mycollection_product()
-{
+function REST_API_mycollection_product(){
  	$user_id = sanitize_text_field($_POST['user_id']);
 	if(empty($user_id))
 	{
@@ -1729,7 +2355,7 @@ function REST_API_mycollection_product()
 			$temp['user'] = $user;
 			$temp['user_id'] = $vendor_id;
 			$temp['like_count'] = $like_count;
-			$temp['bee'] = 'blue';
+			$temp['bee'] = get_bee_image($vendor_id);
 			$temp['image_url'] = $image_url;
 			// print_r($temp);
 			array_push($data,$temp);
@@ -1744,13 +2370,6 @@ function REST_API_mycollection_product()
 	$response['code'] = 200;
 	$response['data'] = $data;
 	return new WP_REST_Response($response, 200);
-}
-add_action('rest_api_init', 'wp_rest_following');
-function wp_rest_following(){
-  register_rest_route('wp/v1', 'following', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_following',
-  ));
 }
 function REST_API_following(){
 	// print_r($_POST);
@@ -1787,14 +2406,6 @@ function REST_API_following(){
 	$response['code'] = 200;
 	return new WP_REST_Response($response, 200);
 }
-
-add_action('rest_api_init', 'wp_rest_get_following');
-function wp_rest_get_following(){
-  register_rest_route('wp/v1', 'get_following', array(
-    'methods' => 'POST',
-    'callback' => 'api_get_following',
-  ));
-}
 function api_get_following(){
 	$user_id = sanitize_text_field($_POST['user_id']);
 	global $wpdb;
@@ -1818,6 +2429,7 @@ function api_get_following(){
 		{
 			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
 		}
+		$temp['bee'] = get_bee_image($user->data->ID);
 		$temp['user_id'] = $user->data->ID;
 		array_push($user_arr,$temp);
 	}
@@ -1826,14 +2438,6 @@ function api_get_following(){
 	$response['message'] = __("Get Favorite Successfully", "wp-rest-user");
 	$response['code'] = 200;
 	return new WP_REST_Response($response, 200);
-}
-
-add_action('rest_api_init', 'wp_rest_get_follower');
-function wp_rest_get_follower(){
-  register_rest_route('wp/v1', 'get_follower', array(
-    'methods' => 'POST',
-    'callback' => 'api_get_follower',
-  ));
 }
 function api_get_follower(){
 	$user_id = sanitize_text_field($_POST['user_id']);
@@ -1859,6 +2463,7 @@ function api_get_follower(){
 			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
 		}
 		$temp['user_id'] = $user->data->ID;
+		$temp['bee'] = get_bee_image($user->data->ID);
 		array_push($user_arr,$temp);
 	}
 	$response['success'] = __("true");
@@ -1866,14 +2471,6 @@ function api_get_follower(){
 	$response['message'] = __("Get Favorite Successfully", "wp-rest-user");
 	$response['code'] = 200;
 	return new WP_REST_Response($response, 200);
-}
-
-add_action('rest_api_init', 'wp_rest_get_product_category');
-function wp_rest_get_product_category(){
-  register_rest_route('wp/v1', 'get_product_category', array(
-    'methods' => 'POST',
-    'callback' => 'get_product_category',
-  ));
 }
 function get_product_category(){
 	$cat = array();
@@ -1887,19 +2484,11 @@ function get_product_category(){
 
 	return $cat;
 }
-
-add_action('rest_api_init', 'wp_rest_get_product_artist_vice');
-function wp_rest_get_product_artist_vice(){
-  register_rest_route('wp/v1', 'get_product_artist_vice', array(
-    'methods' => 'POST',
-    'callback' => 'get_product_artist_vice',
-  ));
-}
 function get_product_artist_vice(){
 
 	$users = get_users( array( 'fields' => array( 'ID' ) ) );
 
-	$artish = array();
+	$artist = array();
 	foreach($users as $user_id){
 	
 		$user = get_user_by( 'id',$user_id->ID); 
@@ -1918,7 +2507,7 @@ function get_product_artist_vice(){
         unset($temp["user_registered"]);
         unset($temp["user_activation_key"]);
 		unset($temp["user_status"]);
-
+		$temp['bee'] = get_bee_image($user->data->ID);;
 		$temp['role'] = $user->roles[0];
 		$temp['follower'] = get_follower_count($user_id->ID);
 		$products = wc_get_products(array('status'=>'publish','limit'=> -1,'orderby' =>  'date_created','order' => 'ASC','author'=> $user->ID));
@@ -1953,7 +2542,7 @@ function get_product_artist_vice(){
 				$product_temp['width'] = (string) $_temp['width'];
 				$product_temp['price'] = (string) $_temp['price'];
 				$product_temp['like_count'] = (string) $like_count;
-				$product_temp['bee'] = 'blue';
+				$product_temp['bee'] = get_bee_image($vendor_id);
 				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
 				$temp['last_product'] = $_temp['date_created']->date("Y-m-d H:i:s");
 				if(empty($image_url))
@@ -1964,28 +2553,20 @@ function get_product_artist_vice(){
 				array_push($temp['product'],$product_temp);
 
 			}
-			array_push($artish,$temp);
+			array_push($artist,$temp);
 		}
 	}
 
-	foreach ($artish as $key => $part) {
+	foreach ($artist as $key => $part) {
 			$sort[$key] = $part['follower'];
 	}
-		array_multisort($sort, SORT_DESC, $artish);
+		array_multisort($sort, SORT_DESC, $artist);
 
    $response['success'] = __("true");
-	$response['data'] = $artish;
+	$response['data'] = $artist;
 	$response['message'] = __("Get New Product Artist vice Successfully", "wp-rest-user");
 	$response['code'] = 200;
 	return new WP_REST_Response($response, 200);
-}
-
-add_action('rest_api_init', 'wp_rest_get_best_seller');
-function wp_rest_get_best_seller(){
-  register_rest_route('wp/v1', 'get_best_seller', array(
-    'methods' => 'POST',
-    'callback' => 'get_best_seller',
-  ));
 }
 function get_best_seller(){
 	global $wpdb;
@@ -1998,7 +2579,7 @@ function get_best_seller(){
 
 	$results = $wpdb->get_results( "SELECT post.post_author as user_id ,sum(meta.meta_value) as product_sell FROM wp_posts as post,wp_postmeta as meta WHERE post.post_type = 'product' AND post.ID = meta.post_id AND meta.meta_key = 'total_sales' group by post_author ORDER BY post.post_date DESC limit ".$limit);
 
-	$artish = array();
+	$artist = array();
 	foreach($results as $user_id){
 	
 		$user = get_user_by( 'id',$user_id->user_id); 
@@ -2017,7 +2598,7 @@ function get_best_seller(){
         unset($temp["user_registered"]);
         unset($temp["user_activation_key"]);
 		unset($temp["user_status"]);
-
+		$temp['bee'] = get_bee_image($user_id->user_id);
 		$temp['role'] = $user->roles[0];
 		$temp['follower'] = get_follower_count($user_id->user_id);
 		$products = wc_get_products(array('status'=>'publish','limit'=> -1,'orderby' =>  'date_created','order' => 'ASC','author'=> $user->ID));
@@ -2052,7 +2633,7 @@ function get_best_seller(){
 				$product_temp['width'] = (string) $_temp['width'];
 				$product_temp['price'] = (string) $_temp['price'];
 				$product_temp['like_count'] = (string) $like_count;
-				$product_temp['bee'] = 'blue';
+				$product_temp['bee'] = get_bee_image($vendor_id);
 				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
 				$temp['last_product'] = $_temp['date_created']->date("Y-m-d H:i:s");
 				if(empty($image_url))
@@ -2063,28 +2644,20 @@ function get_best_seller(){
 				array_push($temp['product'],$product_temp);
 
 			}
-			array_push($artish,$temp);
+			array_push($artist,$temp);
 		}
 	}
 
-	foreach ($artish as $key => $part) {
+	foreach ($artist as $key => $part) {
 			$sort[$key] = strtotime($part['last_product']);
 	}
-		array_multisort($sort, SORT_DESC, $artish);
+		array_multisort($sort, SORT_DESC, $artist);
 
    $response['success'] = __("true");
-	$response['data'] = $artish;
+	$response['data'] = $artist;
 	$response['message'] = __("Get Best Seller Successfully", "wp-rest-user");
 	$response['code'] = 200;
 	return new WP_REST_Response($response, 200);
-}
-
-add_action('rest_api_init', 'rest_api_reset_get_cart');
-function rest_api_reset_get_cart(){
-  register_rest_route('wp/v1', 'get_cart', array(
-    'methods' => 'POST',
-    'callback' => 'get_cart',
-  ));
 }
 function get_cart(){
 	$user_id = sanitize_text_field($_POST['user_id']);
@@ -2140,15 +2713,12 @@ function get_cart(){
 	}
       return new WP_REST_Response($response, 200);
 }
-
-add_action('rest_api_init', 'rest_api_add_to_cart');
-function rest_api_add_to_cart(){
-  register_rest_route('wp/v1', 'add_to_cart', array(
-    'methods' => 'POST',
-    'callback' => 'add_to_cart',
-  ));
-}
 function add_to_cart(){
+
+	if ( ! is_admin() ) {
+		require_once( ABSPATH . 'wp-admin/includes/post.php' );
+	}
+
 	$user_id = sanitize_text_field($_POST['user_id']);
 	if(empty($user_id))
 	{
@@ -2167,6 +2737,15 @@ function add_to_cart(){
 		$response['code'] = 400;
 		return new WP_REST_Response($response, 200);
 	}
+
+	if(post_exists(get_the_title($product_id)) <= 0)
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("Product Not Exist", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
 	$quantity = sanitize_text_field($_POST['quantity']);
 	$quantity = 1;
 	
@@ -2263,16 +2842,7 @@ function add_to_cart(){
 	}
 	return new WP_REST_Response($response, 200);
 }
-
-add_action('rest_api_init', 'rest_api_remove_to_cart');
-function rest_api_remove_to_cart(){
-  register_rest_route('wp/v1', 'add_remove_cart', array(
-    'methods' => 'POST',
-    'callback' => 'add_remove_cart',
-  ));
-}
-function add_remove_cart()
-{
+function add_remove_cart(){
 	$user_id = sanitize_text_field($_POST['user_id']);
 	if(empty($user_id))
 	{
@@ -2393,4 +2963,717 @@ function add_remove_cart()
 		$response['data'] = 200;
 	}
 	return new WP_REST_Response($response, 200);
+}
+function category_search(){
+	$category = sanitize_text_field($_POST['category']);
+	if(empty($category))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("category ID  is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+	$args = array(
+		'post_type'         => 'product',
+		'posts_per_page'    => -1,
+		'tax_query'         => array(
+		  'relation' => 'AND',
+		  array (
+			  'taxonomy' => 'product_cat',
+			  'field' => 'slug',
+			  'terms' => $category,
+		  )
+		),
+	  );
+  
+	  $product_ids = array();
+	  $temp = array();
+	  $products = new WP_Query($args);
+	  $response = array();
+	 if ( $products->have_posts() )
+	 {
+		while ( $products->have_posts() )
+		{
+				$products->the_post();
+				global $product;
+
+				$_temp = array();
+				$image_url = array();
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+				if(!empty($image[0]))
+				{
+					array_push($image_url,$image[0]);
+				}
+				$attachment_ids = $product->get_gallery_image_ids();
+				$_temp = $product->get_data();
+
+				foreach( $attachment_ids as $attachment_id ) {
+					array_push($image_url,wp_get_attachment_url( $attachment_id ));
+				}
+				$vendor_id = get_post_field( 'post_author', $_temp['id']);
+		
+				$like_count = get_product_like($_temp['id']);
+				if(empty($like_count)){$like_count = 0;}
+		
+				$product_temp['product_id'] = (string) $_temp['id'];
+				$product_temp['name'] = (string) $_temp['name'];
+				$product_temp['category_id'] = (string) $_temp['category_ids'][0];
+				$product_temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+				$product_temp['length'] = (string) $_temp['length'];
+				$product_temp['width'] = (string) $_temp['width'];
+				$product_temp['price'] = (string) $_temp['price'];
+				$product_temp['like_count'] = (string) $like_count;
+				$product_temp['bee'] = get_bee_image($vendor_id);
+				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
+				// $temp['last_product'] = $_temp['date_created']->date("Y-m-d H:i:s");
+				if(empty($image_url))
+				{
+					$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+				}
+				$product_temp['image_url'] = $image_url;
+				// print_r($product_temp);
+				array_push($temp,$product_temp);			
+				// print_r($temp);
+			}
+	}
+	else{
+		echo "Product not Found";
+	}
+
+	$response['success'] = true;
+	$response['message'] = ' Get Product Category wice';
+	$response['data'] = $temp;
+	$response['code'] = 200;
+	
+	return new WP_REST_Response($response, 200);
+}
+function price_range_search(){
+	$min_price = sanitize_text_field($_POST['min_price']);
+	$max_price = sanitize_text_field($_POST['max_price']);
+	if(empty($min_price))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("min price is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+	if(empty($max_price))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("max price is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+	$args = array(
+        'posts_per_page' => 100,
+        'post_type' => array('product', 'product_variation'),
+		'meta_query' => array(
+			array(
+				'key'     => '_regular_price',
+				'value'   => array($min_price, $max_price),
+				'compare' => 'BETWEEN',
+				'type'    => 'NUMERIC'
+			)
+		)
+	);
+
+	$product_ids = array();
+	  $temp = array();
+	  $products = new WP_Query($args);
+	  $query = $products;
+	  $response = array();
+	 if ( $products->have_posts() )
+	 {
+		while ( $products->have_posts() )
+		{
+				$products->the_post();
+				global $product;
+
+				$_temp = array();
+				$image_url = array();
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+				if(!empty($image[0]))
+				{
+					array_push($image_url,$image[0]);
+				}
+				$attachment_ids = $product->get_gallery_image_ids();
+				$_temp = $product->get_data();
+
+				foreach( $attachment_ids as $attachment_id ) {
+					array_push($image_url,wp_get_attachment_url( $attachment_id ));
+				}
+				$vendor_id = get_post_field( 'post_author', $_temp['id']);
+		
+				$like_count = get_product_like($_temp['id']);
+				if(empty($like_count)){$like_count = 0;}
+		
+				$product_temp['product_id'] = (string) $_temp['id'];
+				$product_temp['name'] = (string) $_temp['name'];
+				$product_temp['category_id'] = (string) $_temp['category_ids'][0];
+				$product_temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+				$product_temp['length'] = (string) $_temp['length'];
+				$product_temp['width'] = (string) $_temp['width'];
+				$product_temp['price'] = (string) $_temp['price'];
+				$product_temp['like_count'] = (string) $like_count;
+				$product_temp['bee'] = get_bee_image($vendor_id);
+				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
+				// $temp['last_product'] = $_temp['date_created']->date("Y-m-d H:i:s");
+				if(empty($image_url))
+				{
+					$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+				}
+				$product_temp['image_url'] = $image_url;
+				// print_r($product_temp);
+				array_push($temp,$product_temp);			
+				// print_r($temp);
+		}
+	}
+	else{
+		echo "Product not Found";
+	}
+
+	$response['success'] = true;
+	$response['message'] = ' Get Product Price Range wice';
+	$response['data'] = $temp;
+	$response['query'] = $query;
+	$response['code'] = 200;
+	
+	return new WP_REST_Response($response, 200);
+}
+function product_by_country(){
+	$country = sanitize_text_field($_POST['country']);
+
+	if(empty($country))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("Country Name is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+	$args = array(
+        'posts_per_page' => 100,
+        'post_type' => array('product', 'product_variation'),
+		'meta_query' => array(
+			array(
+				'key'     => 'country',
+				'value'   => strtolower($country),
+				'compare' => '='
+			)
+		)
+	);
+
+	$product_ids = array();
+	  $temp = array();
+	  $products = new WP_Query($args);
+	//   print_r($products);
+	  $response = array();
+	 if($products->have_posts())
+	 {
+		while ( $products->have_posts() )
+		{
+				$products->the_post();
+				global $product;
+
+				$_temp = array();
+				$image_url = array();
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+				if(!empty($image[0]))
+				{
+					array_push($image_url,$image[0]);
+				}
+				$attachment_ids = $product->get_gallery_image_ids();
+				$_temp = $product->get_data();
+
+				foreach( $attachment_ids as $attachment_id ) {
+					array_push($image_url,wp_get_attachment_url( $attachment_id ));
+				}
+				$vendor_id = get_post_field( 'post_author', $_temp['id']);
+		
+				$like_count = get_product_like($_temp['id']);
+				if(empty($like_count)){$like_count = 0;}
+		
+				$product_temp['product_id'] = (string) $_temp['id'];
+				$product_temp['name'] = (string) $_temp['name'];
+				$product_temp['category_id'] = (string) $_temp['category_ids'][0];
+				$product_temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+				$product_temp['length'] = (string) $_temp['length'];
+				$product_temp['width'] = (string) $_temp['width'];
+				$product_temp['price'] = (string) $_temp['price'];
+				$product_temp['like_count'] = (string) $like_count;
+				$product_temp['bee'] = get_bee_image($vendor_id);;
+				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
+				if(empty($image_url))
+				{
+					$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+				}
+				$product_temp['image_url'] = $image_url;
+				array_push($temp,$product_temp);			
+		}
+	}
+	else{
+		$response['success'] = false;
+		$response['message'] = 'Product not Found';
+		$response['data'] = '';
+		$response['code'] = 400;
+	}
+
+	$response['success'] = true;
+	$response['message'] = ' Get Product Country wice';
+	$response['data'] = $temp;
+	$response['code'] = 200;
+	
+	return new WP_REST_Response($response, 200);
+}
+function product_by_size(){
+	$size = sanitize_text_field($_POST['size']);
+
+	if(empty($size))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("Size is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+	$args = array(
+        'posts_per_page' => 100,
+        'post_type' => array('product', 'product_variation'),
+		'meta_query' => array(
+			array(
+				'key'     => 'size',
+				'value'   => $size,
+				'compare' => '='
+			)
+		)
+	);
+
+	$product_ids = array();
+	  $temp = array();
+	  $products = new WP_Query($args);
+	//   print_r($products);
+	  $response = array();
+	 if($products->have_posts())
+	 {
+		while ( $products->have_posts() )
+		{
+				$products->the_post();
+				global $product;
+
+				$_temp = array();
+				$image_url = array();
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+				if(!empty($image[0]))
+				{
+					array_push($image_url,$image[0]);
+				}
+				$attachment_ids = $product->get_gallery_image_ids();
+				$_temp = $product->get_data();
+
+				foreach( $attachment_ids as $attachment_id ) {
+					array_push($image_url,wp_get_attachment_url( $attachment_id ));
+				}
+				$vendor_id = get_post_field( 'post_author', $_temp['id']);
+		
+				$like_count = get_product_like($_temp['id']);
+				if(empty($like_count)){$like_count = 0;}
+		
+				$product_temp['product_id'] = (string) $_temp['id'];
+				$product_temp['name'] = (string) $_temp['name'];
+				$product_temp['category_id'] = (string) $_temp['category_ids'][0];
+				$product_temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+				$product_temp['length'] = (string) $_temp['length'];
+				$product_temp['width'] = (string) $_temp['width'];
+				$product_temp['price'] = (string) $_temp['price'];
+				$product_temp['like_count'] = (string) $like_count;
+				$product_temp['bee'] = get_bee_image($vendor_id);;
+				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
+				if(empty($image_url))
+				{
+					$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+				}
+				$product_temp['image_url'] = $image_url;
+				array_push($temp,$product_temp);			
+		}
+	}
+	else{
+
+		$response['success'] = false;
+		$response['message'] = 'Product not Found';
+		$response['data'] = '';
+		$response['code'] = 400;
+	}
+
+	$response['success'] = true;
+	$response['message'] = ' Get Product Size wice';
+	$response['data'] = $temp;
+	$response['code'] = 200;
+	
+	return new WP_REST_Response($response, 200);
+}
+function product_by_title(){
+	$title = sanitize_text_field($_POST['title']);
+
+	if(empty($title))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("Text is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+	$args = array(
+        'posts_per_page' => 100,
+        'post_type' => array('product', 'product_variation'),
+		"s" => $title
+	);
+
+	$product_ids = array();
+	  $temp = array();
+	  $products = new WP_Query($args);
+	//   print_r($products);
+	  $response = array();
+	if($products->have_posts())
+	{
+		while ( $products->have_posts() )
+		{
+				$products->the_post();
+				global $product;
+
+				$_temp = array();
+				$image_url = array();
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+				if(!empty($image[0]))
+				{
+					array_push($image_url,$image[0]);
+				}
+				$attachment_ids = $product->get_gallery_image_ids();
+				$_temp = $product->get_data();
+
+				foreach( $attachment_ids as $attachment_id ) {
+					array_push($image_url,wp_get_attachment_url( $attachment_id ));
+				}
+				$vendor_id = get_post_field( 'post_author', $_temp['id']);
+		
+				$like_count = get_product_like($_temp['id']);
+				if(empty($like_count)){$like_count = 0;}
+		
+				$product_temp['product_id'] = (string) $_temp['id'];
+				$product_temp['name'] = (string) $_temp['name'];
+				$product_temp['category_id'] = (string) $_temp['category_ids'][0];
+				$product_temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+				$product_temp['length'] = (string) $_temp['length'];
+				$product_temp['width'] = (string) $_temp['width'];
+				$product_temp['price'] = (string) $_temp['price'];
+				$product_temp['like_count'] = (string) $like_count;
+				$product_temp['bee'] = get_bee_image($vendor_id);
+				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
+				if(empty($image_url))
+				{
+					$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+				}
+				$product_temp['image_url'] = $image_url;
+				array_push($temp,$product_temp);			
+		}
+	}
+	else{
+
+		$response['success'] = false;
+		$response['message'] = 'Product not Found';
+		$response['data'] = '';
+		$response['code'] = 400;
+	}
+
+	$response['success'] = true;
+	$response['message'] = ' Get Product Size wice';
+	$response['data'] = $temp;
+	$response['code'] = 200;
+	
+	return new WP_REST_Response($response, 200);
+}
+function terms_doc_upload(){
+	$response['success'] = true;
+	$response['message'] = 'param check';
+	$response['post'] = $_POST;
+	$response['file'] = $_FILES;
+	$response['code'] = 200;
+	return new WP_REST_Response($response, 200);
+
+
+
+	$user_id = sanitize_text_field($_POST['user_id']);
+	if(empty($user_id))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("User ID  is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+	if(!isset($_FILES['term_doc']) || empty($_FILES['term_doc']))
+	{
+		$response['success'] = false;
+		$response['message'] = 'File Not Found';
+		$response['data'] = '';
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+	if(in_array(4,$_FILES['term_doc']['error']))
+	{
+		$response['success'] = false;
+		$response['message'] = 'File Not Found';
+		$response['data'] = '';
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+	$user = get_user_by( 'id',$user_id); 
+	if(in_array('artist',$user->roles))
+	{
+		$doc_flag = '';
+		foreach($_FILES['term_doc']['type'] as $type)
+		{
+			if($type == 'application/pdf')
+			{
+				$doc_flag = true;		
+			}
+			else
+			{
+				$doc_flag = false;
+				break;
+			}
+		}
+		
+		if($doc_flag) 
+		{
+
+			$attach_id_array = cst_image_upload_array($_FILES['term_doc']);
+				
+			$docs_url = array();
+			for($i=0; $i <count($attach_id_array); $i++) { 
+				array_push($docs_url,wp_get_attachment_url($attach_id_array[$i]));
+			}
+
+			update_user_meta($user_id,'user_docs_attach_ids' , $attach_id_array);
+			update_user_meta($user_id, "user_docs_url", $docs_url);
+
+			$response['success'] = true;
+			$response['message'] = 'Document Upload SuccessFully';
+			$response['data'] = '';
+			$response['code'] = 200;
+			return new WP_REST_Response($response, 200);
+		}
+		else
+		{
+			$response['success'] = false;
+			$response['message'] = 'Please Upload PDF FILE,Only PDF File support';
+			$response['data'] = '';
+			$response['code'] = 400;
+			return new WP_REST_Response($response, 200);
+		}
+	}
+	else
+	{
+		$response['success'] = false;
+		$response['message'] = 'Only Artist Can Upload Document';
+		$response['data'] = '';
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+
+}
+function product_search(){
+
+	$category = sanitize_text_field($_POST['category']);
+	$min_price = sanitize_text_field($_POST['min_price']);
+	$max_price = sanitize_text_field($_POST['max_price']);
+	$country = sanitize_text_field($_POST['country']);
+	$size = sanitize_text_field($_POST['size']);
+	$title = sanitize_text_field($_POST['title']);
+	$args = array();
+	$category_array = array();
+	$min_max_array = array();
+	$size_array = array();
+	$country_array = array();
+	$title_array = array();
+	
+	
+	if(isset($category) && !empty($category))
+	{
+		$category_array = array('tax_query'=> array('relation' => 'AND',array ('taxonomy' => 'product_cat','field' => 'slug','terms' => $category,)));
+	}
+	if(isset($min_price) && !empty($min_price) && isset($max_price) && !empty($max_price))
+	{
+	
+		$min_max_array = array(
+				'key'     => '_regular_price',
+				'value'   => array($min_price, $max_price),
+				'compare' => 'BETWEEN',
+				'type'    => 'NUMERIC'
+			);
+	}
+	
+	if(isset($country) && !empty($country))
+	{
+		$country_array = array(
+				'key'     => 'country',
+				'value'   => strtolower($country),
+				'compare' => '='
+			);
+		
+	}
+	
+	if(isset($size) && !empty($size))
+	{
+		$size_array = array(
+				'key'     => 'size',
+				'value'   => $size,
+				'compare' => '='
+			);
+	}
+	if(isset($title) && !empty($title))
+	{
+		$title_array = array("s" => $title);
+	}
+
+
+	$meta_query [] =  array('relation' => 'AND');
+	
+	if(!empty($min_max_array))
+	{
+		$meta_query[] = $min_max_array;
+	}
+	if(!empty($country_array))
+	{
+		$meta_query[] = $country_array;
+	}
+	if(!empty($size_array))
+	{
+		$meta_query[] = $size_array;
+	}
+	if(!empty($title_array))
+	{
+		$meta_query[] = $title_array;
+	}
+
+	$args = array(
+		'post_type' => array('product', 'product_variation'),
+		'posts_per_page'    => 100,
+		'meta_query' => array($meta_query),
+	);
+
+	$product_ids = array();
+	  $temp = array();
+	  $products = new WP_Query($args);
+	  $query = $products;
+	  $response = array();
+	 if ( $products->have_posts() )
+	 {
+		while ( $products->have_posts() )
+		{
+				$products->the_post();
+				global $product;
+
+				$_temp = array();
+				$image_url = array();
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+				if(!empty($image[0]))
+				{
+					array_push($image_url,$image[0]);
+				}
+				$attachment_ids = $product->get_gallery_image_ids();
+				$_temp = $product->get_data();
+
+				foreach( $attachment_ids as $attachment_id ) {
+					array_push($image_url,wp_get_attachment_url( $attachment_id ));
+				}
+				$vendor_id = get_post_field( 'post_author', $_temp['id']);
+		
+				$like_count = get_product_like($_temp['id']);
+				if(empty($like_count)){$like_count = 0;}
+		
+				$product_temp['product_id'] = (string) $_temp['id'];
+				$product_temp['name'] = (string) $_temp['name'];
+				$product_temp['category_id'] = (string) $_temp['category_ids'][0];
+				$product_temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+				$product_temp['length'] = (string) $_temp['length'];
+				$product_temp['width'] = (string) $_temp['width'];
+				$product_temp['price'] = (string) $_temp['price'];
+				$product_temp['like_count'] = (string) $like_count;
+				$product_temp['bee'] = get_bee_image($vendor_id);
+				$data['measurement'] = get_post_meta(get_the_ID(),'measurment',true);
+				$temp['total_sold'] = total_sold($vendor_id);
+				$product_temp['date_created'] = (string) $_temp['date_created']->date("Y-m-d H:i:s");
+				// $temp['last_product'] = $_temp['date_created']->date("Y-m-d H:i:s");
+				if(empty($image_url))
+				{
+					$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
+				}
+				$product_temp['image_url'] = $image_url;
+				array_push($temp,$product_temp);			
+				// print_r($temp);
+		}
+	}
+	else{
+		echo "Product not Found";
+	}
+
+	$response['success'] = true;
+	$response['message'] = 'Get Product Filter Successfully ';
+	$response['data'] = $temp;
+	// $response['query'] = $query;
+	$response['code'] = 200;
+	
+	return new WP_REST_Response($response, 200);
+}
+function term_text(){
+	$terms_text = get_field('artist_term_text', 'option');
+	$response['success'] = true;
+	$response['message'] = ' Get Artist Term Text Successfully ';
+	$response['data'] = $terms_text;
+	$response['code'] = 200;
+	return new WP_REST_Response($response, 200);
+}
+function total_sold($user_id){
+	$args = array('post_type' => array('product', 'product_variation'),'author' => $user_id,);
+	$products = new WP_Query($args);
+	$total_sold = 0;
+	if ( $products->have_posts() )
+	{
+	   while ( $products->have_posts() )
+	   {
+			   $products->the_post();
+			   global $product;
+			   $total_sold +=  intval(get_post_meta(get_the_ID(),'total_sales',true));		  
+	   }
+   }
+   else
+   {
+		$response['success'] = true;
+		$response['message'] = 'Product not Added';
+		$response['data'] =0;
+		$response['code'] = 200;
+		return new WP_REST_Response($response, 200);
+   }
+   $response['success'] = true;
+   $response['message'] = 'Total Sold Product';
+   $response['data'] =$total_sold;
+   $response['code'] = 200;
+   return new WP_REST_Response($response, 200);	
+}
+function get_aucation(){
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+	
+	$curl_handle=curl_init();
+	curl_setopt($curl_handle, CURLOPT_URL,'https://www.sothebys.com/en/results');
+	curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($curl_handle, CURLOPT_USERAGENT, 'Your application name');
+	$query = curl_exec($curl_handle);
+	print_r($query);
+	curl_close($curl_handle);
+
 }
