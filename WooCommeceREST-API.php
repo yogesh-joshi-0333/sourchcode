@@ -1,264 +1,78 @@
 <?php
 
-add_action('rest_api_init', 'wp_rest_get_follower');
-add_action('rest_api_init', 'wp_rest_get_product_artist_vice');
-add_action('rest_api_init', 'rest_api_reset_get_cart');
-add_action('rest_api_init', 'rest_api_add_to_cart');
-add_action('rest_api_init', 'rest_api_remove_to_cart');
-add_action('rest_api_init', 'rest_api_category_search');
-add_action('rest_api_init', 'rest_api_search_product_price_range');
-add_action('rest_api_init', 'rest_api_search_product_by_country');
-add_action('rest_api_init', 'rest_api_search_product_by_size');
-add_action('rest_api_init', 'rest_api_product_search');
-add_action('rest_api_init', 'rest_api_get_aucation');
-add_action('rest_api_init', 'rest_api_terms_doc_upload');
-add_action('rest_api_init', 'rest_api_terms_text');
-add_action('rest_api_init', 'wp_rest_user_login_endpoints');
-add_action('rest_api_init', 'wp_rest_otp_send_again');
-add_action('rest_api_init', 'wp_rest_user_endpoints');
-add_action('rest_api_init', 'wp_rest_home_screen');
-add_action('rest_api_init', 'wp_rest_otp_verification');
-add_action('rest_api_init', 'wp_rest_user_id_verify');
-add_action('rest_api_init', 'wp_rest_create_user');
-add_action('rest_api_init', 'wp_rest_user_profile');
-add_action('rest_api_init', 'wp_rest_create_post');
-add_action('rest_api_init', 'wp_rest_add_favourite');
-add_action('rest_api_init', 'wp_rest_get_post');
-add_action('rest_api_init', 'wp_rest_create_product');
-add_action('rest_api_init', 'wp_rest_get_product');
-add_action('rest_api_init', 'wp_rest_get_product_detail');
-add_action('rest_api_init', 'wp_rest_product_like');
-add_action('rest_api_init', 'wp_rest_myfavourite_product');
-add_action('rest_api_init', 'wp_rest_mycollection_product');
-add_action('rest_api_init', 'wp_rest_following');
-add_action('rest_api_init', 'wp_rest_get_following');
-add_action('rest_api_init', 'wp_rest_get_product_category');
+add_action('rest_api_init', 'wp_rest_api_reset_get_cart');
+add_action('rest_api_init', 'wp_rest_api_add_to_cart');
+add_action('rest_api_init', 'wp_rest_api_remove_to_cart');
+add_action('rest_api_init', 'wp_rest_api_category_search');
+add_action('rest_api_init', 'wp_rest_api_search_product_price_range');
+add_action('rest_api_init', 'wp_rest_api_search_product_by_country');
+add_action('rest_api_init', 'wp_rest_api_search_product_by_size');
+add_action('rest_api_init', 'wp_rest_api_product_search');
+add_action('rest_api_init', 'wp_rest_api_get_aucation');
+add_action('rest_api_init', 'wp_rest_api_terms_doc_upload');
+add_action('rest_api_init', 'wp_rest_api_terms_text');
+add_action('rest_api_init', 'wp_rest_api_search_product_by_title');
+add_action('rest_api_init', 'wp_rest_api_get_follower');
+add_action('rest_api_init', 'wp_rest_api_get_product_artist_vice');
+add_action('rest_api_init', 'wp_rest_api_user_login_endpoints');
+add_action('rest_api_init', 'wp_rest_api_otp_send_again');
+add_action('rest_api_init', 'wp_rest_api_user_endpoints');
+add_action('rest_api_init', 'wp_rest_api_home_screen');
+add_action('rest_api_init', 'wp_rest_api_otp_verification');
+add_action('rest_api_init', 'wp_rest_api_user_id_verify');
+add_action('rest_api_init', 'wp_rest_api_create_user');
+add_action('rest_api_init', 'wp_rest_api_user_profile');
+add_action('rest_api_init', 'wp_rest_api_create_post');
+add_action('rest_api_init', 'wp_rest_api_add_favourite');
+add_action('rest_api_init', 'wp_rest_api_get_post');
+add_action('rest_api_init', 'wp_rest_api_create_product');
+add_action('rest_api_init', 'wp_rest_api_get_product');
+add_action('rest_api_init', 'wp_rest_api_get_product_detail');
+add_action('rest_api_init', 'wp_rest_api_product_like');
+add_action('rest_api_init', 'wp_rest_api_myfavourite_product');
+add_action('rest_api_init', 'wp_rest_api_mycollection_product');
+add_action('rest_api_init', 'wp_rest_api_following');
+add_action('rest_api_init', 'wp_rest_api_get_following');
+add_action('rest_api_init', 'wp_rest_api_get_product_category');
+add_action('rest_api_init', 'wp_rest_api_get_is_follow');
+add_action('rest_api_init', 'wp_rest_api_get_best_seller');
 
-function wp_rest_get_follower(){
-  register_rest_route('wp/v1', 'get_follower', array(
-    'methods' => 'POST',
-    'callback' => 'api_get_follower',
-  ));
-}
-function wp_rest_get_product_category(){
-  register_rest_route('wp/v1', 'get_product_category', array(
-    'methods' => 'POST',
-    'callback' => 'get_product_category',
-  ));
-}
-function wp_rest_get_product_artist_vice(){
-  register_rest_route('wp/v1', 'get_product_artist_vice', array(
-    'methods' => 'POST',
-    'callback' => 'get_product_artist_vice',
-  ));
-}
-function rest_api_reset_get_cart(){
-  register_rest_route('wp/v1', 'get_cart', array(
-    'methods' => 'POST',
-    'callback' => 'get_cart',
-  ));
-}
-function rest_api_add_to_cart(){
-  register_rest_route('wp/v1', 'add_to_cart', array(
-    'methods' => 'POST',
-    'callback' => 'add_to_cart',
-  ));
-}
-function rest_api_remove_to_cart(){
-  register_rest_route('wp/v1', 'add_remove_cart', array(
-    'methods' => 'POST',
-    'callback' => 'add_remove_cart',
-  ));
-}
-function rest_api_category_search(){
-  register_rest_route('wp/v1', 'category_search', array(
-    'methods' => 'POST',
-    'callback' => 'category_search',
-  ));
-}
-function rest_api_search_product_price_range(){
-  register_rest_route('wp/v1', 'price_range_search', array(
-    'methods' => 'POST',
-    'callback' => 'price_range_search',
-  ));
-}
-function rest_api_search_product_by_country(){
-  register_rest_route('wp/v1', 'product_by_country', array(
-    'methods' => 'POST',
-    'callback' => 'product_by_country',
-  ));
-}
-function rest_api_search_product_by_size(){
-  register_rest_route('wp/v1', 'product_by_size', array(
-    'methods' => 'POST',
-    'callback' => 'product_by_size',
-  ));
-}
-add_action('rest_api_init', 'rest_api_search_product_by_title');
-function rest_api_search_product_by_title(){
-  register_rest_route('wp/v1', 'product_by_title', array(
-    'methods' => 'POST',
-    'callback' => 'product_by_title',
-  ));
-}
-function rest_api_product_search(){
-  register_rest_route('wp/v1', 'product_search', array(
-    'methods' => 'POST',
-    'callback' => 'product_search',
-  ));
-}
-function rest_api_get_aucation(){
-  register_rest_route('wp/v1', 'get_aucation', array(
-    'methods' => 'POST',
-    'callback' => 'get_aucation',
-  ));
-}
-function rest_api_terms_doc_upload(){
-  register_rest_route('wp/v1', 'terms_doc_upload', array(
-    'methods' => 'POST',
-    'callback' => 'terms_doc_upload',
-  ));
-}
-function rest_api_terms_text(){
-  register_rest_route('wp/v1', 'term_text', array(
-    'methods' => 'POST',
-    'callback' => 'term_text',
-  ));
-}
-
-// api => /wp-json/wp/v1/users/user_login
-function wp_rest_user_login_endpoints() {
-  register_rest_route('wp/v1', 'users/user_login', array(
-    'methods' => 'POST',
-    'callback' => 'wc_rest_user_login_endpoint_handler',
-  ));
-}
-
-// api => /wp-json/wp/v1/otp_send_again
-function wp_rest_otp_send_again(){
-  register_rest_route('wp/v1', 'otp_send_again', array(
-    'methods' => 'POST',
-    'callback' => 'api_otp_send_again',
-  ));
-}
-
-// wp-json/wp/v1/users/user_register
-function wp_rest_user_endpoints(){
-  register_rest_route('wp/v1', 'users/user_register', array(
-    'methods' => 'POST',
-    'callback' => 'wc_rest_user_endpoint_handler',
-  ));
-}
-
-// wp-json/wp/v1/home_screen
-function wp_rest_home_screen(){
-  register_rest_route('wp/v1', '/home_screen', array(
-    'methods' => 'GET',
-    'callback' => 'api_home_screen',
-  ));
-}
-
-// wp-json/wp/v1/otp_verify
-function wp_rest_otp_verification(){
-  register_rest_route('wp/v1', '/otp_verify', array(
-    'methods' => 'POST',
-    'callback' => 'api_otp_verify',
-  ));
-}
-// wp-json/wp/v1/user_id_verify
-function wp_rest_user_id_verify(){
-  register_rest_route('wp/v1', '/user_id_verify', array(
-    'methods' => 'POST',
-    'callback' => 'api_user_id_verify',
-  ));
-}
-
-// wp-json/wp/v1/create_user
-function wp_rest_create_user(){
-  register_rest_route('wp/v1', '/create_user', array(
-    'methods' => 'POST',
-    'callback' => 'api_create_user',
-  ));
-}
-// wp-json/wp/v1/users/user_profile
-function wp_rest_user_profile(){
-  register_rest_route('wp/v1', 'users/user_profile', array(
-    'methods' => 'POST',
-    'callback' => 'api_user_profile',
-  ));
-}
-function wp_rest_create_post(){
-  register_rest_route('wp/v1', 'create_post', array(
-    'methods' => 'POST',
-    'callback' => 'api_create_post',
-  ));
-}
-function wp_rest_add_favourite(){
-  register_rest_route('wp/v1', 'add_favourite', array(
-    'methods' => 'POST',
-    'callback' => 'api_add_favourite',
-  ));
-}
-function wp_rest_get_post(){
-  register_rest_route('wp/v1', 'get_post', array(
-    'methods' => 'POST',
-    'callback' => 'api_get_post',
-  ));
-}
-function wp_rest_create_product(){
-  register_rest_route('wp/v1', 'create_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_create_product',
-  ));
-}
-function wp_rest_get_product(){
-  register_rest_route('wp/v1', 'get_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_get_product',
-  ));
-}
-function wp_rest_get_product_detail(){
-  register_rest_route('wp/v1', 'get_product_detail', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_get_product_detail',
-  ));
-}
-
-function wp_rest_product_like(){
-  register_rest_route('wp/v1', 'product_like', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_product_like',
-  ));
-}
-function wp_rest_myfavourite_product(){
-  register_rest_route('wp/v1', 'myfavourite_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_myfavourite_product',
-  ));
-}
-function wp_rest_mycollection_product(){
-  register_rest_route('wp/v1', 'mycollection_product', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_mycollection_product',
-  ));
-}
-function wp_rest_following(){
-  register_rest_route('wp/v1', 'following', array(
-    'methods' => 'POST',
-    'callback' => 'REST_API_following',
-  ));
-}
-function wp_rest_get_following(){
-  register_rest_route('wp/v1', 'get_following', array(
-    'methods' => 'POST',
-    'callback' => 'api_get_following',
-  ));
-}
-
-add_action('rest_api_init', 'wp_rest_get_best_seller');
-function wp_rest_get_best_seller(){
-  register_rest_route('wp/v1', 'get_best_seller', array('methods' => 'POST','callback' => 'get_best_seller',));
-}
+function wp_rest_api_reset_get_cart(){register_rest_route('wp/v1', 'get_cart', array('methods' => 'POST','callback' => 'get_cart',));}
+function wp_rest_api_add_to_cart(){register_rest_route('wp/v1', 'add_to_cart', array('methods' => 'POST','callback' => 'add_to_cart',));}
+function wp_rest_api_remove_to_cart(){register_rest_route('wp/v1', 'add_remove_cart', array('methods' => 'POST','callback' => 'add_remove_cart',));}
+function wp_rest_api_category_search(){register_rest_route('wp/v1', 'category_search', array('methods' => 'POST','callback' => 'category_search',));}
+function wp_rest_api_search_product_price_range(){register_rest_route('wp/v1', 'price_range_search', array('methods' => 'POST','callback' => 'price_range_search',));}
+function wp_rest_api_search_product_by_country(){register_rest_route('wp/v1', 'product_by_country', array('methods' => 'POST','callback' => 'product_by_country',));}
+function wp_rest_api_search_product_by_size(){register_rest_route('wp/v1', 'product_by_size', array('methods' => 'POST','callback' => 'product_by_size',));}
+function wp_rest_api_search_product_by_title(){register_rest_route('wp/v1', 'product_by_title', array('methods' => 'POST','callback' => 'product_by_title',));}
+function wp_rest_api_product_search(){register_rest_route('wp/v1', 'product_search', array('methods' => 'POST','callback' => 'product_search',));}
+function wp_rest_api_get_aucation(){register_rest_route('wp/v1', 'get_aucation', array('methods' => 'POST','callback' => 'get_aucation',));}
+function wp_rest_api_terms_doc_upload(){register_rest_route('wp/v1', 'terms_doc_upload', array('methods' => 'POST','callback' => 'terms_doc_upload',));}
+function wp_rest_api_terms_text(){register_rest_route('wp/v1', 'term_text', array('methods' => 'POST','callback' => 'term_text',));}
+function wp_rest_api_get_product_artist_vice(){register_rest_route('wp/v1', 'get_product_artist_vice', array('methods' => 'POST','callback' => 'get_product_artist_vice',));}
+function wp_rest_api_get_is_follow(){register_rest_route('wp/v1', 'get_is_follow', array('methods' => 'POST','callback' => 'get_is_follow',));}
+function wp_rest_api_get_product_category(){register_rest_route('wp/v1', 'get_product_category', array('methods' => 'POST','callback' => 'api_get_product_category',));}
+function wp_rest_api_get_follower(){register_rest_route('wp/v1', 'get_follower', array('methods' => 'POST','callback' => 'api_get_follower',));}
+function wp_rest_api_user_login_endpoints() {register_rest_route('wp/v1', 'users/user_login', array('methods' => 'POST','callback' => 'wc_rest_user_login_endpoint_handler',));}
+function wp_rest_api_otp_send_again(){register_rest_route('wp/v1', 'otp_send_again', array('methods' => 'POST','callback' => 'api_otp_send_again',));}
+function wp_rest_api_user_endpoints(){register_rest_route('wp/v1', 'users/user_register', array('methods' => 'POST','callback' => 'wc_rest_user_endpoint_handler',));}
+function wp_rest_api_home_screen(){register_rest_route('wp/v1', '/home_screen', array('methods' => 'GET','callback' => 'api_home_screen',));}
+function wp_rest_api_otp_verification(){register_rest_route('wp/v1', '/otp_verify', array('methods' => 'POST','callback' => 'api_otp_verify',));}
+function wp_rest_api_user_id_verify(){register_rest_route('wp/v1', '/user_id_verify', array('methods' => 'POST','callback' => 'api_user_id_verify',));}
+function wp_rest_api_create_user(){register_rest_route('wp/v1', '/create_user', array('methods' => 'POST','callback' => 'api_create_user',));}
+function wp_rest_api_user_profile(){register_rest_route('wp/v1', 'users/user_profile', array('methods' => 'POST','callback' => 'api_user_profile',));}
+function wp_rest_api_create_post(){register_rest_route('wp/v1', 'create_post', array('methods' => 'POST','callback' => 'api_create_post',));}
+function wp_rest_api_add_favourite(){register_rest_route('wp/v1', 'add_favourite', array('methods' => 'POST','callback' => 'api_add_favourite',));}
+function wp_rest_api_get_post(){register_rest_route('wp/v1', 'get_post', array('methods' => 'POST','callback' => 'api_get_post',));}
+function wp_rest_api_create_product(){register_rest_route('wp/v1', 'create_product', array('methods' => 'POST','callback' => 'REST_API_create_product',));}
+function wp_rest_api_get_product(){register_rest_route('wp/v1', 'get_product', array('methods' => 'POST','callback' => 'REST_API_get_product',));}
+function wp_rest_api_get_product_detail(){register_rest_route('wp/v1', 'get_product_detail', array('methods' => 'POST','callback' => 'REST_API_get_product_detail',));}
+function wp_rest_api_product_like(){register_rest_route('wp/v1', 'product_like', array('methods' => 'POST','callback' => 'REST_API_product_like',));}
+function wp_rest_api_myfavourite_product(){register_rest_route('wp/v1', 'myfavourite_product', array('methods' => 'POST','callback' => 'REST_API_myfavourite_product',));}
+function wp_rest_api_mycollection_product(){register_rest_route('wp/v1', 'mycollection_product', array('methods' => 'POST','callback' => 'REST_API_mycollection_product',));}
+function wp_rest_api_following(){register_rest_route('wp/v1', 'following', array('methods' => 'POST','callback' => 'REST_API_following',));}
+function wp_rest_api_get_following(){register_rest_route('wp/v1', 'get_following', array('methods' => 'POST','callback' => 'api_get_following',));}
+function wp_rest_api_get_best_seller(){register_rest_route('wp/v1', 'get_best_seller', array('methods' => 'POST','callback' => 'get_best_seller',));}
 
 function get_all_roles() {
 	global $wp_roles;
@@ -266,6 +80,14 @@ function get_all_roles() {
 		$wp_roles = new WP_Roles();
 
 	return $wp_roles->get_names();
+}
+function get_is_follow($user_id,$vendor_id){
+
+	$user_id = sanitize_text_field($_POST['user_id']);
+	$vendor_id = sanitize_text_field($_POST['vendor_id']);
+	global $wpdb;
+	$results = $wpdb->get_results( "SELECT * FROM `wp_usermeta` WHERE `user_id` = '".$user_id."' AND `meta_key` LIKE '%".$vendor_id."_follow%' AND `meta_value` = '1'");
+	return $results;
 }
 function validate_mobile($mobile){
     return preg_match('/^[0-9]{10}+$/', $mobile);
@@ -1123,8 +945,6 @@ function api_create_user(){
 		$response['message'] = __("You are registered Successfully ", "wp-rest-user");
 		$response['user_id'] = $user_id;
 		$response['code'] = 200;
-		$response['file'] = $_FILES;
-		$response['post'] = $_POST;
 		return new WP_REST_Response($response, 200);
 	}
 	else
@@ -1146,56 +966,68 @@ function api_user_profile(){
 	{
 
 		$user = get_user_by( 'id',$user_id); 
-		$profile_url = get_user_meta($user_id, "_user_img_url",true);
-		if(empty($profile_url))
+		if($user)
 		{
-			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
+			
+			$profile_url = get_user_meta($user_id, "_user_img_url",true);
+			if(empty($profile_url))
+			{
+				$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
+			}
+			if(in_array('artist',$user->roles))
+			{
+				$data['user_verify'] = artist_doc_verify($user_id);		
+				$data['bee'] = get_bee_image($user_id);	
+				$data['total_sold'] = total_sold($user_id);
+				$data['satisfaction'] = '100%';
+			}
+			else if(in_array('collector',$user->roles))
+			{
+
+			} 
+			else if(in_array('amator',$user->roles))
+			{
+
+			}
+			$data = (array) $user->data;
+
+			unset($data["user_pass"]);
+			unset($data["display_name"]);
+			unset($data["user_nicename"]);
+			unset($data["user_email"]);
+			unset($data["user_url"]);
+			unset($data["user_registered"]);
+			unset($data["user_activation_key"]);
+			unset($data["user_status"]);
+
+			// $data['user_verify'] = artist_doc_verify($user_id);		
+			// $data['bee'] = get_bee_image($user_id);	
+			// $temp['total_sold'] = total_sold($user_id);
+			// $data['user_temp'] = ;
+			$data['role'] = $user->roles[0];
+			if($data['role'] == "artist")
+			{
+				$data['user_verify'] = artist_doc_verify($user_id);		
+				$data['bee'] = get_bee_image($user_id);	
+				$data['total_sold'] = total_sold($user_id);
+			}
+			$data['satisfaction'] = '100%';
+			$data['profile_url'] = $profile_url;
+			$data['following'] = get_following_count($user_id);
+			$data['follower'] = get_follower_count($user_id);
+
+			$response['success'] = __("true");
+			$response['data'] = $data;
+			$response['message'] = __("User .", "wp-rest-user");
+			$response['code'] = 200;
+			return new WP_REST_Response($response, 200);
 		}
-		if(in_array('artist',$user->roles))
-		{
-			$data['user_verify'] = artist_doc_verify($user_id);		
-			$data['bee'] = get_bee_image($user_id);	
-			$temp['total_sold'] = total_sold($user_id);
+		else{
+			$response['success'] = __("false");
+			$response['message'] = __("User Not Found", "wp-rest-user");
+			$response['code'] = 200;
+			return new WP_REST_Response($response, 200);
 		}
-		else if(in_array('collector',$user->roles))
-		{
-
-		} 
-		else if(in_array('amator',$user->roles))
-		{
-
-		}
-		$data = (array) $user->data;
-
-		unset($data["user_pass"]);
-		unset($data["display_name"]);
-        unset($data["user_nicename"]);
-        unset($data["user_email"]);
-        unset($data["user_url"]);
-        unset($data["user_registered"]);
-        unset($data["user_activation_key"]);
-		unset($data["user_status"]);
-
-	// $data['user_verify'] = artist_doc_verify($user_id);		
-	// $data['bee'] = get_bee_image($user_id);	
-	// $temp['total_sold'] = total_sold($user_id);
-
-		$data['role'] = $user->roles[0];
-		if($data['role'] == "artist")
-		{
-			$data['user_verify'] = artist_doc_verify($user_id);		
-			$data['bee'] = get_bee_image($user_id);	
-			$data['total_sold'] = total_sold($user_id);
-		}
-		$data['profile_url'] = $profile_url;
-		$data['following'] = get_following_count($user_id);
-		$data['follower'] = get_follower_count($user_id);
-
-		$response['success'] = __("true");
-		$response['data'] = $data;
-		$response['message'] = __("User .", "wp-rest-user");
-		$response['code'] = 200;
-		return new WP_REST_Response($response, 200);
 	}
 	else
 	{
@@ -1204,7 +1036,6 @@ function api_user_profile(){
 		$response['code'] = 200;
 		return new WP_REST_Response($response, 200);
 	}
-
 }
 function api_create_post(){
 	$user_id = sanitize_text_field($_POST['user_id']);
@@ -1328,8 +1159,7 @@ function api_get_post(){
 	return new WP_REST_Response($response, 200);
 
 }
-function create_global_attribute($name, $slug)
-{
+function create_global_attribute($name, $slug){
 
     $taxonomy_name = wc_attribute_taxonomy_name( $slug );
 
@@ -1368,8 +1198,7 @@ function create_global_attribute($name, $slug)
 
     return $attribute_id;
 }
-function generate_attributes_list_for_product($rawDataAttributes)
-{
+function generate_attributes_list_for_product($rawDataAttributes){
     $attributes = array();
 
     $pos = 0;
@@ -1428,8 +1257,7 @@ function generate_attributes_list_for_product($rawDataAttributes)
 
     return $attributes;
 }
-function get_attribute_term($value, $taxonomy)
-{
+function get_attribute_term($value, $taxonomy){
     //Look if there is already a term for this attribute?
     $term = get_term_by('name', $value, $taxonomy);
 
@@ -1540,11 +1368,12 @@ function create_product_variation( $product_id, $variation_data ){
 
     $variation->save(); // Save the data
 }
-function REST_API_create_product()
-{
+function REST_API_create_product(){
 
+	// print_r($_POST);
+	// exit;
 
-	$frame_size = $_POST['frame_size'];
+	$frame_size = json_decode($_POST['frame_size']);
 	$height = array();
 	$width = array();
 	$dimension = array();
@@ -1653,7 +1482,7 @@ function REST_API_create_product()
 		$download_limit = '';
 		$manage_stock = 'true';
 		$sku = '';
-		$stock_qty = '-1';
+		$stock_qty = '10000';
 		$stock_status = 'instock';
 		$sold_individually = 'false';
 		$backorders = 'no';
@@ -1678,24 +1507,16 @@ function REST_API_create_product()
 		$attr_height = '';
 		$attr_dimension = '';
 		$attr_measurement_type = '';
+		$view_scale = '';
+		$price_type = '';
+		$image_credits = '';
+		$signature = '';
+		$edition = '';
+		$medium = '';
+		$date = '';
 	}
 	{
-		if(isset($_POST['attr_width']) && !empty($_POST['attr_width']))
-		{
-			$attr_width = $_POST['attr_width'];
-		}
-		if(isset($_POST['attr_height']) && !empty($_POST['attr_height']))
-		{
-			$attr_height = $_POST['attr_height'];
-		}
-		if(isset($_POST['attr_dimension']) && !empty($_POST['attr_dimension']))
-		{
-			$attr_dimension = $_POST['attr_dimension'];
-		}
-		if(isset($_POST['attr_measurement_type']) && !empty($_POST['attr_measurement_type']))
-		{
-			$attr_measurement_type = $_POST['attr_measurement_type'];
-		}
+	
 		if(isset($_POST['name']) && !empty($_POST['name']))
 		{
 			$name = $_POST['name'];
@@ -1840,6 +1661,35 @@ function REST_API_create_product()
 		if(isset($_POST['country']) && !empty($_POST['country'])){ 
 			$country = $_POST['country']; 
 		}
+
+		if(isset($_POST['view_scale']) && !empty($_POST['view_scale']))
+		{
+			$view_scale = $_POST['view_scale'];
+		}
+		if(isset($_POST['price_type']) && !empty($_POST['price_type']))
+		{
+			$price_type = $_POST['price_type'];
+		}
+		if(isset($_POST['image_credits']) && !empty($_POST['image_credits']))
+		{
+			$image_credits = $_POST['image_credits'];
+		}
+		if(isset($_POST['signature']) && !empty($_POST['signature']))
+		{
+			$signature = $_POST['signature'];
+		}
+		if(isset($_POST['edition']) && !empty($_POST['edition']))
+		{
+			$edition = $_POST['edition'];
+		}
+		if(isset($_POST['medium']) && !empty($_POST['medium']))
+		{
+			$medium = $_POST['medium'];
+		}
+		if(isset($_POST['date']) && !empty($_POST['date']))
+		{
+			$date = $_POST['date'];
+		}
 	}
 
 	$product_id = create_product(
@@ -1891,8 +1741,36 @@ function REST_API_create_product()
 	{
 		update_post_meta($product_id,'country', strtolower($country));
 	}
+	if(!empty($view_scale))
+	{
+		update_post_meta($product_id,'view_scale', strtolower($view_scale));
+	}
+	if(!empty($price_type))
+	{
+		update_post_meta($product_id,'price_type', strtolower($price_type));
+	}
+	if(!empty($image_credits))
+	{
+		update_post_meta($product_id,'image_credits', strtolower($image_credits));
+	}
+	if(!empty($signature))
+	{
+		update_post_meta($product_id,'signature', strtolower($signature));
+	}
+	if(!empty($edition))
+	{
+		update_post_meta($product_id,'edition', strtolower($edition));
+	}
+	if(!empty($medium))
+	{
+		update_post_meta($product_id,'medium', strtolower($medium));
+	}
+	if(!empty($date))
+	{
+		update_post_meta($product_id,'date', strtolower($date));
+	}
 
-/*---------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------------------------------------------------------*/
 
 	$frame_size = $_POST['frame_size'];
 	$height = array();
@@ -1915,6 +1793,7 @@ function REST_API_create_product()
 		'dimension'=>$dimension,
 		'measurement_type'=>$dimension_type,
 	);
+	// height,width,dimention,measurement
 
 	$attribs = generate_attributes_list_for_product($yourRawAttributeList);
 
@@ -1960,7 +1839,7 @@ function REST_API_create_product()
 			'sku'           => '',
 			'regular_price' => $regular_price,
 			'sale_price'    => '',
-			'stock_qty'     => -1,
+			'stock_qty'     => 100000,
 		);
 		create_product_variation( $parent_id, $variation_data2 );
 	}
@@ -1977,6 +1856,11 @@ function REST_API_get_product(){
 		'orderby'     => 'date',
         'order'       => 'DESC'
 	);
+	$user_id = 0;
+	if(isset($_POST['user_id']) && !empty($_POST['user_id']))
+	{
+		$user_id = $_POST['user_id'];
+	}
 	$loop = new WP_Query( $args );
 	$data = array();
 	while ( $loop->have_posts() ) : $loop->the_post();
@@ -2010,23 +1894,6 @@ function REST_API_get_product(){
 			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
 		}
 
-
-        // $args = array(
-		// 	'post_type'     => 'product_variation',
-		// 	'post_status'   => array( 'private', 'publish' ),
-		// 	'numberposts'   => -1,
-		// 	'orderby'       => 'menu_order',
-		// 	'order'         => 'asc',
-		// 	'post_parent'   => get_the_ID()
-		// );
-		// $variations = get_posts( $args ); 
-
-		// foreach ( $variations as $variation ) 
-		// {
-		// 	$temp['variation']['variation'] = $variation->ID;
-		// 	$temp['variation']['data'] = get_post_meta($variation->ID);
-		// }
-
 		$temp['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
 		$temp['category_id'] = (string) $_temp['category_ids'][0];
 		$temp['product_id'] = (string) $_temp['id'];
@@ -2040,8 +1907,19 @@ function REST_API_get_product(){
 		$temp['user_profile_url'] = (string) $profile_url;
 		$temp['like_count'] = (string) $like_count;
 		$temp['bee'] = get_bee_image($vendor_id);
+		if(isset($user_id) && !empty($user_id))
+		{
+			$temp['current_user_follow'] = get_user_meta($user_id,$vendor_id."_follow",true);
+		}
 		$temp['measurement'] = get_post_meta(get_the_ID(),'measurment',true);
 		$temp['total_sold'] = total_sold($vendor_id);
+		$temp['view_scale'] = get_post_meta(get_the_ID(),'view_scale', true);
+		$temp['price_type'] = get_post_meta(get_the_ID(),'price_type', true);
+		$temp['image_credits'] = get_post_meta(get_the_ID(),'image_credits', true);
+		$temp['signature'] = get_post_meta(get_the_ID(),'signature', true);
+		$temp['edition'] = get_post_meta(get_the_ID(),'edition', true);
+		$temp['medium'] = get_post_meta(get_the_ID(),'medium', true);
+		$temp['date'] = get_post_meta(get_the_ID(),'date', true);
 
 		if(empty($image_url) || $image_url == null || $image_url[0] == null || $image_url[0] == '')
 		{
@@ -2082,6 +1960,12 @@ function REST_API_get_product_detail(){
 		return new WP_REST_Response($response, 200);
 	}
 
+	$user_id = 0;
+
+	if(isset($_POST['user_id']) && !empty($_POST['user_id']))
+	{
+		$user_id = $_POST['user_id'];
+	}
 
 	$args = array(
 		'post_type'   => 'product',
@@ -2123,7 +2007,14 @@ function REST_API_get_product_detail(){
 		{
 			$profile_url = "https://www.gravatar.com/avatar/3563a715b55823547d38b3bc50fdadcf?s=96&r=g&d=mm";
 		}
+		$variation_list = $product->get_available_variations();
+		$variation_detail = array();
+		foreach ($variation_list as $key => $variation) {
+				array_push($variation_detail,$variation['attributes']);
+		}
+
 		$data['category'] = (string) cst_get_cat_name($_temp['category_ids'][0]);
+		$data['variation'] = $variation_detail;
 		$data['category_id'] = (string) $_temp['category_ids'][0];
 		$data['product_id'] = (string) $_temp['id'];
 		$data['title'] = (string) $_temp['name'];
@@ -2138,13 +2029,32 @@ function REST_API_get_product_detail(){
 		$data['bee'] = get_bee_image($vendor_id);
 		$data['measurement'] = get_post_meta(get_the_ID(),'measurment',true);
 		$temp['total_sold'] = total_sold($vendor_id);
+		$temp['measurement'] = get_post_meta(get_the_ID(),'measurment',true);
+		$temp['total_sold'] = total_sold($vendor_id);
+		$temp['view_scale'] = get_post_meta(get_the_ID(),'view_scale', true);
+		$temp['price_type'] = get_post_meta(get_the_ID(),'price_type', true);
+		$temp['image_credits'] = get_post_meta(get_the_ID(),'image_credits', true);
+		$temp['signature'] = get_post_meta(get_the_ID(),'signature', true);
+		$temp['edition'] = get_post_meta(get_the_ID(),'edition', true);
+		$temp['medium'] = get_post_meta(get_the_ID(),'medium', true);
+		$temp['date'] = get_post_meta(get_the_ID(),'date', true);
+		if(!empty($user_id) && $user_id != 0)
+		{
+			if(get_user_meta($user_id,$product_id.'_like',true))
+			{
+				$temp['current_user_like'] = true;
+			}
+			else
+			{
+				$temp['current_user_like'] = false;
+			}
+
+		}
 		if(empty($image_url) || $image_url == null || $image_url[0] == null || $image_url[0] == '')
 		{
 			$image_url[0] = home_url()."wp-content/uploads/woocommerce-placeholder.png";
 		}
 		$data['image_url'] = $image_url;
-		// array_push($data,$temp);
-
 	endwhile;
 	wp_reset_query();
 
@@ -2484,6 +2394,22 @@ function get_product_category(){
 
 	return $cat;
 }
+function api_get_product_category(){
+	$cat = array();
+	$categories = get_terms( ['taxonomy'=>'product_cat', 'hide_empty' => false] );
+	foreach($categories as $category)
+	{
+		$temp['id'] = $category->term_id;
+		$temp['name'] = $category->name;
+		array_push($cat,$temp);
+	}
+
+	$response['success'] = __("true");
+	$response['data'] = $cat;
+	$response['message'] = __("Get Product Category	 Successfully", "wp-rest-user");
+	$response['code'] = 200;
+	return new WP_REST_Response($response, 200);
+}
 function get_product_artist_vice(){
 
 	$users = get_users( array( 'fields' => array( 'ID' ) ) );
@@ -2689,7 +2615,7 @@ function get_cart(){
 			{
 				$product_name = get_the_title($cart_item['product_id']);
 				$total = getmytotal($cart_item['quantity'],$cart_item['line_total']);
-				$newarray = array('product_id'=>$cart_item['product_id'],'product_name'=>$product_name,'quantity'=>$cart_item['quantity'],'price'=>number_format((float)$cart_item['line_total'], 2, '.', ''));
+				$newarray = array('variation_id'=>$cart_item['variation_id'],'product_id'=>$cart_item['product_id'],'product_name'=>$product_name,'quantity'=>$cart_item['quantity'],'price'=>number_format((float)$cart_item['line_total'], 2, '.', ''));
 				$finaltoal = $finaltoal + $total;
 				array_push($itmeaarray,$newarray);
 			}
@@ -2737,6 +2663,15 @@ function add_to_cart(){
 		$response['code'] = 400;
 		return new WP_REST_Response($response, 200);
 	}
+	$variation_id = sanitize_text_field($_POST['variation_id']);
+	if(empty($variation_id))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("variation ID is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+	
 
 	if(post_exists(get_the_title($product_id)) <= 0)
 	{
@@ -2745,6 +2680,7 @@ function add_to_cart(){
 		$response['code'] = 400;
 		return new WP_REST_Response($response, 200);
 	}
+	
 
 	$quantity = sanitize_text_field($_POST['quantity']);
 	$quantity = 1;
@@ -2795,7 +2731,7 @@ function add_to_cart(){
 	$cart_data['cart'][$kiey]=array(
 		'key' => $kiey,
 		'product_id' => $product_id,
-		'variation_id' => 0,
+		'variation_id' => $variation_id,
 		'variation' => array(),
 		'quantity' => $new_quantity,
 		'line_tax_data' => array(
@@ -2861,6 +2797,18 @@ function add_remove_cart(){
 		$response['code'] = 400;
 		return new WP_REST_Response($response, 200);
 	}
+	$variation_id = sanitize_text_field($_POST['variation_id']);
+	if(empty($variation_id))
+	{
+		$response['success'] = __("false");
+		$response['message'] = __("variation ID  is Required", "wp-rest-user");
+		$response['code'] = 400;
+		return new WP_REST_Response($response, 200);
+	}
+	
+
+
+
 	$quantity = sanitize_text_field($_POST['quantity']);
 	$quantity = 1;
 	
@@ -2909,7 +2857,7 @@ function add_remove_cart(){
 		$cart_data['cart'][$kiey]=array(
 			'key' => $kiey,
 			'product_id' => $product_id,
-			'variation_id' => 0,
+			'variation_id' => $variation_id,
 			'variation' => array(),
 			'quantity' => $new_quantity,
 			'line_tax_data' => array(
@@ -3650,17 +3598,9 @@ function total_sold($user_id){
    }
    else
    {
-		$response['success'] = true;
-		$response['message'] = 'Product not Added';
-		$response['data'] =0;
-		$response['code'] = 200;
-		return new WP_REST_Response($response, 200);
+		return 0;
    }
-   $response['success'] = true;
-   $response['message'] = 'Total Sold Product';
-   $response['data'] =$total_sold;
-   $response['code'] = 200;
-   return new WP_REST_Response($response, 200);	
+	return $total_sold;
 }
 function get_aucation(){
 	ini_set('display_errors', 1);
