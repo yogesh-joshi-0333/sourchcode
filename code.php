@@ -2,6 +2,28 @@
 
 //     CODE SAMPLE
 
+/* START ACF Option Page  */
+
+if( function_exists('acf_add_options_page') ) {
+
+	acf_add_options_page(array(
+		'page_title' 	=> 'Mansi Caterer General Settings',
+		'menu_title'	=> 'Mansi Caterer Settings',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+	acf_add_options_page(array(
+		'page_title' 	=> 'Shipping Charge',
+		'menu_title'	=> 'Shipping Charge',
+		'menu_slug' 	=> 'shipping-charge',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+}
+
+/* END ACF Option Page  */
+
 
 function get_editable_roles() {
 	global $wp_roles;
