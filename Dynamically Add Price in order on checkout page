@@ -1,0 +1,95 @@
+add_action( 'woocommerce_before_order_notes', 'checkout_shipping_tip_addition', 20 );
+function checkout_shipping_tip_addition( ) {
+    $domain = 'woocommerce';
+
+    echo '<tr class="tip-select"><th>' . __('Tip Driver', $domain) . '</th><td>';
+
+    $chosen   = WC()->session->get('chosen_tip');
+
+    // Add a custom checkbox field
+    woocommerce_form_field( 'chosen_tip', array(
+        'type'      => 'select',
+        'class'     => array( 'form-row-wide tip' ),
+        'label'         => __('Do you want to leave a tip for your driver? We have set a default of 10% but you can change that.'),  
+        'options'   => array(
+            ''    => __("None", $domain),
+            '' => sprintf( __("None", $domain), strip_tags( wc_price(other) ) ),
+            '5' => sprintf( __("5%%", $domain), strip_tags( wc_price(5) ) ),
+            '10' => sprintf( __("10%%", $domain), strip_tags( wc_price(10) ) ),
+            '15' => sprintf( __("15%%", $domain), strip_tags( wc_price(15) ) ),
+            '20' => sprintf( __("20%%", $domain), strip_tags( wc_price(20) ) ),
+            '25' => sprintf( __("25%%", $domain), strip_tags( wc_price(25) ) ),
+        ),
+        'required'  => true,
+    ), $chosen );
+
+    echo '</td></tr>';
+}
+
+// jQuery - Ajax script
+add_action( 'wp_footer', 'checkout_shipping_tip_script' );
+function checkout_shipping_tip_script() {
+    // Only checkout page
+    if ( is_checkout() && ! is_wc_endpoint_url() ) :
+
+    WC()->session->__unset('chosen_tip');
+    ?>
+    <script type="text/javascript">
+    jQuery( function($){
+        $('form.checkout').on('change', 'select#chosen_tip', function(){
+            var p = $(this).val();
+            console.log(p);
+            $.ajax({
+                type: 'POST',
+                url: wc_checkout_params.ajax_url,
+                data: {
+                    'action': 'woo_get_ajax_data',
+                    'chosen_tip': p,
+                },
+                success: function (result) {
+                    $('body').trigger('update_checkout');
+                    console.log('response: '+result); // just for testing | TO BE REMOVED
+                },
+                error: function(error){
+                    console.log(error); // just for testing | TO BE REMOVED
+                }
+            });
+        });
+    });
+    </script>
+    <?php
+    endif;
+}
+
+// Php Ajax (Receiving request and saving to WC session)
+add_action( 'wp_ajax_woo_get_ajax_data', 'woo_get_ajax_data' );
+add_action( 'wp_ajax_nopriv_woo_get_ajax_data', 'woo_get_ajax_data' );
+function woo_get_ajax_data() {
+    if ( isset($_POST['chosen_tip']) ){
+        $chosen_tip = sanitize_key( $_POST['chosen_tip'] );
+        WC()->session->set('chosen_tip', $chosen_tip );
+        echo json_encode( $chosen_tip );
+    }
+    die(); // Alway at the end (to avoid server error 500)
+}
+
+// Add a custom dynamic packaging fee
+add_action( 'woocommerce_cart_calculate_fees', 'add_tip_fee', 20, 1 );
+function add_tip_fee( $cart ) {
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) )
+        return;
+
+    $domain      = "woocommerce";
+    $tip_fee = WC()->session->get( 'chosen_tip' ); // Dynamic tip fee
+    $tip_percent = 10;
+
+    if(!empty($tip_fee))
+    {
+        $label = __("Selected tip amount", $domain);
+        $cost  = ($cart->get_subtotal() * intval($tip_fee) / 100);
+    }
+
+
+    if ( isset($cost) )
+        $cart->add_fee( $label, $cost );
+}
