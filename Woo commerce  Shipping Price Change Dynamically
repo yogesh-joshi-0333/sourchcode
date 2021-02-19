@@ -1,0 +1,71 @@
+add_filter( 'woocommerce_package_rates','conditional_custom_shipping_cost', 90, 2 );
+function conditional_custom_shipping_cost( $rates, $package ) {
+	$product1 = 0;
+	global $woocommerce;
+
+
+	/* if($product1 != 0 && WC()->session->get( 'pickup' )['p'.$product1] == 'Pickup'){
+	    foreach ( $rates as $rate_key => $rate_values ) {
+	        if ( 'free_shipping' !== $rate_values->method_id ) {
+	            $rates[$rate_key]->cost = 0;
+	            $taxes = array();
+	            foreach ($rates[$rate_key]->taxes as $key => $tax)
+	                if( $rates[$rate_key]->taxes[$key] > 0 ) // set the new tax cost
+	                    $taxes[$key] = 0;
+	            $rates[$rate_key]->taxes = $taxes;
+        }
+    
+            $postcode = $woocommerce->customer->changes['shipping']['postcode'];
+            $rates[$rate_key]->cost = 0;
+
+            foreach($shipping_price_array as $key => $value)    
+            {
+                if(intval($key) == intval($postcode))
+                {
+                    $rates[$rate_key]->cost = intval($value);
+                }
+            }
+	    }
+	} */
+	
+    foreach ( $rates as $rate_key => $rate_values ){
+        $postcode = $woocommerce->customer->changes['shipping']['postcode'];
+        $rates[$rate_key]->cost = 0;
+        if(in_array($postcode,$free_shipping_zip_code_array))
+        {
+            $rates[$rate_key]->cost = 0;
+        }else
+        {
+            foreach($shipping_price_array as $key => $value)    
+            {
+                if($key == $postcode)
+                {
+                    $rates[$rate_key]->cost = $value;
+                }
+            }
+        }
+    }
+        $postcode = $woocommerce->customer->changes['shipping']['postcode'];
+        $free_shipping_zip_code = get_field('free_shipping_zip_code','option');
+        $shipping_price = get_field( 'shipping_price','option');
+        $free_shipping_zip_code_array = array();
+        $shipping_price_array = array();
+        
+        foreach($free_shipping_zip_code as $value)
+        {
+            array_push($free_shipping_zip_code_array,$value['zipcode']);
+        }
+        foreach($shipping_price as $value)
+        {
+            $shipping_price_array[$value['zip_code']] = $value['shipping_price'];
+        }
+        foreach($shipping_price_array as $key => $value)    
+        {      
+            if(intval($key) == intval($postcode))
+            {
+                $rates[$rate_key]->cost = intval($value);
+                break;
+            }
+        }
+    return $rates;
+}
