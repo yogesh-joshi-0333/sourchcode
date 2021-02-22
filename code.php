@@ -96,6 +96,18 @@ $(document).ready(function() {
                 console.log(lat + ", " + long);
             });
         }
+	
+/* Add Css in function.php,  add tag in head  */	
+function hook_css() {
+?>
+<style>
+    .wp_head_example {
+	background-color : #f1f1f1;
+    }
+</style>
+<?php
+}
+add_action('wp_head', 'hook_css');
 
 /* Ajax form submission with image */
 
