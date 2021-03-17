@@ -2,6 +2,34 @@
 
 //     CODE SAMPLE
 
+
+/* Hide  Error */
+
+// define('WP_DEBUG', false);
+// define('WP_DEBUG_LOG', false);
+// define('WP_DEBUG_DISPLAY', false);
+// define('SCRIPT_DEBUG', false);
+
+
+/* display Error */
+
+// define('WP_DEBUG', true);
+// define('WP_DEBUG_LOG', true);
+// define('WP_DEBUG_DISPLAY', true);
+// define('SCRIPT_DEBUG', true);
+// define('SAVEQUERIES', true );
+
+/* send mail using PHP mail function */
+function send_mail($to,$from,$subject,$message)
+{
+    $headers = 'From: '.$from. "\r\n" .
+    'Reply-To: ' .$from. "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+    return mail($to, $subject, $message, $headers);
+}
+
+
+
 /* START ACF Option Page  */
 
 if( function_exists('acf_add_options_page') ) {
