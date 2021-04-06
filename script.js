@@ -1,3 +1,12 @@
+/*on scroll color chnage */
+
+var scroll_pos = 0;
+$(document).scroll(function() {
+scroll_pos = $(this).scrollTop();
+var color_val = scroll_pos / 900;
+$("header.site-header.border-bottom.logo--left").css('background-color', 'rgba(0, 0, 0,'+color_val+')');
+});
+
 /* START sort element using javascript */
 
 var alphabeticallyOrderedDivs = $('div#search_result article').sort(function(a, b) {
