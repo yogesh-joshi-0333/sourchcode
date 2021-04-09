@@ -1,3 +1,35 @@
+/* trigger manually any input */
+  jQuery(document).on('click','ul.cst-variation li.variation-box',function(){
+    jQuery('ul.cst-variation li.variation-box').removeClass('active');
+    jQuery(this).addClass('active');
+    var variant_id = jQuery(this).attr('data-variant-id');
+	chnage_option(variant_id);
+  });
+
+
+function triggerChangeEvent(option) {
+  // set selected property
+  option.selected = true;
+  
+  // raise event on parent <select> element
+  if ("createEvent" in document) {
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent("change", false, true);
+    option.parentNode.dispatchEvent(evt);
+  }
+  else {
+    option.parentNode.fireEvent("onchange");
+  }
+}
+
+function chnage_option(id) {
+  const sel = 'option[value="'+id+'"]'
+  const optionEl = document.querySelector(sel);
+  triggerChangeEvent(optionEl);
+}
+
+/* end trigger manually*/
+
 /*on scroll color chnage */
 
 var scroll_pos = 0;
