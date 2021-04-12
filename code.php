@@ -1613,6 +1613,33 @@ function array_keys_multi(array $array)
 files.000webhost.com
 elfish-rotor
 hunani@123
+	
+	
+	
+in PHP
+Yes, you can!
+
+$str = 'One';
+$class = 'Class'.$str;
+$object = new $class();
+When using namespaces, supply the fully qualified name:
+
+$class = '\Foo\Bar\MyClass'; 
+$instance = new $class();
+Other cool stuff you can do in php are:
+Variable variables:
+
+$personCount = 123;
+$varname = 'personCount';
+echo $$varname; // echo's 123
+And variable functions & methods.
+
+$func = 'my_function';
+$func('param1'); // calls my_function('param1');
+
+$method = 'doStuff';
+$object = new MyClass();
+$object->$method(); // calls the MyClass->doStuff() method.
 
 
 
