@@ -1,3 +1,84 @@
+function setTime(){
+//this function ensures that the user enter the correct format
+var time = "19:00";
+var fields = time.split(':');
+var min = fields[0];
+var sec = fields[1];
+
+if(time === ''){
+jQuery(".status").html("Please enter time. eg 1:50");
+}else{
+if(min < 61 && sec < 61){
+jQuery(".status").html("Counting");
+console.log("condition true");
+count(min, sec, sec);
+}else{
+jQuery(".status").html("Invalid time. eg 1:50");
+}
+}
+}
+
+function count(min, sec, secLeft){
+//this function is the count control is will check if the count down is finish
+if(min > 0 || secLeft > 0){
+if(secLeft == 0){
+min -= 1;
+sec = 60;
+}
+
+jQuery("#timeLabel #min").html(min);
+countDown(min, sec);
+}else{
+jQuery(".status").html("Let's try that again (:");
+localStorage.removeItem("time");
+alert("finish");
+jQuery("#timeBtn").disabled = false;
+jQuery("#time").disabled = false;
+}
+}
+
+function countDown(min, sec){
+//this function runs the seconds count
+var time = sec;
+jQuery("#sec").html(time);
+var interval = setInterval(function(){
+jQuery("#sec").html( -- time);
+rememberMe(min, time);
+if (time == 0) {
+clearInterval(interval);
+count(min, sec, "00");
+}
+}, 1000);
+}
+
+function rememberMe(min, sec){
+//this function stores the time as a local storage incase the page refresh
+if (typeof(Storage) !== "undefined") {
+localStorage.setItem("time", min+':'+sec);
+}else{
+jQuery(".status").html("Ooh my, your browser doesn't support web storage");
+}
+}
+
+function isTimeSet(){
+//this function checks if there is a time set
+if(localStorage.getItem("time") != null){
+var time = localStorage.getItem("time");
+var fields = time.split(':');
+min = fields[0];
+sec = fields[1];
+jQuery(".status").html("Counting....");
+jQuery("#timeBtn").disabled = true;
+jQuery("#time").disabled = true;
+count(min, sec, sec);
+}
+}
+jQuery(document).ready(function(){
+jQuery('<h1 id="timeLabel"><span id="min">00</span>:<span id="sec">00</span></h1>').insertBefore(jQuery('div#sidebar-cart form.Cart.Drawer__Content .Drawer__Footer')).last();
+setTime();
+isTimeSet();
+});
+
 /* trigger manually any input */
   jQuery(document).on('click','ul.cst-variation li.variation-box',function(){
     jQuery('ul.cst-variation li.variation-box').removeClass('active');
