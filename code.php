@@ -1,5 +1,7 @@
 <?php
 
+// https://dzone.com/articles/10-super-useful-php-snippets
+// https://www.wpbeginner.com/wp-tutorials/25-extremely-useful-tricks-for-the-wordpress-functions-file/
 //     CODE SAMPLE
 
 /* create default admin user in wordpress */
@@ -1646,10 +1648,62 @@ $object->$method(); // calls the MyClass->doStuff() method.
 
 
 
+function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2) {
+    $theta = $longitude1 - $longitude2;
+    $miles = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
+    $miles = acos($miles);
+    $miles = rad2deg($miles);
+    $miles = $miles * 60 * 1.1515;
+    $feet = $miles * 5280;
+    $yards = $feet / 3;
+    $kilometers = $miles * 1.609344;
+    $meters = $kilometers * 1000;
+    return compact('miles','feet','yards','kilometers','meters'); 
+}
 
+$point1 = array('lat' => 40.770623, 'long' => -73.964367);
+$point2 = array('lat' => 40.758224, 'long' => -73.917404);
+$distance = getDistanceBetweenPointsNew($point1['lat'], $point1['long'], $point2['lat'], $point2['long']);
+foreach ($distance as $unit => $value) {
+    echo $unit.': '.number_format($value,4).'<br />';
+}
 
+	/* Automatically creates variables with the same name as the key in the POST array */
+	
+	$expected=array('username','age','city','street');
+foreach($expected as $key){
+    if(!empty($_POST[$key])){
+        ${key}=$_POST[$key];
+    }
+    else{
+        ${key}=NULL;
+    }
+}
 
+/* Detect browser language */
+function get_client_language($availableLanguages, $default='en'){
+	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+		$langs=explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
+		foreach ($langs as $value){
+			$choice=substr($value,0,2);
+			if(in_array($choice, $availableLanguages)){
+				return $choice;
+			}
+		}
+	} 
+	return $default;
+}
 
-
+/* Add (th, st, nd, rd, th) to the end of a number */
+function ordinal($cdnl){ 
+    $test_c = abs($cdnl) % 10; 
+    $ext = ((abs($cdnl) %100 < 21 && abs($cdnl) %100 > 4) ? 'th' 
+            : (($test_c < 4) ? ($test_c < 3) ? ($test_c < 2) ? ($test_c < 1) 
+            ? 'th' : 'st' : 'nd' : 'rd' : 'th')); 
+    return $cdnl.$ext; 
+}  
+for($i=1;$i<100;$i++){ 
+    echo ordinal($i).'<br>'; 
+}
 
