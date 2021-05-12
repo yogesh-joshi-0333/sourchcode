@@ -1707,4 +1707,18 @@ function ordinal($cdnl){
 for($i=1;$i<100;$i++){ 
     echo ordinal($i).'<br>'; 
 }
+	
+/* assodiative array shuffle --  get random assodiative array*/
+	
+	function shuffle_assoc($list) { 
+	if (!is_array($list)) return $list; 
+  
+	$keys = array_keys($list); 
+	shuffle($keys); 
+	$random = array(); 
+	foreach ($keys as $key) { 
+	  $random[$key] = $list[$key]; 
+	}
+	return $random; 
+} 
 
