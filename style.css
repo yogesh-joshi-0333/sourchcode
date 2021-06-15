@@ -1,0 +1,7 @@
+
+/* SHOW IN MOBILE VIEW */
+@media(max-width: 767px){}
+
+
+/* SHOW IN DESKTOP VIEW */ 
+@media(min-width: 768px){}
