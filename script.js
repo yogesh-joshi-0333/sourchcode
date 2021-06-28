@@ -1,3 +1,23 @@
+/* start break for loop forchfully */
+
+
+    if (category.length !== 0) 
+    {
+        if (typeof currentElement.cat !== "undefined" && currentElement.cat.length > 0) 
+        {
+          /* loop lable */ outerloop: for (var i = 0; i < currentElement.cat.length; i++) 
+          {
+            if(category.indexOf(currentElement.cat[i]) !== -1) 
+            {
+              flag = true;
+              // return true ;
+              break outerloop; /* loop lable */
+            }
+          }
+        }
+    } 
+/* end code */
+
 function setTime(){
 //this function ensures that the user enter the correct format
 var time = "19:00";
