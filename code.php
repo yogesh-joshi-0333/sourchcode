@@ -1728,4 +1728,14 @@ for($i=1;$i<100;$i++){
 	}
 	return $random; 
 } 
+	
+function before_after_zero($val,$before_zero,$after_zero)
+{
+    $a =  sprintf("%0.".$after_zero."f",$val);
+    $data = explode('.',(String)$a);
+    $b =  sprintf("%'.0".$before_zero."d", intval($data[0]));
+    return $b.'.'.$data[1];
+}
+
+echo before_after_zero(25.25,4,4)
 
