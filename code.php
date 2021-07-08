@@ -1739,3 +1739,12 @@ function before_after_zero($val,$before_zero,$after_zero)
 
 echo before_after_zero(25.25,4,4)
 
+	$image = '';
+	if(has_post_thumbnail(get_the_ID()) ){
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'single-post-thumbnail' );
+	    $image  = $image[0];
+	}
+	else
+	{
+	    $image = home_url()."/wp-content/uploads/dummy.jpg";
+	}
