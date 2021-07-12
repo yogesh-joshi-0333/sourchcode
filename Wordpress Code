@@ -1,0 +1,10 @@
+/* Post order by meta value  */
+$args = array(
+   'post_type' => array('sharing','seminar'),
+   'posts_per_page' => 10,
+   'meta_key' => 'seminar_date',
+   'orderby' => 'meta_value_num',
+   'meta_type' => 'DATE',
+   'order' => 'DESC'
+);
+$mix = new WP_Query($args);
