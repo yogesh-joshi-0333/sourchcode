@@ -659,3 +659,11 @@ console.log('%c', warning);
       return op;
     }
 /* End Code */
+
+/* replace Broken image to default image in hole Site  */
+document.addEventListener("DOMContentLoaded", function(event) {
+   document.querySelectorAll('img').forEach(function(img){
+  	img.onerror = function(){this.setAttribute("src", "<?=home_url()?>/wp-content/uploads/2021/05/Rectangle-210.jpg");};
+   });
+});
+/* */
