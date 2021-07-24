@@ -1748,3 +1748,67 @@ echo before_after_zero(25.25,4,4)
 	{
 	    $image = home_url()."/wp-content/uploads/dummy.jpg";
 	}
+	
+/* get category parent to child hierarchical from in */
+	
+function hierarchical_term_tree($category = 0)
+{
+
+    $term = get_the_terms(get_the_ID(),'product_cat'); 
+    $my_term_id = $term[0]->term_id;
+    $r = '';
+    $args = array(
+        'parent' => $category,
+    );
+    $next = get_terms('product_cat', $args);
+    
+    $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $uri_segments = explode('/', $uri_path);
+    
+    $catett = get_category_by_slug($uri_segments[2]);
+    if(isset($term) && !empty($term)){
+        foreach($term as $cat){
+            if($cat->slug === $uri_segments[2]){
+                $cname = $cat->name;
+                $c_id =  $cat->term_id;
+            }else{
+                if($cat->slug === $uri_segments[3]){
+                    $cname = $cat->name;
+                    $c_id =  "4119";//$cat->term_id;
+                }    
+            }
+        }
+    }
+    $list_args = array(
+
+        'hierarchical' => 0,
+
+        'show_option_none' => '',
+
+        'hide_empty' => 1,
+
+        'parent' => $category,
+
+        'taxonomy' => 'product_cat'
+
+        ); 
+        $categories=get_categories($list_args);
+    if ($next) {
+        $r .= '<ul class="shop-sidebar '.$my_term_id.'">';
+        foreach ($categories as $cat) {
+            $myclass = '';
+            if($cname === $cat->name){
+               $myclass = "active"; 
+            }
+            // if($my_term_id == $cat->term_id)
+            // {
+            //     $myclass = "active";
+            // }
+            $r .= '<li class="slidebar sidebar-item --'.$my_term_id.' '.$cat->term_id.' '.$myclass.'"><a href="' . get_term_link($cat->slug, $cat->taxonomy) . '" title="' . sprintf(__("View all products in %s"), $cat->name) . '" ' . '>' . $cat->name. '</a>';
+            $r .= $cat->term_id !== 0 ? hierarchical_term_tree($cat->term_id) : null;
+        }
+        $r .= '</li>';
+        $r .= '</ul>';
+    }
+    return $r;
+}
