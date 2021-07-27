@@ -8,3 +8,14 @@ $args = array(
    'order' => 'DESC'
 );
 $mix = new WP_Query($args);
+
+/* get screen id in admin notice section  */
+
+function find_current_screen_id() {
+	global $my_admin_page;
+	$screen = get_current_screen();
+    echo $screen->id;
+}
+add_action( 'admin_notices', 'find_current_screen_id' );
+
+/* End */
