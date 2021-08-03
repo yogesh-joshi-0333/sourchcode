@@ -1,3 +1,67 @@
+/* OverRide Ajax Send Data  One Types Of Hacking  */
+
+(function(){
+    // overwrite the "send" method, but keep the original implementation in a variable
+    var origSend = XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.send = function(data){
+        // check if onreadystatechange property is set (which is used for callbacks)
+        if (typeof this.onreadystatechange === "function") {
+            // overwrite callback function
+            var origOnreadystatechange = this.onreadystatechange;
+            this.onreadystatechange = function(){
+                if (this.readyState === 4) {
+                    console.log("start");
+                }
+                origOnreadystatechange();
+                if (this.readyState === 4) {
+                    console.log("end");
+                }
+            };
+        }
+        console.log(data);
+        origSend.call(this, data);
+    };
+})();
+
+/* END */
+
+
+/* Some other  FUnction TO Get Other ajax Data Using Javascript closure to prevent global access to this stuff */
+(function(){
+    // creates a new callback function that also executes the original callback
+    var SuccessCallback = function(origCallback){
+        return function(data, textStatus, jqXHR) {
+            console.log("start");
+            if (typeof origCallback === "function") {
+                origCallback(data, textStatus, jqXHR);
+            }
+            console.log("end");
+        };
+    };
+
+    // store the original AJAX function in a variable before overwriting it
+    var jqAjax = $.ajax;
+    $.ajax = function(settings){
+        // override the callback function, then execute the original AJAX function
+        settings.success = new SuccessCallback(settings.success);
+        jqAjax(settings);
+    };
+})();
+
+/* End */
+
+/* Get Any Ajax Response Data */
+
+jQuery(document).ajaxSend(function(event, xhr, options){
+    console.log('event',event);
+    console.log('xhr',xhr);
+    console.log('options',options);
+});
+
+/* END  */
+
+
+
 /* start break for loop forchfully */
 
 
