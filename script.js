@@ -1,3 +1,10 @@
+/* START windows after load javascript */
+
+  window.addEventListener("load", function(){});
+
+/* END */
+
+
 /* OverRide Ajax Send Data  One Types Of Hacking  */
 
 (function(){
