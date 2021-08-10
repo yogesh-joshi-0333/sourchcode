@@ -19,3 +19,58 @@ function find_current_screen_id() {
 add_action( 'admin_notices', 'find_current_screen_id' );
 
 /* End */
+
+/*  mailchimp integration programmatically */
+
+function wpb_demo_shortcode() { 
+ $message = '<form><div class="su-form"><div class="customform"><input type="email" id="subcribbeemail" name="EMAIL" placeholder="Email" required="" class=""><span style="color:red" class="subcribermialerror" id="subcribermialerror"></span><div class="sub-btn"><input type="submit" id="subcirbutton" value=""></div><div class="term"><input name="AGREE_TO_TERMS" type="checkbox" value="1" id="term-check-new" required=""><span style="color:red" class="subcribermialerror2" id="subcribermialerror2"></span><label for="term-check-new">I have read the <a href="#">privacy policy</a> and agree with it</label></div></form></div><div class="news-msg"><strong class="msg"><a><img class="im" src="http://18.167.33.244/wp-content/uploads/2021/08/xnew-check.png.pagespeed.ic.RG3kf2f7H5.webp" alt="img"></a>You are Now Subscribed to LINKEDU</strong></div><div class="news-msg2"><strong class="msg"><a><img class="im" src="http://18.167.33.244/wp-content/uploads/2021/08/xnew-check.png.pagespeed.ic.RG3kf2f7H5.webp" alt="img"></a>You are already Subscribed to LINKEDU</strong></div>'; 
+	return $message;
+} 
+	
+add_shortcode('greeting', 'wpb_demo_shortcode'); 
+
+add_action('wp_ajax_nopriv_form_mailke', 'form_mailke');
+add_action("wp_ajax_form_mailke", "form_mailke");
+
+function form_mailke()
+{
+	$email = $_POST['emails'];
+$list_id = '1058329';
+$api_key = 'd25dda8fc30c1384bd2ff004a0b8bfd4-us17';
+ 
+$data_center = substr($api_key,strpos($api_key,'-')+1);
+ 
+$url = 'https://'. $data_center .'.api.mailchimp.com/3.0/lists/'. $list_id .'/members';
+ 
+$json = json_encode([
+    'email_address' => $email,
+    'status'        => 'subscribed', //pass 'subscribed' or 'pending'
+]);
+ 
+try {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $api_key);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+    $result = curl_exec($ch);
+    $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+ 
+    if (200 == $status_code) {
+        
+		$myrows = 'Thank you for subscribing!';
+    }
+    else if (400 == $status_code) 
+    {
+		$myrows = 'Member Exists';
+    }
+} catch(Exception $e) {
+	$myrows = $e->getMessage();
+    
+}
+    $a=wp_send_json_success($myrows);
+}
