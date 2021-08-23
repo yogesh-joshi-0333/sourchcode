@@ -75,3 +75,39 @@ try {
     $a=wp_send_json_success($myrows);
 }
 
+/* shipping code */
+
+add_filter( 'woocommerce_package_rates', 'hide_shipping_method', 10, 2 );
+function hide_shipping_method( $rates, $packages ) {
+	/*echo '<pre>';
+	print_r($rates);
+	echo '</pre>';*/
+	$carrier_method = '';
+	$flag = 0;
+	foreach ( $rates as $r ) {
+		if($r->method_id == 'wf_multi_carrier_shipping') {
+			if($r->cost == '0.00') {
+				$carrier_method = $r->id;
+				$flag = 1;
+			} else {
+				$shipping_service_code = $r->get_meta_data()['_ph_multicarrier_method']['shipping_service_code'];
+				if($shipping_service_code == 'fallback_rate') {
+					$carrier_method = $r->id;
+					//$flag = 1;
+				}
+			} 
+		}
+	}
+	if($flag == 1) {
+		unset($rates[$carrier_method]); 
+	} else {
+		$priceprod = array();
+		foreach ( $rates as $k => $r ) {
+			$priceprod[$k] = $r->cost;
+		}
+		$minprice = min($priceprod);
+		$shipping_key = array_search($minprice, $priceprod);
+		unset($rates[$shipping_key]); 
+	}
+    return $rates;
+}
