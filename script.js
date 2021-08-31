@@ -20,6 +20,12 @@ function isMobileDevice() {
   };
 /* End Number Between */
 
+/* Object is EMpty ? */
+
+function isObjectEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}
+
 
 
 /* OverRide Ajax Send Data  One Types Of Hacking  */
