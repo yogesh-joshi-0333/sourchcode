@@ -1823,3 +1823,37 @@ function hierarchical_term_tree($category = 0)
     }
     return $r;
 }
+
+	
+<?php
+/* php hierarchical array merge */
+$temp = array();
+$temp[] = array(1,2,3);
+$temp[] = array(4,5,6);
+$temp[] = array(7,8,9);
+$demo = array();
+
+    $temp2 = array();
+    for($i=0;$i<count($temp);$i+=2)
+    {       
+        if(!isset($temp[$i+1]))
+        {
+            $temp[$i+1] = array();
+        }
+        $temp2 = array_merge($temp2,$temp[$i],$temp[$i+1]);
+    }
+
+    print_r($temp2);
+/*Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5
+    [5] => 6
+    [6] => 7
+    [7] => 8
+    [8] => 9
+) */
+?>
