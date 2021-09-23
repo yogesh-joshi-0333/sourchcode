@@ -1,12 +1,14 @@
 /* check element in Viewport function  */
 
-function elementInViewport2(el) {
+function elementInViewport2(el) 
+{
 	var top = el.offsetTop;
 	var left = el.offsetLeft;
 	var width = el.offsetWidth;
 	var height = el.offsetHeight;
   
-	while(el.offsetParent) {
+	while(el.offsetParent) 
+	{
 	  el = el.offsetParent;
 	  top += el.offsetTop;
 	  left += el.offsetLeft;
@@ -17,7 +19,7 @@ function elementInViewport2(el) {
 	  (top + height) > window.pageYOffset &&
 	  (left + width) > window.pageXOffset
 	);
-  }
+}
 /* code End */
 
 /* START windows after load javascript */
