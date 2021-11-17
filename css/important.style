@@ -4,3 +4,31 @@ tr td:nth-child(15) {
   max-width: 250px !important;
   overflow-x: auto;
 }
+
+/* scroll desing Start */
+
+/* total width */
+tr td:nth-child(5)::-webkit-scrollbar {
+    background-color:#fff;
+    width:20px
+}
+
+/* background of the scrollbar except button or resizer */
+tr td:nth-child(5)::-webkit-scrollbar-track {
+    background-color:#fff
+}
+tr td:nth-child(5)::-webkit-scrollbar-track:hover {
+    background-color:#f4f4f4
+}
+
+/* scrollbar itself */
+tr td:nth-child(5)::-webkit-scrollbar-thumb {
+    background-color:#babac0;
+    border-radius:16px;
+    border:7px solid #fff
+}
+tr td:nth-child(5)::-webkit-scrollbar-thumb:hover {
+    background-color:#a0a0a5;
+    border:5px solid #f4f4f4
+}
+/* scroll desing End */
