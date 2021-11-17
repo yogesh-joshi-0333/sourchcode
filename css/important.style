@@ -1,0 +1,6 @@
+/* text wrapping in box with scroll */
+tr td:nth-child(15) {
+  white-space: nowrap;
+  max-width: 250px !important;
+  overflow-x: auto;
+}
