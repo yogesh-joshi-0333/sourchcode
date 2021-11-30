@@ -111,3 +111,24 @@ function hide_shipping_method( $rates, $packages ) {
 	}
     return $rates;
 }
+
+
+/* Acf Option page  */
+if( function_exists('acf_add_options_page') ) {
+
+	acf_add_options_page(array(
+		'page_title' 	=> 'Home Page Product',
+		'menu_title'	=> 'Home Page Product',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+}
+/* END */
+
+
+/* Shortcode  */
+function AWT_woo_single_product_data($args) { 
+    include_once(dirname(__FILE__)."/shortcode-single-product.php");
+} 
+add_shortcode('SingleProduct', 'AWT_woo_single_product_data'); 
