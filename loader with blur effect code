@@ -1,0 +1,77 @@
+<style>
+
+ /* TRIPLE SPINNER */    
+
+  .triple-spinner {
+    position: fixed !important;
+    z-index: 9999;
+    top: 50%;
+    left: 46%;
+    transform: translate(-50%, -50%);
+    border: 7px solid #ccc;
+    border-radius: 50%;
+    border-top: 7px solid #8b7f5a;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: 30px auto 0;
+  }
+
+  .body-blur {
+    filter: blur(5px);
+  }
+
+  -webkit-@keyframes spin {
+    -webkit-from {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    -webkit-to {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @-webkit-keyframes spin {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+jQuery('body').css('pointer-events', 'all');  
+jQuery('.school-page').removeClass('body-blur'); 
+jQuery('.triple-spinner').hide(); 
+
+jQuery('.school-page').addClass('body-blur');                                                         
+jQuery('.triple-spinner').show();   
+jQuery('body').css('pointer-events', 'none');
+
+</script>
+
+<div class="triple-spinner"></div>
+
+<div class="add-class-top-of-the-main-tag body-blur">
