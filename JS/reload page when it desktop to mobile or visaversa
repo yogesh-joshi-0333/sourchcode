@@ -1,0 +1,22 @@
+var window_load_width = jQuery(window).width();
+var is_mobile = false;
+var is_desk = false;
+
+if(window_load_width > 1200){
+    is_desk = true;
+}else{
+    is_mobile = true;
+}
+
+$(window).resize( function(){
+    if(is_mobile){
+        if(jQuery(window).width() > 1200){
+            window.location.reload();
+        }
+    }
+    if(is_desk){
+        if(jQuery(window).width() < 1199){
+            window.location.reload();
+        }
+    }
+});
