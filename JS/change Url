@@ -1,0 +1,4 @@
+        var searchParams = new URLSearchParams(window.location.search)
+        searchParams.set("subject", jQuery(this).val());
+        var newRelativePathQuery = removeParams('subject');
+        history.pushState(null, '', newRelativePathQuery);
