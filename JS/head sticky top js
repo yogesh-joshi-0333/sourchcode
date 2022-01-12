@@ -1,0 +1,17 @@
+  /** head sticky top js start **/
+
+  function sticktothetop() {
+    var window_top = $(window).scrollTop();
+    var top = $('.tophead-height').offset().top;
+    if (window_top > top) {
+      $('#sticky-top-head').addClass('stick');
+      $('.tophead-height').height($('#sticky-top-head').outerHeight());
+    } else {
+      $('#sticky-top-head').removeClass('stick');
+      $('.tophead-height').height(0);
+    }
+  }
+
+  jQuery(function () { jQuery(window).scroll(sticktothetop); sticktothetop(); });
+
+  /** head stick top js end **/
