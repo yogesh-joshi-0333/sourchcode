@@ -1,0 +1,11 @@
+.relative::after {
+    position: absolute;
+    content: "";
+    background-image: url(https://res.cloudinary.com/spiralyze/image/upload/v1643626058/paycor/paycor_6009/checkmark.png);
+    width: 18px;
+    height: 18px;
+    z-index: 999;
+    top: 12px;
+    right: 16px;
+    background-size: contain;
+}
