@@ -1,0 +1,31 @@
+var window_load_width = jQuery(window).width();
+var is_mobile = false;
+var is_desk = false;
+var is_table = false;
+
+if(window_load_width >= 1024){
+    is_desk = true;
+}else if(window_load_width >= 768 && window_load_width <= 1023){
+    is_table = true;
+}else{
+    is_mobile = true;
+}
+
+$(window).resize( function(){
+    if(jQuery(window).width() >= 1024){
+        if(is_table == true || is_mobile == true){
+            window.location.href = window.location.href;
+        }
+    }
+    else if(jQuery(window).width() >= 768 && jQuery(window).width() <= 1023){
+        if(is_desk == true || is_mobile == true){
+             window.location.href = window.location.href;
+        }
+    }
+    else{
+        if(is_desk == true || is_table == true){
+             window.location.href = window.location.href;
+        }
+    }
+
+});
