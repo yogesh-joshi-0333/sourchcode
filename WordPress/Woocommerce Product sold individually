@@ -1,0 +1,33 @@
+function check_cats_in_cart( $product_id ) {
+    $taxonomy = 'product_cat';
+    $has_term = true;
+
+    foreach( WC()->cart->get_cart() as $item ){
+        foreach( wp_get_post_terms( $item['product_id'], $taxonomy ) as $term ){
+            // Allowing add to cart the same product
+            if( has_term( $term->slug, $taxonomy, $product_id ) ){
+                $has_term = false;
+                break; // stops the 2nd loop
+            }
+        }
+        // Allowing the same product to be added (not activated. you can uncomment lines below)
+        # if ( $item['product_id'] == $product_id  )
+        #   $has_term = true;
+
+        if( $has_term )
+            break; // stops the 1st loop
+    }
+    return $has_term;
+}
+
+function so_21363268_limit_cart_quantity( $valid, $product_id, $quantity ) 
+{
+    $valid = json_encode(check_cats_in_cart($product_id));
+    
+    if( ! $valid ){
+        $message = __("This product category is already in cart. Try another product", "woocommerce");
+        wc_add_notice( $message, 'error' );
+    }
+    return $valid;    
+}
+add_filter( 'woocommerce_add_to_cart_validation', 'so_21363268_limit_cart_quantity', 10, 3 );
