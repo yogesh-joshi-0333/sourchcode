@@ -1,0 +1,18 @@
+/**
+ * When an item is added to the cart, check total cart quantity
+ */
+function so_21363268_limit_cart_quantity( $valid, $product_id, $quantity ) {
+
+    $max_allowed = 6;
+    $current_cart_count = WC()->cart->get_cart_contents_count();
+
+    if( ( $current_cart_count > $max_allowed || $current_cart_count + $quantity > $max_allowed ) && $valid ){
+       $message = __("Whoa hold up. You can only have ".$max_allowed." items in your cart", "woocommerce");
+        wc_add_notice( $message, 'error' );
+        $valid = false;
+    }
+
+    return $valid;
+
+}
+add_filter( 'woocommerce_add_to_cart_validation', 'so_21363268_limit_cart_quantity', 10, 3 );
