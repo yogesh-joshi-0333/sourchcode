@@ -1,0 +1,20 @@
+function triggerChangeEvent(option) {
+  // set selected property
+  option.selected = true;
+  
+  // raise event on parent <select> element
+  if ("createEvent" in document) {
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent("change", false, true);
+    option.parentNode.dispatchEvent(evt);
+  }
+  else {
+    option.parentNode.fireEvent("onchange");
+  }
+}
+
+function chnage_option(id) {
+  const sel = 'option[value="'+id+'"]'
+  const optionEl = document.querySelector(sel);
+  triggerChangeEvent(optionEl);
+}
