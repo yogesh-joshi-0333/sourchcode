@@ -18,3 +18,20 @@ function elementInViewport2(el)
 	  (left + width) > window.pageXOffset
 	);
 }
+
+jQuery(window).scroll(function() {
+    var top_of_element = jQuery("#video-8186-1_html5").offset().top;
+    var bottom_of_element = jQuery("#video-8186-1_html5").offset().top + jQuery("#video-8186-1_html5").outerHeight();
+    var bottom_of_screen = jQuery(window).scrollTop() + jQuery(window).innerHeight();
+    var top_of_screen = jQuery(window).scrollTop();
+
+    if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element)){
+        jQuery('#video-8186-1_html5').trigger('play');
+            var video = jQuery('#video-8186-1_html5').get(0);
+            if ( video.paused ) {               jQuery('#video-8186-1_html5').trigger('play');
+            } 
+    } else {
+       
+    }
+});
+
