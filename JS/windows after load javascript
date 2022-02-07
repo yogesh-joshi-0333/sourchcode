@@ -1,0 +1,8 @@
+
+/* START windows after load javascript */
+
+  window.addEventListener("load", function(){
+  /* your code here*/
+  });
+
+/* END */
