@@ -1,0 +1,11 @@
+var lastScrollTop = 0;
+    $(window).on('scroll', function() {
+        st = $(this).scrollTop();
+        if(st < lastScrollTop) {
+            console.log('up 1');
+        }
+        else {
+            console.log('down 1');
+        }
+        lastScrollTop = st;
+    })
