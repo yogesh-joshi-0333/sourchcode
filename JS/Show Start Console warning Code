@@ -1,0 +1,12 @@
+/****************************** Start Console warning Code **********************/
+var warning = function() {};
+warning.toString = function() {
+    if (this.opened) {
+        chrome.runtime.sendMessage({type: 'warning'});
+        console.log('%c WARNING :','color:red;font-size:18px;');
+        console.log('%c DO NOT PASTE CODE IN THIS CONSOLE (EXCEPT IF YOU KNOW WHAT YOU ARE DOING). IT COULD BE USED TO STEAL YOUR DATA AND RUN MALICIOUS CODE','color:red;font-size:12px;');
+    }
+    this.opened = true;
+};
+
+/****************************** END  Console warning Code **********************/
