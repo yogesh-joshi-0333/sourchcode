@@ -1,0 +1,7 @@
+/* Get Any Ajax Response Data */
+
+jQuery(document).ajaxSend(function(event, xhr, options){
+    console.log('event',event);
+    console.log('xhr',xhr);
+    console.log('options',options);
+});
