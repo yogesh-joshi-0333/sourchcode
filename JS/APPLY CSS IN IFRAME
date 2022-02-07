@@ -1,0 +1,5 @@
+/************** APPLY CSS IN IFRAME ****************/
+
+$('#id').load(function(){
+$("#id").contents().find("#buddypress").css("margin-top", "-100px");
+});
