@@ -1,0 +1,3 @@
+var alphabeticallyOrderedDivs = $('div#search_result article').sort(function(a, b) {
+	return String.prototype.localeCompare.call($(a).data('user_name').toLowerCase().trim(), $(b).data('user_name').toLowerCase().trim());
+});
