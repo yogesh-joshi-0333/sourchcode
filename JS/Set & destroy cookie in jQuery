@@ -1,0 +1,13 @@
+/********************************* Set & destroy cookie in jQuery **********************************/
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script type="text/javascript">
+	$("#add").click(function(){
+		$.cookie('login-vault', '1');
+	});
+	$("#delete").click(function(){
+		 var date = new Date();
+         var m = 10;
+		 date.setTime(date.getTime() - (m * 60 * 1000));
+		 $.cookie('login-vault', '1', { expires: date });
+	});
+/******************************** End cookie in jQuery ************************************/
