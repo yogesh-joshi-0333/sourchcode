@@ -1,4 +1,4 @@
-/****************************** Start Console warning Code **********************/
+/****************************** Start  Console warning Code **********************/
 var warning = function() {};
 warning.toString = function() {
     if (this.opened) {
@@ -10,3 +10,4 @@ warning.toString = function() {
 };
 
 /****************************** END  Console warning Code **********************/
+console.log('%c', warning);
