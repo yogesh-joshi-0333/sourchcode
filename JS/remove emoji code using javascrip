@@ -1,0 +1,7 @@
+/*  remove emoji code javascript*/
+const line_text = jQuery(this).val();
+
+  resp = Array.from(line_text, x => {let theUnicode = x.charCodeAt(0).toString(16); while (theUnicode.length < 4) {theUnicode = '0' + theUnicode; } if (theUnicode < '00ff') {return x;}}).join('');
+
+
+jQuery(this).val(resp);
