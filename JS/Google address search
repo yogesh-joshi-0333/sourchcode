@@ -1,0 +1,16 @@
+// Google address search 
+
+  google_place_search(document.getElementById('origin'));
+  google_place_search(document.getElementById('destination'));
+
+  function google_place_search(input)
+  {
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      google.maps.event.addListener(autocomplete, 'place_changed',   function () {
+
+          var place = autocomplete.getPlace();
+          var lat = place.geometry.location.lat();
+          var long = place.geometry.location.lng();
+          console.log(lat + ", " + long);
+      });
+  }
