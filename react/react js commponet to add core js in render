@@ -1,0 +1,6 @@
+react js commponet to add core js in render
+
+componentDidMount()
+{
+  document.querySelector("html").setAttribute("lang", "en");
+}
