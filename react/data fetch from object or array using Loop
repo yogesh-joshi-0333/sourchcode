@@ -1,0 +1,17 @@
+{Object.entries(data.cherry_sec_3).map(([title, info]) => (
+        <>
+            <div className='cherry_sec_3'>
+                <div className="container"> 
+                    <div className='cherry_sec_inner_3'>
+                        <div className='cherry_sec_inner_3_img'>
+                            <img src={info.mainImage} alt="Image Description" />
+                        </div>
+                        <div className='cherry_sec_inner_3_text'>
+                            <h4>{info.heading}</h4>
+                            <p>{info.detailFirst}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </>
+    ))}
