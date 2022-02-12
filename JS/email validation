@@ -1,0 +1,23 @@
+jQuery(document).on('change keyup','input#youremail_id',function(){
+    var email = jQuery(this);
+    if(!validateEmail(email))
+    {
+        console.log("invalid email");
+        jQuery(this).addClass('error');
+    }
+     var email_part = email.split('.');
+    if(typeof email_part[1] !== undefined && email_part[1] !==  null && email_part[1] !==  NaN && email_part[1] !==  '')
+    {
+        if(email_part[1] == "au" || email_part[1] == "cn" || email_part[1] == "ru" || email_part[1] == "bu" || email_part[1] == "sr")
+        {
+            console.log("invalid email");
+            jQuery(this).addClass('error');
+            return false;
+        }
+    }
+});
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
