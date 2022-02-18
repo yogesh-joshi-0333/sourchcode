@@ -1,0 +1,12 @@
+function NoticeShow(msg,duration)
+{
+ var el = document.createElement("div");
+ el.setAttribute("style","position: absolute;top: 40%;left: 40%;background-color: transparent;padding: 10px;border: 1px solid #1ba7a1;");
+ el.innerHTML = msg;
+ setTimeout(function(){
+  el.parentNode.removeChild(el);
+ },duration);
+ document.body.appendChild(el);
+}
+
+ NoticeShow("something want to wront please Try again after few secound",1000);
