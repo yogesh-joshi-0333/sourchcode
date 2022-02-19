@@ -1,0 +1,9 @@
+    function manage_body_classes()
+    {
+        var section_cnt = jQuery('div#panelWrap .section').length;
+        for(var i = 0; i<section_cnt;i++)
+        {
+            jQuery('body').removeClass('section-'+i);
+        }
+        jQuery('body').addClass('section-'+jQuery('div#panelWrap .section.active').index());
+    }
