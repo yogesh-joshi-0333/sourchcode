@@ -9,3 +9,19 @@ var lastScrollTop = 0;
         }
         lastScrollTop = st;
     })
+    
+    
+    /* when no scroll in page but need to detect scroll then you can use below scroll function */
+    
+      var animationWorkFlag = false;
+    window.addEventListener('wheel', function(event)
+    {
+        if (event.deltaY < 0)
+        {
+           console.log('scroll up');
+        }
+        else if (event.deltaY > 0)
+        {
+            console.log('scroll Down');
+        }
+    });
