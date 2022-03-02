@@ -1,0 +1,7 @@
+jQuery('.resource_slider .wp-block').each(function(){
+    var link = jQuery(this).parents('.archive-body').find('a.post-link').attr('href');
+    var text = jQuery(this).find('span').text();
+    jQuery(this).find('span').replaceWith(function() {
+   return '<a class="button-arrow has-navy-color" href="'+link+'">'+text+'</a>';
+ });
+});
