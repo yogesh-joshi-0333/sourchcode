@@ -1,0 +1,22 @@
+	waitForElm(".MuiToolbar-gutters > div > div:last-child p").then((elm) => {
+		initButtonText();
+		InitEventButtonText();
+	});
+  var observeConfig = {subtree:true,attributes:true,childList:true,characterData:true,attributeOldValue:true,characterDataOldValue:true};
+  function waitForElm(selector) {
+      return new Promise(resolve => {
+          if (document.querySelector(selector)) {
+              return resolve(document.querySelector(selector));
+          }
+
+          const observer = new MutationObserver(mutations => {
+              if (document.querySelector(selector)) {
+                  resolve(document.querySelector(selector));
+                  observer.disconnect();
+              }
+          });
+
+          observer.observe(document.body,observeConfig);
+      });
+  }
+   
