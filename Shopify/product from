@@ -1,0 +1,4 @@
+<form method="post" action="/cart/add">
+  <input name="id" value="{{ product.variants.first.id }}" type="hidden" />
+  <input name="add" value="ORDER NOW" type="submit" />
+</form>
