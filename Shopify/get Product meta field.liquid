@@ -1,1 +1,9 @@
 /*get Product meta field  */
+
+<ul id="shipdate_value" style="display:none">
+{% for variant in product.variants %}
+  
+<li value="{{variant.id}}" data-shipdate="{{ variant.metafields.d_j.shipdate}}" data-date="{{ variant.metafields.d_j.notificationdate}}">{{ variant.metafields.d_j.notificationdate}}</li>
+  
+{% endfor %}
+</ul> 
