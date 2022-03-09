@@ -7,3 +7,17 @@
   
 {% endfor %}
 </ul> 
+
+
+<div class="meta-product">
+  <div class="meta-product-info">
+      <p class="meta-text info">
+        {{ product.metafields['Product Info']['product_info'] }}
+      </p>
+  </div>
+  <div class="meta-product-excerpt" style="display:none;">
+      <p class="meta-text excerpt">
+        {{ product.metafields['Product excerpt']['product_excerpt'] }}
+      </p>
+  </div>
+</div>
