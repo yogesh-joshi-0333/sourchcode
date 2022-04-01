@@ -1,0 +1,48 @@
+----------------------------------------------------------------------
+$(window).resize();
+----------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------
+$(window).trigger('resize');
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+window.dispatchEvent(new Event('resize'));
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+var event;
+if (typeof (Event) === 'function') {
+    event = new Event('resize');
+} else { /*IE*/
+    event = document.createEvent('Event');
+    event.initEvent('resize', true, true);
+}
+window.dispatchEvent(event);
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+var resizeEvent = window.document.createEvent('UIEvents'); 
+resizeEvent.initUIEvent('resize', true, false, window, 0); 
+window.dispatchEvent(resizeEvent);
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+function simulateClick(id) {
+  var event = new MouseEvent('click', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+  });
+
+  var elem = document.getElementById(id); 
+
+  return elem.dispatchEvent(event);
+}
+----------------------------------------------------------------------
