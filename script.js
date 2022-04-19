@@ -803,3 +803,86 @@ document.addEventListener("DOMContentLoaded", function(event) {
    });
 });
 /* */
+
+// DEVELOPER UNABLE TO CHECK CODE JS
+$(document).keydown(function (event) {
+	if (event.keyCode == 123) { // Prevent F12
+		return false;
+	} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
+		return false;
+	}
+});
+
+$(document).ready(function() {
+	$(document)[0].oncontextmenu = function() { return false; }
+	$(document).mousedown(function(e) {
+		if( e.button == 2 ) {
+			alert('Sorry, this functionality is disabled!');
+			return false;
+		} else {
+		return true;
+		}
+	});
+});
+
+
+// Google address search 
+?>
+<script>
+        google_place_search(document.getElementById('origin'));
+        google_place_search(document.getElementById('destination'));
+        
+        function google_place_search(input)
+        {
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed',   function () {
+            
+                var place = autocomplete.getPlace();
+                var lat = place.geometry.location.lat();
+                var long = place.geometry.location.lng();
+                console.log(lat + ", " + long);
+            });
+        }
+	/* Ajax form submission with image */
+
+jQuery("form").submit(function(e)    {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+    e.stopPropagation();	
+  
+  
+          var formdata = new FormData();
+          var img = jQuery('input[name="channel_img"]')[0].files[0];
+          var title = jQuery('#channel_name').val();
+          var cat = jQuery('#cat').val();
+          var detail = jQuery('#channel_detail').val();
+          
+          formdata.append("img", img);
+          formdata.append("title", title);
+          formdata.append("cat", cat);
+          formdata.append("detail", detail);
+          formdata.append("action", 'create_cst_post');
+          formdata.append("type", 'wpstream_product');
+          
+            jQuery.ajax({
+              type: 'POST',
+              url: '<?=admin_url("admin-ajax.php")?>',
+              traditional: true,
+              processData: false,
+    contentType: false,
+              data:formdata,
+              success: function (response)
+    {
+      post_id = response.post_id;
+   console.log(response);
+              },
+              error: function (jqXHR,textStatus,errorThrown) {
+                  console.log(jqXHR);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+               
+              }
+          });
+  });
+  
+  </script>
