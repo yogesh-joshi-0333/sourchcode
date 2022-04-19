@@ -103,48 +103,6 @@ function generateRandomString($length = 4) {
     }
     return $randomString;
 }
-
-
-// DEVELOPER UNABLE TO CHECK CODE JS
-$(document).keydown(function (event) {
-	if (event.keyCode == 123) { // Prevent F12
-		return false;
-	} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
-		return false;
-	}
-});
-
-$(document).ready(function() {
-	$(document)[0].oncontextmenu = function() { return false; }
-	$(document).mousedown(function(e) {
-		if( e.button == 2 ) {
-			alert('Sorry, this functionality is disabled!');
-			return false;
-		} else {
-		return true;
-		}
-	});
-});
-
-
-// Google address search 
-?>
-<script>
-        google_place_search(document.getElementById('origin'));
-        google_place_search(document.getElementById('destination'));
-        
-        function google_place_search(input)
-        {
-            var autocomplete = new google.maps.places.Autocomplete(input);
-            google.maps.event.addListener(autocomplete, 'place_changed',   function () {
-            
-                var place = autocomplete.getPlace();
-                var lat = place.geometry.location.lat();
-                var long = place.geometry.location.lng();
-                console.log(lat + ", " + long);
-            });
-        }
-	
 /* Add Css in function.php,  add tag in head  */	
 function hook_css() {
 ?>
@@ -202,6 +160,7 @@ e.stopImmediatePropagation();
 </script>
 <?php
 
+/* ajax call the below funcion  */
 add_action("wp_ajax_admin_comment_on_user", "admin_comment_on_user");
 add_action("wp_ajax_nopriv_admin_comment_on_user", "admin_comment_on_user");
 function admin_comment_on_user(){}
