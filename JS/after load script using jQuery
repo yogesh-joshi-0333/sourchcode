@@ -1,0 +1,43 @@
+  jQuery.getScript("https://unpkg.com/swiper@8/swiper-bundle.min.js",function(e){
+      var main_swiper = new Swiper(".swiper_main", {
+          grabCursor: true,
+          effect: "creative",
+          loop: true,
+          calculateHeight:true,
+          // centeredSlides: true,
+          slidesPerView: "auto",
+          navigation: {
+             nextEl: ".arrows-right",
+             prevEl: ".arrows-left",
+           },
+           pagination: {
+              el: ".swiper-pagination",
+              type: "fraction",
+            },
+          breakpoints: {
+             100: {
+              creativeEffect: {
+                  prev: {
+                    translate: ["-100%", 0, 0,],
+                    scale:1,
+                    },
+                    next: {
+                      translate: ["100%", 0, 0]
+                    }
+                  },
+                },
+              1441: {
+                creativeEffect: {
+                   prev: {
+                     translate: ["-13%", 0, -1,],
+                     scale:0.850,
+                     opacity:0.5
+                      },
+                   next: {
+                     translate: ["104%", 0, 0]
+                     }
+                 },
+               },
+             },
+      });
+  });
