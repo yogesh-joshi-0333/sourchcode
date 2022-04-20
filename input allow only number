@@ -1,0 +1,3 @@
+    jQuery(document).on('keyup change','input#Phone',function(e){
+        jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g,""));
+    });
