@@ -1,0 +1,77 @@
+function cst_image_upload_array($img,$post_id)
+{
+    require_once (ABSPATH . 'wp-admin/includes/image.php');
+    require_once( ABSPATH . 'wp-admin/includes/file.php' );
+    require_once( ABSPATH . 'wp-admin/includes/media.php' );
+
+    $attes_id = array();
+    $cnt = count($img);
+    for ($i = 0;$i < $cnt;$i++)
+    {
+      $file_name = $post_id.'-preview-'.str_pad(($i+1), 3, '0', STR_PAD_LEFT);
+      array_push($attes_id,save_image($img[$i],$file_name));    
+    }
+
+    return $attes_id;
+}
+
+function save_image( $base64_img, $title ) {
+
+	// Upload dir.
+	$upload_dir  = wp_upload_dir();
+	$upload_path = str_replace( '/', DIRECTORY_SEPARATOR, $upload_dir['path'] ) . DIRECTORY_SEPARATOR;
+
+	$img             = str_replace( 'data:image/jpeg;base64,', '', $base64_img );
+	$img             = str_replace( ' ', '+', $img );
+	$decoded         = base64_decode( $img );
+	$filename        = $title . '.jpeg';
+	$file_type       = 'image/jpeg';
+	$hashed_filename = $filename;
+
+	// Save the image in the uploads directory.
+	$upload_file = file_put_contents( $upload_path . $hashed_filename, $decoded );
+
+	$attachment = array(
+		'post_mime_type' => $file_type,
+		'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $hashed_filename ) ),
+		'post_content'   => '',
+		'post_status'    => 'inherit',
+		'guid'           => $upload_dir['url'] . '/' . basename( $hashed_filename )
+	);
+
+	return wp_insert_attachment( $attachment, $upload_dir['path'] . '/' . $hashed_filename );
+}
+
+function createView360()
+{
+	$image_base64_list = explode(",", $_POST['media']);		
+
+	$post_id = wp_insert_post(array(
+		'post_author' => 1,
+		'post_name' => generateRandomString(),
+		'post_title' => generateRandomString(),
+		'post_status' => 'publish',
+		'post_content' => generateRandomString(),
+		'post_type' => 'post'
+	));
+
+	if (!empty($post_id))
+	{
+		$media_ids = cst_image_upload_array($image_base64_list,$post_id); 
+		update_post_meta($post_id,"360ViewImageListID",$media_ids);
+
+		$response['success'] = true;
+		$response['link'] = home_url().'/360view/?view-id='.$post_id;
+		$response['message'] = __("360 View Create Successfully", "wp-rest-user");
+		$response['code'] = 200;
+		return new WP_REST_Response($response, 200);
+	}
+	else
+	{
+		$response['success'] = false;
+		$response['message'] = __("Fail to create View Please Try Again", "wp-rest-user");
+		$response['code'] = 500;
+		return new WP_REST_Response($response, 200);
+	}
+	exit;
+}
