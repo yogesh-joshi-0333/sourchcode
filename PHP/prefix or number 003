@@ -1,0 +1,4 @@
+<?php $file_name = 'preview-'.str_pad(($number), 3, '0', STR_PAD_LEFT);
+// 3 = "how much prefix charector need"
+// 0 = "prefix carector"
+// STR_PAD_LEFT = which side you need to add LEFT or RIGHT
