@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Razorpay\Api\Api;
+use Exception;
+  
+class RazorpayPaymentController extends Controller
+{   
+
+        /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    // public function __construct(Api $api) {
+    //     $this->api = $user;
+    // }
+
+
+    /**
+     * @OA\Post(
+     *     path="/payment/status",
+     *     tags={"Payment"},
+     *     summary="Check Payment Status",
+     *     description="Check Payment Status",
+     *     operationId="followUser",
+     * *     @OA\RequestBody(
+     *         description="Input data format",
+     *         
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="payment_id",
+     *                     description="Payment id",
+     *                     type="string",
+     *                 ),
+     *              )
+     *          )
+     *      ),
+     *     security={
+     *         {"User": {}}
+     *     },
+     *     @OA\Response(response=200, description="OK"),
+     *     @OA\Response(response=201, description="Created successfully!"),
+     *     @OA\Response(response=422, description="Missing Or Invalid Parameters."),
+     *     @OA\Response(response=401,description="Unauthorize Access!"),
+     *     @OA\Response(response=404,description="Not Found."),
+     *     @OA\Response(response=500,description="Something went wrong!"),
+     * )
+     */
+
+    /**
+     * Payament Status
+     */
+    public function checkPaymentStatus(Request $request)
+    {
+        try {
+            $input = $request->all();
+
+            $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+            
+            // $payment = $api->payment->fetch($input['razorpay_payment_id']);
+            // $customerData = array(
+            //     'name' => 'Razorpay User 3',
+            //     'email' => 'customer3@razorpay.com',
+            //     'contact'=>'9123456782',
+            //     'notes'=> array(
+            //         'notes_key_1'=> 'Tea,Earl Grey, Hot',
+            //         'notes_key_2'=> 'Tea, Earl Grey… decaf',),
+            //     );
+            // $status = $api->customer->create($customerData);
+
+            // $status = $api->order->create(array('receipt' => '123', 'amount' => 100, 'currency' => 'INR', 'notes'=> array('key1'=> 'value3','key2'=> 'value2')));
+
+            $orderId = 'order_JmVBUNAwvKluy5';
+
+            // $status = $api->payment->fetch('pay_G8VQzjPLoAvm6D');
+            $status = $api->order->fetch($orderId)->payments();
+
+            print_r($status);
+            exit;
+            // return $api;
+            // $payment = $api->payment->fetch($input['razorpay_payment_id']);
+            // if(isset($payment)  && !empty($payment['status']) && $payment['status']== 'captured') {
+            //     return response()->json(setResponse(['message' =>trans('message.payment_succes')]))->setStatusCode(Response::HTTP_OK);
+            // }else {
+            //     return response()->json(setResponse(['message' =>trans('message.payment_pending')]))->setStatusCode(Response::HTTP_OK);
+            // }
+        } catch (Exception $e) {
+            // return response()->json(setErrorResponse(['message' =>trans($e->getMessage())]))->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
+}
