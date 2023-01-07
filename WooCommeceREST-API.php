@@ -1,7 +1,7 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+
+/* Register API Function */
+
 add_action('rest_api_init', 'wp_rest_api_reset_get_cart');
 add_action('rest_api_init', 'wp_rest_api_add_to_cart');
 add_action('rest_api_init', 'wp_rest_api_remove_to_cart');
@@ -47,6 +47,9 @@ add_action('rest_api_init', 'wp_rest_api_get_notification_count');
 add_action('rest_api_init', 'wp_rest_api_test_nofication');
 add_action('add_meta_boxes', 'global_notice_meta_box');
 add_action('rest_api_init', 'wp_rest_api_forget_password');
+
+
+/* Define API Route and Callback Functions */
 
 function wp_rest_api_reset_get_cart()
 {
