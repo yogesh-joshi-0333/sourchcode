@@ -1,0 +1,23 @@
+$(document).ready(function() {
+  setTimeout(function(){
+            const videos = document.querySelectorAll('.slick-list video');
+
+            // Create an Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.intersectionRatio > 0) {
+                        // Video is in the viewport, play it
+                        entry.target.play();
+                    } else {
+                        // Video is not in the viewport, pause it
+                        entry.target.pause();
+                    }
+                });
+            });
+        
+            // Observe each video element
+            videos.forEach((video) => {
+                observer.observe(video);
+            });
+    },1000);
+});
