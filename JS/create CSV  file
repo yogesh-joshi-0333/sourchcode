@@ -1,0 +1,66 @@
+function downloadCSVData(productArr) {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        let array = productArr;
+
+        array.forEach(row => {
+            let line = row.map((value, index) => {
+                if (typeof value === 'string' && value.includes('/')) {
+                    return `" ${value}"`; // Note: leading space added before the value
+                }
+
+                if (typeof value === 'string' && value.includes('/')) {
+                    return `"​${value}"`; // Note: zero-width space added before the value
+                }
+                // Enclose all other string values in double quotes
+                if (typeof value === 'string') {
+                    return `"${value}"`;
+                }
+                // Convert numeric values to strings
+                if (typeof value === 'number') {
+                    return `"${value}"`;
+                }
+                // For any other value types, just return the value
+                return value;
+            }).join(",");
+
+            csvContent += line + "\r\n";
+        });
+
+        console.log("CSV Content: " + csvContent);
+
+        let encodedUri = encodeURI(csvContent);
+        let link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "products.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+
+        link.click();
+        document.body.removeChild(link);
+    }
+
+
+
+
+// Sample data
+const data = [
+    ["BASIL, FRESH", "USPSI", 170000, "-", "-", "", , "Inactive"],
+    ["CUCUMBER SALAD", "USPSI", 103000, "-", "-", "1/2AVG", "-", "Active"],
+    ["LETTUCE, ICEBERG LINER", "USPSI", 107000, "-", "-", "", , "Inactive"],
+    ["LETTUCE, ROMAINE HEARTS CASE", "USPSI", 107700, "-", "-", "", , "Inactive"],
+    ["MUSHROOM, MEDIUM", "USPSI", 109000, "-", "-", "1/2AVG", "-", "Active"],
+    ["MUSHROOM, SHIITAKE CASE", "USPSI", 109400, "-", "-", "1/2AVG", "-", "Active"],
+    ["ONION, RED BAG", "USPSI", 111000, "-", "-", "", , "Inactive"],
+    ["ONION, YELLOW/SPANISH BAG", "USPSI", 111200, "-", "-", "1/2AVG", "-", "Active"],
+    ["Testing New Product1", "Test", 170001, "KP", 100, "10/10", , "Inactive"],
+    ["Testing New Product3", "Test", 170003, "KP", 100, "10/02", , "Inactive"],
+    ["Testing New Product4", "Test", 170004, "KP", 100, "4/5", , "Inactive"],
+    ["Testing New Product5", "Test", 170005, "KP", 100, "20/15", , "Inactive"],
+    ["Testing New Product6", "Test", 170006, "KP", 100, "6/7", , "Inactive"],
+    ["Testing New Product7", "Test", 170007, "KP", 100, "7/8", , "Inactive"],
+    ["Testing New Product8", "Test", 170008, "KP", 100, "10/7", , "Inactive"],
+    ["TOMATO, 6x6 CASE", "USPSI", 130500, "-", "-", "1/2AVG", "-", "Active"],
+    ["TOMATO, CHERRY", "USPSI", 130650, "-", "-", "1/2AVG", "-", "Active"],
+];
+// Trigger download
+downloadCSVData(data);
