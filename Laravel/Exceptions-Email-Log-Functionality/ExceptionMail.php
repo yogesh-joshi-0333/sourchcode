@@ -32,7 +32,7 @@ class ExceptionMail extends Mailable
     public function build()
     {
         return $this->view('emails.error')
-        ->subject('Mariner Museum Error Report - Alert!')
+        ->subject('Your Project Name Error Report - Alert!')
         ->with('error', $this->error); // Pass data to the view
     }
 }
