@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariner Museum Error Report</title>
+    <title>Your Project name Error Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,7 +44,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Mariner Museum Error Report</h1>
+        <h1>Your Project name Error Report</h1>
         <p>Dear Support Team,</p>
         <p>Website encountered an error in the Mariner Museum application. Below are the details of the issue:</p>
         
