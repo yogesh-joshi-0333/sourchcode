@@ -48,8 +48,8 @@ return [
             'host' => 'sandbox.smtp.mailtrap.io',
             'port' => 587,
             'encryption' => 'tls',
-            'username' => 'f003785bf6f42b',
-            'password' => '89533b05e2e3bb',
+            'username' => 'yourusername',
+            'password' => 'yourpassword',
             'timeout' => null,
         ],
         'ses' => [
@@ -99,7 +99,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'donotrelpy@discovernewfields.org'),
+        'address' => env('MAIL_FROM_ADDRESS', 'donotrelpy@project.org'),
         'name' => env('MAIL_FROM_NAME', 'mariners museum collection server'),
     ],
 
