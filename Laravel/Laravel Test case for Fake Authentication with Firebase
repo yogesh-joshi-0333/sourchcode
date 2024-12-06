@@ -1,0 +1,26 @@
+$response = $this->generateFakeToken();
+$token = $response->original['token']->toString();
+
+
+private function generateFakeToken()
+{
+// Load the Firebase service account key
+$firebase = (new Factory)->withServiceAccount(storage_path('/app/json/test-project-firebase-adminsdk-dksfnds-string.json'));
+
+// Get the Firebase Auth instance
+$auth = $firebase->createAuth();
+
+// Define custom claims and user details for testing
+$customClaims = [
+        'uid' => 'test-user', // User ID
+        'email' => 'testuser@example.com', // Fake email
+        'role' => 'tester', // Custom role for testing
+];
+
+// Generate a custom token
+$customToken = $auth->createCustomToken('test-user', $customClaims);
+
+return response()->json([
+        'token' => $customToken,
+]);
+}
