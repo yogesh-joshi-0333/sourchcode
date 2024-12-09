@@ -1,0 +1,23 @@
+nodemon --config nodemon.json
+
+process.on('uncaughtException', (err) => {
+   console.log('Uncaught Err Found :- - - - ', err);
+   if ('listen EADDRINUSE: address already in use :::8000' !== err.message) {
+      exec('echo "$(date "+%Y.%m.%d-%H.%M.%S") : ---"' + `${err.message}` + ' >> ./uncaughtlogs.txt ', (err) => {
+         console.log('err writng to log files', err)
+      });
+   }
+});      
+
+
+nodemon.json
+
+{
+   "watch": [
+      "server.js",
+      "app.js",
+      "uncaughtlogs.txt"
+   ],
+      "delay": "1000",
+         "exec": "nodemon --trace-warnings --max-old-space-size=20000 --exec babel-node server.js"
+}
