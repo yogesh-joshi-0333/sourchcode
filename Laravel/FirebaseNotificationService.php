@@ -18,7 +18,7 @@ class FirebaseNotificationService
         $this->projectId = 'test-your-project-name';//env('FIREBASE_PROJECT_ID');
         // dd($this->projectId);
         // $this->credentialsFilePath = Storage::path(env('FIREBASE_CREDENTIALS_PATH'));
-        $this->credentialsFilePath = Storage::path('json/test-your-project-name-firebase-adminsdk-fwer3-58wrweirfwef.json');
+        $this->credentialsFilePath = Storage::path('json/test-your-project-name-firebase-adminsdk-hgfhgf-hgfhfhfh.json');
 
         $this->client = new GoogleClient();
         $this->client->setAuthConfig($this->credentialsFilePath);
